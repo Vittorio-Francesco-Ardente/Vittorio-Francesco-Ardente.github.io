@@ -1,0 +1,79 @@
+name: Bootstrap VFA repository
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'VFA_GitHub_Pages_RELEASE*.zip'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  unpack:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Extract release ZIP into repository root
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          ZIP="$(find . -maxdepth 1 -type f -name 'VFA_GitHub_Pages_RELEASE*.zip' -print -quit)"
+          if [ -z "$ZIP" ]; then
+            echo "No VFA_GitHub_Pages_RELEASE*.zip found in repository root."
+            exit 1
+          fi
+
+          TMP="$(mktemp -d)"
+          unzip -q "$ZIP" -d "$TMP"
+
+          SRC="$TMP"
+          if [ ! -f "$SRC/package.json" ]; then
+            TOP="$(find "$TMP" -mindepth 1 -maxdepth 1 -type d -print -quit || true)"
+            if [ -n "$TOP" ] && [ -f "$TOP/package.json" ]; then
+              SRC="$TOP"
+            fi
+          fi
+
+          if [ ! -f "$SRC/package.json" ] || [ ! -d "$SRC/src" ]; then
+            echo "The ZIP does not look like the expected Astro repository."
+            find "$TMP" -maxdepth 2 -type f | head -100
+            exit 1
+          fi
+
+          ZIP_BASENAME="$(basename "$ZIP")"
+
+          # Replace the bootstrap repository contents with the release contents.
+          # Keep only .git and the uploaded ZIP until extraction is copied back.
+          find . -mindepth 1 -maxdepth 1 \
+            ! -name '.git' \
+            ! -name "$ZIP_BASENAME" \
+            -exec rm -rf {} +
+
+          cp -a "$SRC"/. .
+          rm -f "$ZIP_BASENAME"
+
+          echo "Repository root after extraction:"
+          ls -la
+          test -f .github/workflows/deploy.yml
+          test -f src/scripts/main.ts
+          test -d src/pages
+          test -d src/styles
+
+      - name: Commit extracted project
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "Nothing to commit."
+            exit 0
+          fi
+          git commit -m "Import VFA portfolio release"
+          git push origin HEAD:main
