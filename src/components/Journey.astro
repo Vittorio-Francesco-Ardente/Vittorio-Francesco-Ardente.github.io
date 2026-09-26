@@ -1,0 +1,198 @@
+---
+/**
+ * Percorso — sezione narrativa dedicata (GSAP ScrollTrigger in src/scripts/timeline.ts).
+ * Desktop: la sezione si ferma (pin, 110vh) mentre la linea avanza da 2021 a 2026, poi rilascia;
+ * ogni tappa si accende in sequenza: anno, titolo, dettaglio.
+ * Tablet verticale e telefono: racconto verticale, la linea scende con la lettura.
+ * Senza JavaScript o con "riduci movimento": percorso completo e statico.
+ */
+import { profile } from '../data/profile';
+import { useT, fill, type Locale } from '../i18n';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = useT(locale);
+const years = ['2021', '2024', '2025', '2026'];
+const steps = t.bento.timeline.map((title, i) => ({
+  year: years[i]!,
+  title: fill(title, { grade: profile.grade }),
+  details: t.journey.details[i] ?? [],
+}));
+---
+
+<section id="percorso" class="journey" aria-labelledby="journey-title" data-section>
+  <div class="journey__pin" data-journey>
+    <div class="shell journey__in">
+      <header class="journey__head">
+        <h2 id="journey-title" class="t-h2" data-reveal="title">{t.nav.journey}</h2>
+        <p class="journey__lede" data-reveal="fade"><strong>{t.journey.title}</strong> {t.journey.lede}</p>
+      </header>
+      <p class="journey__big" aria-hidden="true"><span data-journey-year>{years[years.length - 1]}</span></p>
+      <ol class="jt" role="list" data-journey-list>
+        {
+          steps.map((s, i) => (
+            <li class="jt__item" data-state={i === steps.length - 1 ? 'current' : 'past'}>
+              <span class="jt__dot" aria-hidden="true" />
+              {i < steps.length - 1 && <span class="jt__seg" aria-hidden="true"><i /></span>}
+              <time class="jt__year" datetime={s.year}>{s.year}</time>
+              <h3 class="jt__title">{s.title}</h3>
+              <div class="jt__panel">
+                {s.details.map((d, k) => <p class:list={['jt__detail', { 'jt__detail--lead': k === 0 }]}>{d}</p>)}
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </div>
+</section>
+
+<style>
+  .journey {
+    --jbg: var(--paper-deep);
+    --rail: rgb(40 36 30 / 0.14);
+    --dot-idle: #c9c7c0;
+    --dot-past: #3b3c3f;
+    position: relative;
+    background: var(--jbg);
+    color: var(--ink);
+  }
+  :global(:root[data-theme='dark']) .journey {
+    --jbg: var(--paper-deep);
+    --rail: rgb(255 255 255 / 0.12);
+    --dot-idle: #34353a;
+    --dot-past: #c9cac6;
+  }
+  .journey__pin {
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+    padding-block: clamp(4.5rem, 9vh, 7rem);
+  }
+  .journey__in {
+    width: 100%;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas: 'head big' 'list list';
+    align-items: end;
+    gap: clamp(2rem, 6vh, 4rem) 40px;
+  }
+  .journey__head { grid-area: head; display: grid; gap: 18px; min-width: 0; }
+  .journey__lede { max-width: 46ch; font-size: var(--t-lede); line-height: 1.45; color: var(--ink-2); }
+  .journey__lede strong { color: var(--ink); font-weight: 520; }
+  /* Anno in primo piano: cambia con la tappa attiva */
+  .journey__big {
+    grid-area: big;
+    font-size: clamp(4.5rem, 11vw, 10.5rem);
+    font-stretch: 125%;
+    font-weight: 220;
+    letter-spacing: -0.06em;
+    line-height: 0.8;
+    font-variant-numeric: tabular-nums;
+    color: var(--ink);
+  }
+  .journey__big span { display: inline-block; }
+  .journey__big span[data-swap] { animation: year-in 420ms var(--ease-standard); }
+  @keyframes year-in { from { opacity: 0; transform: translateY(14px); } }
+
+  /* ---------- Linea orizzontale (desktop) ----------
+     Segmenti tra i punti: la traccia non attraversa mai un punto (anello del colore di fondo). */
+  .jt { --cg: clamp(20px, 3vw, 44px); --dot: 14px; --jp: 1; grid-area: list; position: relative; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: var(--cg); }
+  .jt__item { --n: 0; position: relative; display: grid; align-content: start; gap: 8px; padding-top: calc(var(--dot) + 26px); min-width: 0; }
+  .jt__item:nth-child(2) { --n: 1; }
+  .jt__item:nth-child(3) { --n: 2; }
+  .jt__item:nth-child(4) { --n: 3; }
+  .jt__dot {
+    position: absolute;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: var(--dot);
+    height: var(--dot);
+    border-radius: 50%;
+    background: var(--dot-idle);
+    box-shadow: 0 0 0 6px var(--jbg);
+    transition: background-color 400ms var(--ease-standard), box-shadow 400ms var(--ease-standard), transform 400ms var(--ease-standard);
+  }
+  .jt__seg {
+    position: absolute;
+    top: calc(var(--dot) / 2 - 1px);
+    left: calc(var(--dot) / 2);
+    right: calc(-1 * var(--cg) - var(--dot) / 2);
+    height: 2px;
+    background: var(--rail);
+  }
+  .jt__seg i {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, #ff8d28, #ffa65c);
+    transform-origin: left;
+    transform: scaleX(clamp(0, var(--jp) * 3 - var(--n), 1));
+  }
+  .jt__year {
+    font-size: clamp(2rem, 1.3rem + 2vw, 3.25rem);
+    font-stretch: 118%;
+    font-weight: 300;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+  .jt__title { font-size: 1.0625rem; font-weight: 540; line-height: 1.3; overflow-wrap: break-word; }
+  .jt__panel {
+    display: grid;
+    gap: 4px;
+    margin-top: 6px;
+    padding: 14px 16px;
+    border-radius: var(--r-2);
+    background: color-mix(in oklab, var(--jbg), var(--ink) 5%);
+    box-shadow: inset 0 0 0 1px var(--rail);
+  }
+  .jt__detail { font-size: 0.875rem; line-height: 1.45; color: var(--ink-2); overflow-wrap: break-word; }
+  .jt__detail--lead { color: var(--ink); font-weight: 520; }
+
+  /* ---------- Stati: futuro attenuato, passato presente ma quieto, attuale pieno ---------- */
+  .jt__item :is(.jt__year, .jt__title, .jt__panel) { transition: opacity 520ms var(--ease-standard), transform 520ms var(--ease-standard); }
+  .jt__item[data-state='future'] :is(.jt__year, .jt__title) { opacity: 0.35; transform: translateY(16px) scale(0.97); transform-origin: left bottom; }
+  .jt__item[data-state='future'] .jt__panel { opacity: 0; transform: translateY(16px); }
+  .jt__item[data-state='past'] :is(.jt__year, .jt__title) { opacity: 0.78; }
+  .jt__item[data-state='past'] .jt__panel { opacity: 0.72; }
+  .jt__item[data-state='past'] .jt__dot { background: var(--dot-past); }
+  .jt__item[data-state='current'] .jt__dot { background: #ff8d28; box-shadow: 0 0 0 6px var(--jbg), 0 0 0 7px rgb(255 141 40 / 0.35); transform: scale(1.15); }
+  /* Tappa che si accende: anno, poi titolo, poi dettaglio; il pannello si solleva appena */
+  .jt__item[data-state='current'] .jt__title { transition-delay: 80ms; }
+  .jt__item[data-state='current'] .jt__panel {
+    transition-delay: 160ms;
+    transform: translateY(-2px);
+    box-shadow: inset 0 0 0 1px var(--rail), var(--shadow-contact);
+  }
+  .jt__item .jt__panel { transition: opacity 520ms var(--ease-standard), transform 520ms var(--ease-standard), box-shadow 520ms var(--ease-standard); }
+  .jt__seg, .jt__seg i { border-radius: 2px; }
+
+  /* ---------- Verticale: tablet, telefono, schermi bassi ---------- */
+  @media (max-width: 1099px), (max-height: 619px) {
+    .journey__pin { min-height: 0; display: block; }
+    .journey__in { grid-template-columns: minmax(0, 1fr); grid-template-areas: 'head' 'list'; }
+    .journey__big { display: none; }
+    .jt { grid-template-columns: minmax(0, 1fr); max-width: 40rem; }
+    .jt__item {
+      --fs: clamp(2rem, 1.3rem + 2vw, 3.25rem);
+      grid-template-columns: minmax(0, 1fr);
+      padding: 0 0 clamp(2.5rem, 7vh, 3.5rem) calc(var(--dot) + 26px);
+    }
+    .jt__item:last-child { padding-bottom: 0; }
+    .jt__dot { top: calc(var(--fs) / 2 - var(--dot) / 2); }
+    .jt__seg {
+      top: calc(var(--fs) / 2);
+      bottom: calc(var(--fs) / -2);
+      left: calc(var(--dot) / 2 - 1px);
+      right: auto;
+      width: 2px;
+      height: auto;
+    }
+    .jt__seg i { background: linear-gradient(180deg, #ff8d28, #ffa65c); transform-origin: top; transform: scaleY(clamp(0, var(--jp) * 3 - var(--n), 1)); }
+    .jt__item[data-state='future'] :is(.jt__year, .jt__title) { transform: translateX(12px) scale(0.97); }
+    .jt__item[data-state='future'] .jt__panel { transform: translateX(12px); }
+  }
+</style>

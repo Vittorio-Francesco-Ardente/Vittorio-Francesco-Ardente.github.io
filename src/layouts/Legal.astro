@@ -1,0 +1,66 @@
+---
+import Base from './Base.astro';
+import Icon from '../components/Icon.astro';
+import { profile } from '../data/profile';
+import { useT, fill, localizePath, type Locale } from '../i18n';
+
+type Section = { h: string; p: string[]; list?: string[] };
+interface Props {
+  locale: Locale;
+  path: string;
+  title: string;
+  description: string;
+  lead: string;
+  sections?: Section[];
+}
+const { locale, path, title, description, lead, sections = [] } = Astro.props;
+const t = useT(locale);
+/* Testo sicuro: si sostituisce {email} con un link dopo l'escape */
+const esc = (s: string) => s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]!);
+const withEmail = (s: string) =>
+  esc(s).replace('{email}', `<a href="mailto:${profile.contacts.email}">${profile.contacts.email}</a>`);
+---
+
+<Base locale={locale} path={path} title={title} description={description} page="legal">
+  <article class="legal">
+    <div class="shell legal__grid">
+      <header class="legal__head">
+        <a class="legal__back t-meta" href={localizePath('/', locale)}><Icon name="arrowLeft" />{t.legal.home}</a>
+        <h1 class="t-h1" data-reveal="title">{title}</h1>
+        <p class="t-meta">{fill(t.legal.updatedLabel, { date: t.legal.updatedDate })}</p>
+      </header>
+      <div class="legal__body">
+        <p class="legal__lead">{lead}</p>
+        {
+          sections.map((sec) => (
+            <>
+              <h2>{sec.h}</h2>
+              {sec.p.map((para) => <p set:html={withEmail(para)} />)}
+              {sec.list && <ul>{sec.list.map((li) => <li>{li}</li>)}</ul>}
+            </>
+          ))
+        }
+        <slot />
+      </div>
+    </div>
+  </article>
+</Base>
+
+<style>
+  .legal { padding-top: calc(var(--topbar) + clamp(2rem, 6vh, 4rem)); padding-bottom: var(--space-section); }
+  .legal__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 40px clamp(16px, 2vw, 28px); }
+  .legal__head { grid-column: 1 / span 5; display: grid; gap: 20px; align-content: start; justify-items: start; }
+  .legal__back { display: inline-flex; align-items: center; gap: 8px; color: var(--ink-2); margin-bottom: clamp(1.5rem, 5vh, 3rem); }
+  .legal__back :global(.icon) { width: 16px; height: 16px; }
+  .legal__body { grid-column: 7 / span 6; display: grid; gap: 18px; max-width: 40rem; padding-top: 6px; }
+  .legal__lead { font-size: var(--t-lede); line-height: 1.5; }
+  .legal__body :global(h2) { margin-top: 26px; font-size: 1.25rem; font-stretch: 108%; font-weight: 500; letter-spacing: -0.015em; }
+  .legal__body :global(p),
+  .legal__body :global(li) { color: var(--ink-2); }
+  .legal__body :global(ul) { padding-left: 1.1em; display: grid; gap: 6px; }
+  .legal__body :global(a) { color: var(--ink); text-decoration: underline; text-underline-offset: 0.2em; text-decoration-thickness: 1px; text-decoration-color: var(--line-strong); }
+  .legal__body :global(a:hover) { text-decoration-color: currentColor; }
+  @media (max-width: 960px) {
+    .legal__head, .legal__body { grid-column: 1 / -1; }
+  }
+</style>

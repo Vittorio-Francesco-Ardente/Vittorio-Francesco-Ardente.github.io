@@ -1,0 +1,38 @@
+---
+/**
+ * Monogramma VFA: tre lettere che emergono dalla nebbia e poggiano su un orizzonte.
+ * Stessa geometria del favicon (griglia 32). Colore = currentColor.
+ *  - variant "mark":   lettere + orizzonte che prosegue a destra (logo)
+ *  - variant "letters": solo lettere (intro, grandi dimensioni)
+ */
+interface Props {
+  id: string;
+  variant?: 'mark' | 'letters';
+  class?: string;
+  fade?: boolean;
+}
+const { id, variant = 'mark', class: className = '', fade = true } = Astro.props;
+const gid = `vfa-fade-${id}`;
+const fill = fade ? `url(#${gid})` : 'currentColor';
+const viewBox = variant === 'mark' ? '3.5 8.5 38 15' : '3.5 8.5 25 13.5';
+---
+
+<svg class:list={['monogram', className]} viewBox={viewBox} aria-hidden="true" focusable="false">
+  {
+    fade && (
+      <defs>
+        <linearGradient id={gid} x1="0" y1="9" x2="0" y2="22" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stop-color="currentColor" />
+          <stop offset="0.55" stop-color="currentColor" />
+          <stop offset="1" stop-color="currentColor" stop-opacity="0.18" />
+        </linearGradient>
+      </defs>
+    )
+  }
+  <g fill={fill} class="monogram__letters">
+    <path d="M4 9H6.2L8 17.67L9.8 9H12L9.3 22H6.7Z" />
+    <path d="M13.7 9H19.6V11.2H15.9V14.8H19V17H15.9V22H13.7Z" />
+    <path fill-rule="evenodd" d="M20 22L22.7 9H25.3L28 22H25.8L25.24 19.3H22.76L22.2 22ZM24 13.33L24.8 17.2H23.2Z" />
+  </g>
+  {variant === 'mark' && <rect class="monogram__horizon" x="4" y="22.4" width="37.5" height="1.1" fill="currentColor" />}
+</svg>

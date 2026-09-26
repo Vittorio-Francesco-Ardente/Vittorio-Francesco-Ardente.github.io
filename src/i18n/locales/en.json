@@ -1,0 +1,684 @@
+{
+  "meta": {
+    "homeTitle": "Vittorio Francesco Ardente — Portfolio",
+    "titleSuffix": "Vittorio Ardente",
+    "description": "Portfolio of Vittorio Francesco Ardente, junior software developer and IT technician based in Dalmine (Bergamo, Italy): development, databases, data automation and systems."
+  },
+  "a11y": {
+    "skip": "Skip to content",
+    "mainNav": "Main",
+    "sideNav": "Section navigation",
+    "pageSections": "Page sections",
+    "openMenu": "Open the menu",
+    "closeMenu": "Close the menu",
+    "menu": "Menu",
+    "newTab": "opens in a new tab",
+    "homeLink": "Home — Vittorio Francesco Ardente",
+    "backToTop": "Back to the top"
+  },
+  "nav": {
+    "home": "Start",
+    "overview": "At a glance",
+    "experiences": "Experience",
+    "profile": "Profile",
+    "contacts": "Contact",
+    "faq": "Questions",
+    "sheet": "Overview",
+    "summary": "Summary",
+    "activities": "Activities",
+    "next": "Next",
+    "nextSection": "Next section",
+    "backHome": "Back to the home page",
+    "backOverview": "Back to experience",
+    "prevSection": "Previous section",
+    "navLabel": "NAV",
+    "index": "Index",
+    "languageMenu": "Site language",
+    "device": "Navigation",
+    "journey": "Journey",
+    "passions": "What moves me"
+  },
+  "theme": {
+    "light": "Light mode",
+    "dark": "Dark mode",
+    "switchToLight": "Switch to light mode",
+    "switchToDark": "Switch to dark mode"
+  },
+  "language": {
+    "title": "Language",
+    "select": "Choose a language"
+  },
+  "availability": {
+    "status": "Available",
+    "short": "Open to collaborations and junior roles",
+    "tile": "Collaborations and junior roles.",
+    "full": "I am open to collaborations and junior opportunities that fit my profile, especially in software development, data and automation.",
+    "remote": "Also available for remote work",
+    "noTravel": "Not available for business travel"
+  },
+  "workModes": {
+    "remote": "Remote work",
+    "licence": "Driving licence (B)"
+  },
+  "hero": {
+    "role": "junior software developer and IT technician",
+    "lede": "I build precise software and useful automation, across development, data and systems.",
+    "viewExperiences": "View experience",
+    "writeMe": "Get in touch",
+    "portraitAlt": "Portrait of Vittorio Francesco Ardente with arms crossed, wearing a black polo shirt with the VFA logo.",
+    "base": "Based in",
+    "coordinates": "Coordinates",
+    "localTime": "Local time",
+    "availability": "Availability"
+  },
+  "intro": {
+    "placeLabel": "Place of the week",
+    "localTime": "local time"
+  },
+  "bento": {
+    "title": "At a glance",
+    "intro": "Profile, skills and background at a glance. The details are in each experience page.",
+    "stackTitle": "Stack",
+    "allSkills": "All skills",
+    "codeFile": "example.sql",
+    "codeComment": "-- active customers and orders this year",
+    "codeAria": "Example SQL query: customers, number of orders and revenue since 2024, sorted by revenue.",
+    "recapLabel": "Latest experience",
+    "recapTitle": "Sun-Fai, the Ardaké platform",
+    "recapText": "Monitoring energy consumption and production, automating data in Excel, testing and technical documentation.",
+    "recapOpen": "Open the Sun-Fai page",
+    "portraitAlt": "Vittorio Francesco Ardente in front of three colour-field canvases.",
+    "greeting": "Hi, I’m Vittorio.",
+    "hoursBefore": "",
+    "hoursValue": "{hours} hours",
+    "hoursAfter": "of internships at two companies.",
+    "miniHours": "{hours}-hour internship",
+    "miniDiploma": "Diploma, {grade}",
+    "viewExperiences": "View experience",
+    "readProfile": "Read the profile",
+    "languagesCount": "3 languages",
+    "languagesText": "Native Italian, English and Polish at B2 level.",
+    "educationTag": "Education",
+    "educationTitle": "Computer Science and Telecommunications",
+    "diploma": "Diploma {grade}",
+    "hackathon": "CIVISUN school hackathon",
+    "hackathonShort": "1st place, CIVISUN",
+    "educationOpen": "Open the ITI G. Marconi page",
+    "timelineTitle": "Timeline",
+    "timeline": [
+      "Started at ITI G. Marconi",
+      "Internship at I.P.S. Informatica",
+      "Internship at Sun-Fai",
+      "Diploma, {grade}"
+    ],
+    "contactTitle": "Contact",
+    "copyEmail": "Copy the email address",
+    "writeHint": "Write",
+    "modesLabel": "Work mode",
+    "cvTitle": "Curriculum Vitae",
+    "cvText": "The complete, printable version of my background.",
+    "cvOpen": "View CV"
+  },
+  "experiences": {
+    "title": "Experience",
+    "intro": "Two company internships and five years of technical school. Each page covers what I did and which tools I used.",
+    "open": "Open the page",
+    "hours": "{n} hours",
+    "kinds": {
+      "internship": "Internship",
+      "education": "Education"
+    },
+    "back": "All experience",
+    "summaryTitle": "Summary",
+    "duration": "Duration",
+    "grade": "Final grade",
+    "hoursUnit": "hours",
+    "area": "Area",
+    "whereWhen": "Where and when",
+    "company": "Company",
+    "institute": "School",
+    "place": "Location",
+    "period": "Period",
+    "tutor": "Tutor",
+    "track": "Track",
+    "takeaway": "What I took away",
+    "activitiesTitle": "Activities",
+    "activitiesCta": "Activities",
+    "next": "Next page",
+    "talk": "Want to talk about it? Write to me at",
+    "items": {
+      "sunfai": {
+        "title": "Data and shared energy",
+        "area": "Digital energy platforms",
+        "period": "16 June – 4 July 2025",
+        "periodShort": "Jun–Jul 2025",
+        "summary": "Development on the Ardaké monitoring platform, automation of data flows in Excel and technical documentation.",
+        "intro": "Sun-Fai is a renewable energy community organised as a cooperative, based in Dalmine. I worked on the Ardaké platform, which monitors energy consumption and production.",
+        "keywords": [
+          "Ardaké",
+          "Data automation",
+          "Excel",
+          "Protocols",
+          "Testing",
+          "Documentation"
+        ],
+        "activities": [
+          {
+            "title": "Ardaké platform",
+            "text": "New features for monitoring consumption and production."
+          },
+          {
+            "title": "Data automation",
+            "text": "Excel workflows that reduce manual work and errors."
+          },
+          {
+            "title": "System protocols",
+            "text": "Understanding and handling communication between the platform’s systems."
+          },
+          {
+            "title": "Testing and debugging",
+            "text": "Checking features and fixing the issues that came up."
+          },
+          {
+            "title": "Technical documentation",
+            "text": "Writing documentation for the work carried out."
+          },
+          {
+            "title": "Teamwork",
+            "text": "Regular meetings with the team to align priorities and progress."
+          }
+        ],
+        "takeaway": "Working on a real energy platform, within a team: automating data, testing and documenting every step.",
+        "photoAlt": "The sun rising between two mountain slopes, reflected in a dark lake.",
+        "extraLabel": "Cooperative website",
+        "metaTitle": "Sun-Fai — Internship",
+        "metaDescription": "Internship at Sun-Fai, a renewable energy community in Dalmine: development on the Ardaké platform, data automation in Excel, testing and technical documentation."
+      },
+      "ips": {
+        "title": "Databases and business software",
+        "area": "Databases and business software development",
+        "period": "10–14 June 2024",
+        "periodShort": "Jun 2024",
+        "summary": "A week on real data and applications: company databases with SQL Server, business software components in VB.NET and TCP/IP networking.",
+        "intro": "At I.P.S. Informatica I worked on company databases and business applications already in production, applying what I had studied about databases, programming languages and networks.",
+        "keywords": [
+          "SQL Server",
+          "VB.NET",
+          "MySQL",
+          "TCP/IP",
+          "Queries and data modelling"
+        ],
+        "activities": [
+          {
+            "title": "Company databases",
+            "text": "Querying and managing databases with SQL Server."
+          },
+          {
+            "title": "Business software components",
+            "text": "Developing and maintaining components in Visual Basic / VB.NET."
+          },
+          {
+            "title": "Data modelling",
+            "text": "Attention to data structure and integrity."
+          },
+          {
+            "title": "TCP/IP networking",
+            "text": "Support with network configuration and troubleshooting."
+          }
+        ],
+        "takeaway": "Working on real data and applications already in production, with precision and responsibility.",
+        "photoAlt": "Black-and-white concrete architecture: curved ribs above a staircase.",
+        "extraLabel": "",
+        "metaTitle": "I.P.S. Informatica — Internship",
+        "metaDescription": "Internship at I.P.S. Informatica S.r.l. (Bergamo): company databases with SQL Server, business software components in VB.NET and TCP/IP networking."
+      },
+      "marconi": {
+        "title": "Computer Science and Telecommunications",
+        "area": "Computer Science track",
+        "period": "2021–2026",
+        "periodShort": "2021–2026",
+        "summary": "Five years of computer science, systems and networks, TPSIT and telecommunications. Diploma with 94/100 and first place at the CIVISUN school hackathon.",
+        "intro": "At ITI G. Marconi I followed the Computer Science and Telecommunications programme, Computer Science track: from programming to networks, with many hands-on projects.",
+        "keywords": [
+          "Programming",
+          "Databases",
+          "Systems and networks",
+          "TPSIT",
+          "Telecommunications"
+        ],
+        "activities": [
+          {
+            "title": "Programming and algorithms",
+            "text": "The foundations of software development, from languages to algorithms."
+          },
+          {
+            "title": "Databases",
+            "text": "Designing, modelling and querying data."
+          },
+          {
+            "title": "Systems and networks",
+            "text": "Architectures, TCP/IP, security and basic administration."
+          },
+          {
+            "title": "TPSIT",
+            "text": "Technologies and design of IT and telecommunication systems."
+          },
+          {
+            "title": "Telecommunications",
+            "text": "Signals, data transmission and communication protocols."
+          }
+        ],
+        "takeaway": "Five years that turned curiosity for code into a method. It is the foundation I build on every day, including outside school.",
+        "photoAlt": "An open book with its pages lit by warm light.",
+        "extraLabel": "School hackathon",
+        "extraValue": "1st place",
+        "metaTitle": "ITI G. Marconi — Education",
+        "metaDescription": "Diploma in Computer Science and Telecommunications at ITI G. Marconi (2021–2026), 94/100, with first place at the CIVISUN school hackathon."
+      }
+    }
+  },
+  "profile": {
+    "title": "Profile",
+    "lead": "I am a junior software developer and IT technician with a diploma in Computer Science and Telecommunications.",
+    "body": "I have worked in real settings on databases, data automation and digital platforms. I approach problems methodically and with attention to detail, and I keep studying beyond school.",
+    "collageAlt": "Personal collage: a childhood photo in a Batman costume, the Polish and Italian flags, cut-out letters VFA, a laptop showing the code eat(), train(), learn(), sleep(), a guitar, headphones and a tractor.",
+    "collageCaption": "Personal collage: Italian-Polish roots, passions, code. Hover or select it to see it in colour.",
+    "skillsTitle": "Skills, by level",
+    "skillsIntro": "Not everything carries the same weight: I separate what I have used in practice from what I only partly know.",
+    "levels": {
+      "pratico": {
+        "label": "Hands-on",
+        "note": "Used during internships or real projects."
+      },
+      "familiare": {
+        "label": "Familiar",
+        "note": "Used while studying or occasionally."
+      },
+      "basi": {
+        "label": "Basics",
+        "note": "Introductory knowledge, still growing."
+      }
+    },
+    "areas": {
+      "dev": "Development",
+      "data": "Data",
+      "systems": "Systems",
+      "workflow": "Workflow",
+      "web": "Web and mobile",
+      "cloud": "Cloud",
+      "tools": "Technical tools"
+    },
+    "skills": {
+      "sqlserver": "SQL Server",
+      "mysql": "MySQL",
+      "sql": "SQL: queries and data modelling",
+      "excel": "Excel / VBA",
+      "dataflows": "Data flow automation",
+      "vbnet": "VB.NET / Visual Basic",
+      "python": "Python",
+      "javascript": "JavaScript",
+      "htmlcss": "HTML and CSS",
+      "git": "Git and GitHub",
+      "tcpip": "TCP/IP networking",
+      "windows": "Windows / Office 365",
+      "typescript": "TypeScript",
+      "cpp": "C and C++",
+      "csharp": "C#",
+      "processing": "Processing",
+      "branching": "Branching and merging",
+      "cicd": "CI/CD (documentation)",
+      "freecad": "FreeCAD",
+      "aws": "AWS",
+      "api": "APIs"
+    },
+    "capsTitle": "What I can do",
+    "caps": [
+      {
+        "title": "Web and front-end development",
+        "text": "Responsive websites and interfaces, built with mobile in mind, with basic accessibility and technical SEO."
+      },
+      {
+        "title": "Data automation and scripting",
+        "text": "Automation in Excel and VBA, data flow processing, Python scripts."
+      },
+      {
+        "title": "Databases and back end",
+        "text": "SQL Server and MySQL, queries and data modelling, cloud basics."
+      }
+    ]
+  },
+  "contact": {
+    "title": "Get in touch.",
+    "text": "A collaboration or a junior role? I reply personally, by email or on LinkedIn.",
+    "copy": "Copy",
+    "copied": "Copied",
+    "copiedMsg": "Address copied to the clipboard.",
+    "copyFail": "Copy failed: select the address and copy it manually.",
+    "writeEmail": "Send an email",
+    "placeLabel": "Place of the week",
+    "placeAria": "Location of this week’s photograph",
+    "localTime": "local time",
+    "photoCredit": "Photo: {author}, {license}"
+  },
+  "places": {
+    "planica": {
+      "name": "Planica",
+      "region": "Upper Carniola",
+      "country": "Slovenia",
+      "note": "A valley in the Julian Alps, a few kilometres from Kranjska Gora, known for its ski-jumping hills.",
+      "alt": "Snow-covered firs fading into the fog above a white meadow."
+    },
+    "krasnaya-polyana": {
+      "name": "Krasnaya Polyana",
+      "region": "Western Caucasus",
+      "country": "Russia",
+      "note": "A mountain resort inland from Sochi: in 2014 it hosted the mountain events of the Winter Olympic Games.",
+      "alt": "Dark mountain ridges at dusk under a hazy sky."
+    },
+    "scalea": {
+      "name": "Scalea",
+      "region": "Riviera dei Cedri, Calabria",
+      "country": "Italy",
+      "note": "A town on the Tyrrhenian coast in the province of Cosenza: long pebble beaches and an old town stepped up the hillside.",
+      "alt": "A stack of smooth stones on a pebble beach, with the sun setting over the sea."
+    },
+    "ayllon": {
+      "name": "Ayllón",
+      "region": "Segovia, Castile and León",
+      "country": "Spain",
+      "note": "A medieval village in the province of Segovia. On the hill above it stands the tower of the old castle.",
+      "alt": "A medieval stone tower at sunset under a heavy, cloudy sky."
+    },
+    "cervino": {
+      "name": "Matterhorn",
+      "region": "Zermatt, Valais",
+      "country": "Switzerland",
+      "note": "The 4,478-metre summit marks the border between Italy and Switzerland. Here it is reflected in an alpine lake above Zermatt.",
+      "alt": "The snow-covered Matterhorn reflected in the still water of an alpine lake."
+    },
+    "londra": {
+      "name": "London",
+      "region": "South Bank",
+      "country": "United Kingdom",
+      "note": "The London Eye on the south bank of the Thames: a 135-metre observation wheel, open to the public since 2000.",
+      "alt": "The structure of the London Eye seen from below, its capsules against a blue sky."
+    }
+  },
+  "faq": {
+    "title": "Questions",
+    "intro": "Short answers to the most common questions. For anything else, write to me.",
+    "items": [
+      {
+        "q": "Which technologies do you use?",
+        "a": "Hands-on, through internships and projects: SQL Server and MySQL, VB.NET, Excel/VBA, Python, JavaScript, Git. I am familiar with TypeScript, C/C++ and C#, and I know the basics of AWS and APIs. The full picture, by level, is in the Profile section."
+      },
+      {
+        "q": "Are you open to collaborations or junior roles?",
+        "a": "Yes. I am open to collaborations and junior opportunities that fit my profile, especially in software development, data and automation."
+      },
+      {
+        "q": "Are you available for remote work?",
+        "a": "Yes. I also consider remote opportunities. I am not available for business travel."
+      },
+      {
+        "q": "Which languages can we communicate in?",
+        "a": "Italian (native), English and Polish at B2 level."
+      },
+      {
+        "q": "How can I contact you?",
+        "a": "By email or on LinkedIn: you will find both in the Contact section. I reply personally."
+      }
+    ]
+  },
+  "footer": {
+    "sections": "Sections",
+    "elsewhere": "Elsewhere",
+    "notes": "Notes",
+    "privacy": "Privacy",
+    "terms": "Terms",
+    "credits": "Photo credits",
+    "cv": "Curriculum",
+    "email": "Email",
+    "backTop": "Back to top"
+  },
+  "mobileNav": {
+    "open": "Open the section index"
+  },
+  "cv": {
+    "title": "Curriculum Vitae",
+    "open": "View CV",
+    "print": "Print",
+    "download": "Download PDF",
+    "chooseTheme": "How would you like to view the CV?",
+    "chooseThemeHint": "You can change it later from the CV page.",
+    "light": "Light mode",
+    "dark": "Dark mode",
+    "close": "Close",
+    "back": "Back to the site",
+    "toolbar": "CV tools",
+    "metaTitle": "Curriculum Vitae",
+    "metaDescription": "Curriculum Vitae of Vittorio Francesco Ardente, junior software developer and IT technician: experience, education, skills and languages.",
+    "role": "Junior software developer & IT technician",
+    "sections": {
+      "profile": "Profile",
+      "experience": "Experience",
+      "education": "Education",
+      "skills": "Skills",
+      "languages": "Languages",
+      "other": "Additional information",
+      "contacts": "Contact"
+    },
+    "summary": "Junior software developer and IT technician with a diploma in Computer Science and Telecommunications (94/100). I have hands-on experience with company databases, data automation and digital platforms, gained through two internships. I work methodically, precisely and with attention to detail.",
+    "languageLevels": {
+      "native": "native",
+      "b2": "B2"
+    },
+    "languageNames": {
+      "IT": "Italian",
+      "EN": "English",
+      "PL": "Polish"
+    },
+    "base": "Dalmine (BG), Italy",
+    "updated": "Updated September 2026",
+    "more": "More options"
+  },
+  "legal": {
+    "updatedLabel": "Last updated: {date}",
+    "updatedDate": "September 2026",
+    "home": "Home",
+    "privacy": {
+      "title": "Privacy",
+      "description": "Privacy notice for Vittorio Francesco Ardente’s portfolio: no cookies, no tracking.",
+      "lead": "This is a static personal portfolio. Its purpose is to present my background, not to collect data: no cookies, no analytics or tracking tools, no profiling.",
+      "sections": [
+        {
+          "h": "Data collected",
+          "p": [
+            "No personal data is collected while you browse the site. As with any website, the hosting service (GitHub Pages) may record essential technical logs, such as your IP address, for security and operational reasons. I do not use these logs for any other purpose."
+          ]
+        },
+        {
+          "h": "Preferences stored in your browser",
+          "p": [
+            "The site stores only three technical settings in your browser. They never leave your device and do not identify you:"
+          ],
+          "list": [
+            "the language you chose (localStorage);",
+            "the theme you chose, light or dark (localStorage);",
+            "the order of the “At a glance” cards, if you change it, and whether you have already seen the hint about rearranging them (localStorage);",
+            "whether the opening animation has already played in this session (sessionStorage, cleared when you close the tab)."
+          ]
+        },
+        {
+          "h": "Contact by email",
+          "p": [
+            "The site has no forms: the contact buttons open your email app. If you write to me at {email}, I will use the information in your message only to reply and will not share it with third parties."
+          ]
+        },
+        {
+          "h": "External links",
+          "p": [
+            "The site links to external platforms such as LinkedIn, GitHub and sun-fai.org. Their own privacy policies apply there, and I have no control over them."
+          ]
+        },
+        {
+          "h": "Your rights",
+          "p": [
+            "You can ask me at any time to access, correct or delete the data you sent me by email, by writing to the address above."
+          ]
+        }
+      ]
+    },
+    "terms": {
+      "title": "Terms",
+      "description": "Terms of use for Vittorio Francesco Ardente’s portfolio.",
+      "lead": "Simple terms, in keeping with the nature of the project: a personal portfolio.",
+      "sections": [
+        {
+          "h": "Content",
+          "p": [
+            "The site’s text, graphics and code belong to Vittorio Francesco Ardente unless stated otherwise. You are free to browse them; to reuse them, even in part, please write to me."
+          ]
+        },
+        {
+          "h": "Photographs",
+          "p": [
+            "Landscape and location photographs are by third-party authors and are used under their licences (CC0 or CC BY-SA 4.0). Authors, sources and licences are listed on the photo credits page."
+          ]
+        },
+        {
+          "h": "Trademarks and third parties",
+          "p": [
+            "Names such as I.P.S. Informatica, Sun-Fai, Ardaké and ITI G. Marconi belong to their respective owners and are mentioned only to describe my experience accurately."
+          ]
+        },
+        {
+          "h": "No warranty",
+          "p": [
+            "The site is provided as is. I take care over its content, but I cannot guarantee it is always complete or free of errors."
+          ]
+        },
+        {
+          "h": "Contact",
+          "p": [
+            "For questions about these terms: {email}."
+          ]
+        }
+      ]
+    },
+    "credits": {
+      "title": "Photo credits",
+      "description": "Authors, sources and licences of the photographs used in Vittorio Francesco Ardente’s portfolio.",
+      "lead": "The portrait and the collage are my own. The other photographs are by third-party authors under open licences: I thank them and list them here.",
+      "placesTitle": "Place of the week",
+      "placesText": "Photographs under Creative Commons licences or in the public domain: author, source and licence are listed for each. On the site they are shown with muted, darkened colours; modified versions of CC BY-SA works remain under the same licence.",
+      "workTitle": "Experience pages",
+      "workText": "Public domain images (CC0), chosen for their atmosphere: they do not show the actual places of the experiences.",
+      "photoBy": "photo by {author}",
+      "source": "source",
+      "uses": {
+        "ips": "I.P.S. Informatica page",
+        "sunfai": "Sun-Fai page",
+        "marconi": "ITI G. Marconi page"
+      },
+      "fontTitle": "Typeface",
+      "fontText": "Mona Sans, by GitHub, under the SIL Open Font License 1.1, served by the site itself.",
+      "streamTitle": "Photographs in “What moves me”",
+      "streamText": "The photographs in the “What moves me” section are crops of the images below, stored on this site. Authors, sources and licences:",
+      "codeTitle": "Third-party software",
+      "codeText": "The timeline uses GSAP and ScrollTrigger (GreenSock), distributed under the free GSAP standard licence."
+    }
+  },
+  "notFound": {
+    "metaTitle": "Page not found",
+    "title": "Page not found.",
+    "lead": "The link is broken or the page has moved.",
+    "home": "Back to the home page",
+    "experiences": "View experience"
+  },
+  "idle": {
+    "resume": "Tap to continue"
+  },
+  "arrange": {
+    "handle": "Move card: {name}",
+    "hint": "You can reorder the cards: drag the grip at the top of each card (on touch, press and hold for a moment). With a keyboard: Alt + arrow keys, or Space to pick up and drop.",
+    "menu": "Grid options",
+    "reset": "Reset layout",
+    "resetDone": "Original layout restored.",
+    "picked": "{name} picked up, position {pos} of {total}. Use the arrow keys to move, Space to drop, Esc to cancel.",
+    "moved": "{name}: position {pos} of {total}.",
+    "dropped": "{name} dropped at position {pos} of {total}.",
+    "cancelled": "Move cancelled. {name} stays at position {pos}.",
+    "names": {
+      "stack": "Stack",
+      "sql": "Sample query",
+      "recap": "Latest experience",
+      "portrait": "Availability",
+      "hello": "Introduction",
+      "lang": "Languages",
+      "photo": "Education",
+      "cv": "CV",
+      "contact": "Contact"
+    },
+    "dragHint": "Drag to rearrange",
+    "dragHintTouch": "Press and hold the grip, then drag",
+    "dismiss": "Got it"
+  },
+  "dock": {
+    "label": "Quick navigation",
+    "home": "Home",
+    "cv": "CV",
+    "language": "Language",
+    "theme": "Theme",
+    "menu": "Menu",
+    "expShort": "Experience"
+  },
+  "journey": {
+    "eyebrow": "Journey",
+    "title": "From the first day to the diploma.",
+    "lede": "Four milestones since 2021: school, two internships, the diploma.",
+    "details": [
+      [
+        "Computer Science & Telecommunications",
+        "Systems and networks, databases, TPSIT, telecommunications"
+      ],
+      [
+        "40 hours · Bergamo",
+        "SQL Server, VB.NET business software components, TCP/IP networking"
+      ],
+      [
+        "75–80 hours · Dalmine",
+        "Ardaké platform: energy monitoring, data automation, testing"
+      ],
+      [
+        "ITI G. Marconi · 94/100",
+        "First place at the CIVISUN school hackathon"
+      ]
+    ]
+  },
+  "passions": {
+    "title": [
+      "What",
+      "moves me."
+    ],
+    "lead": "In the photographs:",
+    "items": {
+      "headstock": "an electric guitar",
+      "vespa": "a Vespa",
+      "ploughed-field": "a ploughed field",
+      "turntable": "a turntable",
+      "vfa-code": "my SQL code",
+      "alpe-di-siusi": "the Alpe di Siusi",
+      "windmills": "windmills",
+      "fiber-optics": "optical fibres",
+      "classic-guitar": "guitar strings",
+      "clockwork": "gears",
+      "wisla": "the Vistula, in Poland",
+      "propeller": "an aircraft propeller",
+      "castelluccio": "the Castelluccio plain",
+      "speaker": "a loudspeaker",
+      "wild-wheat": "ears of wheat",
+      "audio-jack": "an audio input"
+    }
+  }
+}

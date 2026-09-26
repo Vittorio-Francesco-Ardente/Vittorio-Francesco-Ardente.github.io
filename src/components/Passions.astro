@@ -1,0 +1,198 @@
+---
+/**
+ * «Ciò che mi muove» — Stack Spread 3D.
+ * Meccanica del componente Stack Spread di Hyperiux Vault (MIT), reimplementata senza React/Motion
+ * in src/scripts/passions.ts: stage sticky, una pila fisica di fotografie sotto il titolo che,
+ * scorrendo, si apre in una costellazione tridimensionale (prospettiva, piani Z, piccole rotazioni).
+ * Le posizioni finali sono casuali ma controllate e riproducibili: mai sul titolo, mai sul Dock,
+ * mai fuori dai margini, collisioni limitate, pesi in equilibrio.
+ * Ogni carta resta invisibile finché la sua immagine non è decodificata: nessuna cornice vuota.
+ * Senza JavaScript: le foto sono una griglia ordinata sotto il titolo.
+ */
+import { passions, layouts } from '../data/passions';
+import { useT, type Locale } from '../i18n';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = useT(locale);
+const items = t.passions.items as Record<string, string>;
+const sizes = '(max-width: 699px) 42vw, (max-width: 1099px) 32vw, 24vw';
+---
+
+<section id="interessi" class="ps" aria-labelledby="ps-title" data-section data-passions data-layouts={JSON.stringify(layouts)}>
+  <div class="ps__stage" data-ps-stage>
+    <div class="ps__cards" data-ps-cards aria-hidden="true">
+      {
+        passions.map((p) => (
+          <figure class="pc" data-id={p.id} data-ratio={p.ratio.toFixed(4)}>
+            <div class="pc__in">
+              <picture>
+                <source type="image/avif" srcset={`${p.base}-sm.avif ${p.wSm}w, ${p.base}-lg.avif ${p.w}w`} sizes={sizes} />
+                <img
+                  src={`${p.base}-sm.webp`}
+                  srcset={`${p.base}-sm.webp ${p.wSm}w, ${p.base}-lg.webp ${p.w}w`}
+                  sizes={sizes}
+                  width={p.wSm}
+                  height={p.hSm}
+                  alt=""
+                  loading="lazy"
+                  decoding="async"
+                  draggable="false"
+                />
+              </picture>
+            </div>
+          </figure>
+        ))
+      }
+    </div>
+
+    <div class="ps__text" data-ps-text>
+      <h2 id="ps-title" class="ps__title" data-ps-block>
+        {t.passions.title.map((line) => <span>{line}</span>)}
+      </h2>
+      <p class="visually-hidden">{t.passions.lead} {passions.map((p) => items[p.id]).filter(Boolean).join(', ')}.</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* ==========================================================================
+     Materiali
+       TITOLO  display, peso 460, tracking -0.05em, interlinea 0.94 — da solo porta la sezione
+       FOTO    bordo ottico 2–3 px (grafite 1–2 px nel tema scuro), raggio per famiglia di misura
+               (L 14, M 11, S 9), ombra per piano di profondità: davanti più netta, dietro più lieve
+     --dock-zone = spazio del Dock in basso: il titolo si centra sopra di esso.
+     ========================================================================== */
+  .ps {
+    --dock-zone: 82px;
+    --photo-edge: #fbfaf7;
+    --photo-line: rgb(28 24 18 / 0.06);
+    /* ombre: i tre ruoli del sistema — dietro appoggiata, in mezzo sospesa, davanti e al passaggio sollevata */
+    --sh-bg: var(--shadow-contact);
+    --sh-mid: var(--shadow-float);
+    --sh-fg: var(--shadow-drag);
+    --sh-hover: var(--shadow-drag);
+    position: relative;
+    height: 150svh;
+    background: var(--paper);
+    color: var(--ink);
+  }
+  :global(:root[data-theme='dark']) .ps {
+    --photo-edge: var(--room-3);
+    --photo-line: rgb(255 255 255 / 0.08);
+  }
+  .ps__stage {
+    position: sticky;
+    top: 0;
+    height: 100svh;
+    overflow: hidden;
+  }
+
+  /* ---------- Titolo: il centro, calmo; nessuna foto entra nella sua zona ---------- */
+  .ps__text {
+    position: absolute;
+    z-index: 3;
+    inset: 0 0 var(--dock-zone) 0;
+    display: grid;
+    place-items: center;
+    padding-inline: var(--gutter);
+    pointer-events: none;
+  }
+  .ps__title {
+    display: grid;
+    justify-items: center;
+    text-align: center;
+    font-size: min(clamp(2.5rem, 1.5rem + 6vw, 7.625rem), 14svh);
+    font-weight: 460;
+    font-stretch: 104%;
+    letter-spacing: -0.05em;
+    line-height: 0.94;
+    /* entrata (--to) e risposta leggerissima all'apertura (--tp): 0.88 → 1, scala 0.985 → 1 */
+    opacity: calc(var(--to, 1) * (0.88 + 0.12 * var(--tp, 1)));
+    transform: translateY(calc((1 - var(--to, 1)) * 16px)) scale(calc(0.985 + 0.015 * var(--tp, 1)));
+    transform-origin: 50% 55%;
+  }
+  .ps__title span { display: block; white-space: nowrap; padding-inline: 0.02em; }
+
+  /* ---------- Foto: spazio prospettico, pose e profondità da passions.ts ---------- */
+  .ps__cards {
+    position: absolute;
+    z-index: 2;
+    inset: 0;
+    perspective: var(--ps-p, 1500px);
+    perspective-origin: var(--ps-ox, 50%) var(--ps-oy, 45%);
+  }
+  .pc {
+    --pe: 3px;
+    --pr: 11px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    margin: 0;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform-origin: 50% 50%;
+    backface-visibility: hidden;
+    transition: opacity 280ms var(--ease-standard), visibility 0s linear 280ms;
+  }
+  .pc[data-size='L'] { --pr: 14px; }
+  .pc[data-size='S'] { --pe: 2px; --pr: 9px; }
+  :global(:root[data-theme='dark']) .pc { --pe: 2px; }
+  :global(:root[data-theme='dark']) .pc[data-size='S'] { --pe: 1px; }
+  /* visibile solo quando la composizione è pronta e la sua immagine è decodificata */
+  .ps[data-laid] .pc[data-ready] { opacity: 1; visibility: visible; transition: opacity 280ms var(--ease-standard), visibility 0s; }
+  .pc[hidden] { display: none; }
+  .ps[data-moving] .pc { will-change: transform; }
+  .pc__in {
+    width: 100%;
+    height: 100%;
+    padding: var(--pe);
+    border-radius: var(--pr);
+    background: var(--photo-edge);
+    box-shadow: 0 0 0 1px var(--photo-line), var(--sh-mid);
+    transition: box-shadow 260ms var(--ease-standard);
+  }
+  .pc[data-plane='fg'] .pc__in { box-shadow: 0 0 0 1px var(--photo-line), var(--sh-fg); }
+  .pc[data-plane='bg'] .pc__in { box-shadow: 0 0 0 1px var(--photo-line), var(--sh-bg); }
+  .pc[data-hover] .pc__in { box-shadow: 0 0 0 1px var(--photo-line), var(--sh-hover); }
+  .pc__in picture { display: contents; }
+  .pc__in img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: calc(var(--pr) - var(--pe));
+    user-select: none;
+    filter: saturate(0.94);
+  }
+  /* sullo sfondo le foto sono appena più morbide; davanti, piena presenza */
+  .pc[data-plane='bg'] img { filter: saturate(0.84) brightness(0.985) contrast(0.96); }
+  :global(:root[data-theme='dark']) .pc__in img { filter: saturate(0.88) brightness(0.93); }
+  :global(:root[data-theme='dark']) .pc[data-plane='bg'] img { filter: saturate(0.78) brightness(0.84); }
+  .ps[data-spread] .pc { pointer-events: auto; }
+
+  /* ---------- Fasce ---------- */
+  @media (max-width: 1099px) and (orientation: portrait) {
+    .ps { height: 140svh; }
+  }
+  @media (max-width: 699px) and (orientation: portrait) {
+    .ps { --dock-zone: calc(74px + env(safe-area-inset-bottom)); height: 130svh; }
+    .pc { --pr: 9px; }
+    .pc[data-size='L'] { --pr: 11px; }
+    .pc[data-size='S'] { --pr: 8px; }
+  }
+
+  /* ---------- Composizione ferma (riduci movimento, schermi bassi): resta in 3D, non si muove ---------- */
+  .ps[data-static] { height: auto; }
+  .ps[data-static] .ps__stage { position: relative; height: max(560px, 100svh); }
+
+  /* ---------- Senza JavaScript: griglia ordinata sotto il titolo ---------- */
+  :global(html:not(.js)) .ps { height: auto; padding-block: var(--space-section); }
+  :global(html:not(.js)) .ps__stage { position: static; height: auto; overflow: visible; display: grid; gap: 48px; }
+  :global(html:not(.js)) .ps__text { position: static; }
+  :global(html:not(.js)) .ps__cards { position: static; display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; padding-inline: var(--gutter); perspective: none; }
+  :global(html:not(.js)) .pc { position: relative; width: 150px; aspect-ratio: 1; opacity: 1; visibility: visible; }
+</style>

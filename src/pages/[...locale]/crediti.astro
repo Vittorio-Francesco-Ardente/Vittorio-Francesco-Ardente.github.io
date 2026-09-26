@@ -1,0 +1,39 @@
+---
+import Legal from '../../layouts/Legal.astro';
+import { places, otherPhotoCredits } from '../../data/places';
+import credits from '../../data/credits.json';
+import { useT, fill, localeStaticPaths, type Locale } from '../../i18n';
+export const getStaticPaths = localeStaticPaths;
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const t = useT(locale);
+const d = t.legal.credits;
+---
+
+<Legal locale={locale} path="/crediti" title={d.title} description={d.description} lead={d.lead}>
+  <h2>{d.placesTitle}</h2>
+  <p>{d.placesText}</p>
+  <ul>
+    {places.map((p) => (
+      <li>{t.places[p.id].name}, {t.places[p.id].country}: {fill(d.photoBy, { author: p.credit.author })}, <a href={p.credit.source} target="_blank" rel="noopener noreferrer">{d.source}</a>, <a href={p.credit.licenseUrl} target="_blank" rel="license noopener noreferrer">{p.credit.license}</a>.</li>
+    ))}
+  </ul>
+  <h2>{d.workTitle}</h2>
+  <p>{d.workText} <a href="https://creativecommons.org/publicdomain/zero/1.0/" rel="license noopener noreferrer" target="_blank">CC0</a></p>
+  <ul>
+    {otherPhotoCredits.map((c) => (
+      <li>{d.uses[c.use]}: {fill(d.photoBy, { author: c.author })}, <a href={c.source} target="_blank" rel="noopener noreferrer">{d.source}</a>, {c.license}.</li>
+    ))}
+  </ul>
+  <h2>{d.streamTitle}</h2>
+  <p>{d.streamText}</p>
+  <ul>
+    {credits.passions.map((c) => (
+      <li>{c.title}: {fill(d.photoBy, { author: c.creator })}, <a href={c.url} target="_blank" rel="noopener noreferrer">{c.source}</a>, <a href={c.licenseUrl} target="_blank" rel="license noopener noreferrer">{c.license}</a>.</li>
+    ))}
+  </ul>
+  <h2>{d.codeTitle}</h2>
+  <p>{d.codeText} <a href="https://gsap.com/standard-license" target="_blank" rel="license noopener noreferrer">gsap.com/standard-license</a></p>
+  <h2>{d.fontTitle}</h2>
+  <p>{d.fontText}</p>
+</Legal>

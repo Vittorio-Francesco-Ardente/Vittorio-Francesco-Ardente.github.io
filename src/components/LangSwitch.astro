@@ -1,0 +1,77 @@
+---
+/**
+ * Selettore di lingua compatto: IT · EN · PL.
+ * Lingua attiva: opacità piena + trattino arancio (forma, non solo colore). Niente bandiere.
+ */
+import { useT, locales, supportedLocales, localizePath, type Locale } from '../i18n';
+interface Props {
+  locale: Locale;
+  path: string;
+  class?: string;
+}
+const { locale, path, class: className = '' } = Astro.props;
+const t = useT(locale);
+---
+
+<nav class:list={['lang', className]} aria-label={t.language.select}>
+  <ul role="list">
+    {
+      supportedLocales.map((l) => (
+        <li>
+          <a
+            href={localizePath(path, l)}
+            hreflang={l}
+            lang={l}
+            data-locale-link={l}
+            aria-current={l === locale ? 'true' : undefined}
+            aria-label={locales[l].label}
+          >
+            {locales[l].short}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</nav>
+
+<style>
+  .lang ul { display: flex; align-items: center; }
+  .lang li + li::before {
+    content: '·';
+    display: inline-block;
+    margin-inline: 5px;
+    opacity: 0.35;
+  }
+  .lang a {
+    position: relative;
+    display: inline-block;
+    padding: 8px 1px;
+    font-size: 0.8125rem;
+    font-stretch: 92%;
+    font-weight: 520;
+    letter-spacing: 0.02em;
+    opacity: 0.5;
+    transition: opacity var(--motion-ui) var(--ease-standard);
+  }
+  .lang a::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 3px;
+    width: 11px;
+    height: 2px;
+    margin-left: -5.5px;
+    border-radius: 2px;
+    background: var(--accent-bright);
+    transform: scaleX(0);
+    transition: transform var(--motion-ui) var(--ease-standard);
+  }
+  /* Area utile ~32×45 px senza cambiare l'aspetto: si allarga nello spazio dei separatori */
+  .lang a::before { content: ''; position: absolute; inset: -4px -7px; }
+  .lang li:first-child a::before { left: -12px; }
+  .lang li:last-child a::before { right: -8px; }
+  .lang a:hover { opacity: 0.82; }
+  .lang a:focus-visible { opacity: 1; outline-offset: 2px; }
+  .lang a[aria-current='true'] { opacity: 1; }
+  .lang a[aria-current='true']::after { transform: scaleX(1); }
+</style>

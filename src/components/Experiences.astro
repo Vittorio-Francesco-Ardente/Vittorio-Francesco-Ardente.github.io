@@ -1,0 +1,207 @@
+---
+import { Picture } from 'astro:assets';
+import Icon from './Icon.astro';
+import { experiences } from '../data/experiences';
+import { useT, fill, localizePath, type Locale } from '../i18n';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = useT(locale);
+const duration = (e: (typeof experiences)[number]) =>
+  e.kind === 'internship' ? fill(t.experiences.hours, { n: e.hours ?? '' }) : e.grade ?? '';
+---
+
+<section id="esperienze" class="section work" aria-labelledby="work-title" data-section>
+  <div class="shell">
+    <header class="work__head">
+      <h2 id="work-title" class="t-h2" data-reveal="title">{t.experiences.title}</h2>
+      <p class="t-lede" data-reveal="fade">{t.experiences.intro}</p>
+    </header>
+
+    <ol class="work__list" role="list">
+      {
+        experiences.map((e) => {
+          const x = t.experiences.items[e.slug];
+          return (
+            <li class="work__item" data-tone={e.slug}>
+              <a class="work__link" href={localizePath(`/esperienza-${e.slug}`, locale)}>
+                <figure class="work__photo" data-reveal="photo" data-depth>
+                  <Picture
+                    src={e.photo}
+                    alt={x.photoAlt}
+                    formats={['avif', 'webp']}
+                    widths={[640, 1000, 1500]}
+                    sizes="(max-width: 860px) 92vw, 50vw"
+                    loading="lazy"
+                    class={`work__img work__img--${e.slug}`}
+                  />
+                </figure>
+                <div class="work__text">
+                  <p class="t-meta work__meta">
+                    <span class="work__kind"><span class="tone-mark" aria-hidden="true" />{t.experiences.kinds[e.kind]}</span>
+                    <span>{x.period}</span>
+                    <span>{duration(e)}</span>
+                  </p>
+                  <h3 class="work__org">{e.orgShort}</h3>
+                  <p class="work__title">{x.title}</p>
+                  <p class="work__summary">{x.summary}</p>
+                  <ul class="work__tags" role="list">{x.keywords.slice(0, 4).map((k) => <li>{k}</li>)}</ul>
+                  <span class="work__more">
+                    {t.experiences.open}
+                    <span class="work__arrow" aria-hidden="true"><Icon name="arrowUpRight" /></span>
+                  </span>
+                </div>
+              </a>
+            </li>
+          );
+        })
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  .work__head {
+    display: grid;
+    grid-template-columns: 1fr minmax(0, 32rem);
+    align-items: end;
+    gap: 24px 60px;
+    margin-bottom: clamp(3.5rem, 7vw, 6rem);
+  }
+
+  .work__list { display: grid; gap: clamp(4rem, 8vw, 7.5rem); }
+  .work__link {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: clamp(16px, 2vw, 28px);
+    align-items: center;
+  }
+  .work__photo {
+    grid-column: 1 / span 7;
+    position: relative;
+    aspect-ratio: 16 / 11;
+    overflow: hidden;
+    border-radius: var(--r-photo);
+    background: var(--paper-deep);
+  }
+  .work__item:nth-child(even) .work__photo { grid-column: 6 / span 7; grid-row: 1; }
+  .work__item:nth-child(even) .work__text { grid-column: 1 / span 4; grid-row: 1; }
+  .work__photo :global(picture),
+  .work__photo :global(img) { width: 100%; height: 100%; }
+  .work__photo :global(img) { object-fit: cover; transition: transform 1400ms var(--ease-out), filter 800ms var(--ease-out); }
+  /* Trattamento per esperienza: stessa famiglia, sfumatura diversa */
+  .work__photo :global(.work__img--ips) { filter: grayscale(1) contrast(1.08) brightness(0.96); }
+  .work__photo :global(.work__img--sunfai) { filter: saturate(0.55) sepia(0.12) contrast(1.02); }
+  .work__photo :global(.work__img--marconi) { filter: saturate(0.45) contrast(1.04) brightness(0.95); }
+  /* Al passaggio la foto guadagna appena un po' di contrasto (≈2%) */
+  .work__link:hover .work__photo :global(.work__img--ips) { filter: grayscale(1) contrast(1.1) brightness(0.96); }
+  .work__link:hover .work__photo :global(.work__img--sunfai) { filter: saturate(0.55) sepia(0.12) contrast(1.04); }
+  .work__link:hover .work__photo :global(.work__img--marconi) { filter: saturate(0.45) contrast(1.06) brightness(0.95); }
+  /* Firma VFA sulla foto: il segmento corre lungo il bordo superiore */
+  .work__photo::before {
+    content: '';
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    width: 42%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent-bright) 0 14px, var(--accent-warm) 14px, transparent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--t-large) var(--ease-hover);
+    pointer-events: none;
+  }
+  .work__link:hover .work__photo::before,
+  .work__link:focus-visible .work__photo::before { transform: scaleX(1); }
+  @media (hover: none) { .work__photo::before { transform: scaleX(0.3); } }
+  .work__photo::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(180deg, transparent 60%, rgb(0 0 0 / 0.18));
+    mix-blend-mode: multiply;
+  }
+
+  .work__text {
+    grid-column: 9 / span 4;
+    display: grid;
+    align-content: center;
+    justify-items: start;
+    gap: 0;
+  }
+  .work__meta { display: flex; flex-wrap: wrap; gap: 4px 18px; }
+  .work__kind { display: inline-flex; align-items: center; gap: 8px; }
+  .work__meta span + span::before {
+    content: '';
+    display: inline-block;
+    width: 12px;
+    height: 1px;
+    margin-right: 18px;
+    vertical-align: middle;
+    background: currentColor;
+    opacity: 0.5;
+  }
+  .work__org {
+    margin-top: 22px;
+    font-size: clamp(2.25rem, 3.8vw, 3.5rem);
+    font-stretch: 118%;
+    font-weight: 330;
+    letter-spacing: -0.04em;
+    line-height: 0.95;
+  }
+  .work__title { margin-top: 12px; font-size: 1.125rem; font-weight: 520; font-stretch: 104%; }
+  .work__summary { margin-top: 12px; color: var(--ink-2); max-width: 38ch; }
+  .work__tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 20px; }
+  .work__tags li {
+    padding: 5px 11px;
+    border-radius: var(--r-chip);
+    border: 1px solid var(--line);
+    font-size: 0.8125rem;
+    color: var(--ink-2);
+  }
+  .work__more {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 28px;
+    font-size: var(--t-small);
+    font-weight: 540;
+  }
+  .work__arrow {
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 1px solid var(--line-strong);
+    transition: border-color var(--t-hover) var(--ease-hover), color var(--t-micro) var(--ease-hover);
+  }
+  .work__arrow :global(.icon) { width: 16px; height: 16px; transition: transform var(--t-hover) var(--ease-hover); }
+  .work__link:hover .work__arrow,
+  .work__link:focus-visible .work__arrow { border-color: var(--accent-border); color: var(--accent); }
+  .work__link:hover .work__arrow :global(.icon),
+  .work__link:focus-visible .work__arrow :global(.icon) { transform: translate(3px, -3px); }
+  .work__link:hover .work__photo :global(img) { transform: scale(1.015); }
+  .work__link:focus-visible { outline-offset: 10px; }
+
+  @media (max-width: 1099px) {
+    .work__text,
+    .work__item:nth-child(even) .work__text { grid-column: auto / span 5; }
+    .work__photo { grid-column: 1 / span 7; }
+    .work__item:nth-child(even) .work__photo { grid-column: 6 / span 7; }
+    .work__item:nth-child(odd) .work__text { grid-column: 8 / span 5; }
+  }
+  @media (max-width: 860px) {
+    .work__head { grid-template-columns: 1fr; }
+    .work__link { grid-template-columns: 1fr; row-gap: 26px; }
+    .work__photo,
+    .work__text,
+    .work__item:nth-child(even) .work__photo,
+    .work__item:nth-child(even) .work__text,
+    .work__item:nth-child(odd) .work__text { grid-column: 1; grid-row: auto; }
+  }
+</style>

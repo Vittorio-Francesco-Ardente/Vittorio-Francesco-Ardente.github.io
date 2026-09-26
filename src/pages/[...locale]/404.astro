@@ -1,0 +1,31 @@
+---
+import Base from '../../layouts/Base.astro';
+import Monogram from '../../components/Monogram.astro';
+import { useT, localizePath, localeStaticPaths, type Locale } from '../../i18n';
+export const getStaticPaths = localeStaticPaths;
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const t = useT(locale);
+const home = localizePath('/', locale);
+---
+
+<Base locale={locale} path="/404" title={t.notFound.metaTitle} page="error" noindex>
+  <section class="nf">
+    <div class="shell nf__inner">
+      <Monogram id="nf" class="nf__mark" />
+      <h1 class="t-h1">{t.notFound.title}</h1>
+      <p class="t-lede">{t.notFound.lead}</p>
+      <div class="nf__cta">
+        <a class="btn btn--solid" href={home}>{t.notFound.home}</a>
+        <a class="btn btn--ghost" data-nudge="down" href={`${home}#esperienze`}>{t.notFound.experiences}</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .nf { min-height: 100svh; display: flex; align-items: center; padding-block: calc(var(--topbar) + 40px) 80px; }
+  .nf__inner { display: grid; gap: 24px; justify-items: start; }
+  .nf__inner :global(.nf__mark) { width: 120px; margin-bottom: 20px; color: var(--ink-3); }
+  .nf__cta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
+</style>

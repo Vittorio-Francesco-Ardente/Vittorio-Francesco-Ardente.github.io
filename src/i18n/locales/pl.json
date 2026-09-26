@@ -1,0 +1,684 @@
+{
+  "meta": {
+    "homeTitle": "Vittorio Francesco Ardente — Portfolio",
+    "titleSuffix": "Vittorio Ardente",
+    "description": "Portfolio Vittoria Francesca Ardentego, junior programisty i technika IT z Dalmine (Bergamo, Włochy): programowanie, bazy danych, automatyzacja danych i systemy."
+  },
+  "a11y": {
+    "skip": "Przejdź do treści",
+    "mainNav": "Główna",
+    "sideNav": "Nawigacja po sekcjach",
+    "pageSections": "Sekcje strony",
+    "openMenu": "Otwórz menu",
+    "closeMenu": "Zamknij menu",
+    "menu": "Menu",
+    "newTab": "otwiera się w nowej karcie",
+    "homeLink": "Strona główna — Vittorio Francesco Ardente",
+    "backToTop": "Wróć na początek"
+  },
+  "nav": {
+    "home": "Start",
+    "overview": "W skrócie",
+    "experiences": "Doświadczenie",
+    "profile": "Profil",
+    "contacts": "Kontakt",
+    "faq": "Pytania",
+    "sheet": "Karta",
+    "summary": "Podsumowanie",
+    "activities": "Zadania",
+    "next": "Dalej",
+    "nextSection": "Następna sekcja",
+    "backHome": "Wróć na stronę główną",
+    "backOverview": "Wróć do doświadczenia",
+    "prevSection": "Poprzednia sekcja",
+    "navLabel": "NAV",
+    "index": "Spis",
+    "languageMenu": "Język strony",
+    "device": "Nawigacja",
+    "journey": "Ścieżka",
+    "passions": "To, co mnie napędza"
+  },
+  "theme": {
+    "light": "Tryb jasny",
+    "dark": "Tryb ciemny",
+    "switchToLight": "Przełącz na tryb jasny",
+    "switchToDark": "Przełącz na tryb ciemny"
+  },
+  "language": {
+    "title": "Język",
+    "select": "Wybierz język"
+  },
+  "availability": {
+    "status": "Dostępny",
+    "short": "Otwarty na współpracę i stanowiska juniorskie",
+    "tile": "Współpraca i stanowiska juniorskie.",
+    "full": "Rozważam współpracę i oferty na poziomie junior zgodne z moim profilem, zwłaszcza w obszarze tworzenia oprogramowania, danych i automatyzacji.",
+    "remote": "Dostępny także do pracy zdalnej",
+    "noTravel": "Niedostępny na wyjazdy służbowe"
+  },
+  "workModes": {
+    "remote": "Praca zdalna",
+    "licence": "Prawo jazdy kat. B"
+  },
+  "hero": {
+    "role": "junior programista i technik IT",
+    "lede": "Tworzę precyzyjne oprogramowanie i przydatne automatyzacje w obszarze programowania, danych i systemów.",
+    "viewExperiences": "Zobacz doświadczenie",
+    "writeMe": "Napisz do mnie",
+    "portraitAlt": "Portret Vittoria Francesca Ardentego ze skrzyżowanymi rękami, w czarnej koszulce polo z napisem VFA.",
+    "base": "Miejsce",
+    "coordinates": "Współrzędne",
+    "localTime": "Czas lokalny",
+    "availability": "Dostępność"
+  },
+  "intro": {
+    "placeLabel": "Miejsce tygodnia",
+    "localTime": "czas lokalny"
+  },
+  "bento": {
+    "title": "W skrócie",
+    "intro": "Profil, umiejętności i doświadczenie w pigułce. Szczegóły znajdziesz na stronach poszczególnych doświadczeń.",
+    "stackTitle": "Stack",
+    "allSkills": "Wszystkie umiejętności",
+    "codeFile": "przyklad.sql",
+    "codeComment": "-- aktywni klienci i zamówienia z tego roku",
+    "codeAria": "Przykładowe zapytanie SQL: klienci, liczba zamówień i przychód od 2024 roku, posortowane według przychodu.",
+    "recapLabel": "Ostatnie doświadczenie",
+    "recapTitle": "Sun-Fai, platforma Ardaké",
+    "recapText": "Monitorowanie zużycia i produkcji energii, automatyzacja danych w Excelu, testy i dokumentacja techniczna.",
+    "recapOpen": "Otwórz stronę Sun-Fai",
+    "portraitAlt": "Vittorio Francesco Ardente na tle trzech obrazów z polami barwnymi.",
+    "greeting": "Cześć, jestem Vittorio.",
+    "hoursBefore": "Mam za sobą",
+    "hoursValue": "{hours} godzin",
+    "hoursAfter": "praktyk w dwóch firmach.",
+    "miniHours": "{hours} godz. praktyk",
+    "miniDiploma": "Dyplom, {grade}",
+    "viewExperiences": "Zobacz doświadczenie",
+    "readProfile": "Przeczytaj profil",
+    "languagesCount": "3 języki",
+    "languagesText": "Włoski ojczysty, angielski i polski na poziomie B2.",
+    "educationTag": "Edukacja",
+    "educationTitle": "Informatyka i telekomunikacja",
+    "diploma": "Dyplom {grade}",
+    "hackathon": "Szkolny hackathon CIVISUN",
+    "hackathonShort": "1. miejsce, CIVISUN",
+    "educationOpen": "Otwórz stronę ITI G. Marconi",
+    "timelineTitle": "Przebieg",
+    "timeline": [
+      "Początek nauki w ITI G. Marconi",
+      "Praktyki w I.P.S. Informatica",
+      "Praktyki w Sun-Fai",
+      "Dyplom, {grade}"
+    ],
+    "contactTitle": "Kontakt",
+    "copyEmail": "Skopiuj adres e-mail",
+    "writeHint": "Napisz",
+    "modesLabel": "Tryb pracy",
+    "cvTitle": "Curriculum Vitae",
+    "cvText": "Pełna wersja mojego życiorysu, gotowa do druku.",
+    "cvOpen": "Zobacz CV"
+  },
+  "experiences": {
+    "title": "Doświadczenie",
+    "intro": "Dwie praktyki w firmach i pięć lat szkoły technicznej. Każda strona opisuje, czym się zajmowałem i z jakich narzędzi korzystałem.",
+    "open": "Otwórz stronę",
+    "hours": "{n} godz.",
+    "kinds": {
+      "internship": "Praktyki",
+      "education": "Edukacja"
+    },
+    "back": "Wszystkie doświadczenia",
+    "summaryTitle": "Podsumowanie",
+    "duration": "Czas trwania",
+    "grade": "Ocena końcowa",
+    "hoursUnit": "godz.",
+    "area": "Obszar",
+    "whereWhen": "Gdzie i kiedy",
+    "company": "Firma",
+    "institute": "Szkoła",
+    "place": "Miejsce",
+    "period": "Okres",
+    "tutor": "Opiekun",
+    "track": "Profil",
+    "takeaway": "Czego się nauczyłem",
+    "activitiesTitle": "Zadania",
+    "activitiesCta": "Zadania",
+    "next": "Następna strona",
+    "talk": "Chcesz porozmawiać? Napisz na",
+    "items": {
+      "sunfai": {
+        "title": "Dane i wspólna energia",
+        "area": "Cyfrowe platformy energetyczne",
+        "period": "16 czerwca – 4 lipca 2025",
+        "periodShort": "cze–lip 2025",
+        "summary": "Rozwój platformy monitorującej Ardaké, automatyzacja przepływów danych w Excelu i dokumentacja techniczna.",
+        "intro": "Sun-Fai to spółdzielcza społeczność energetyczna oparta na odnawialnych źródłach energii, z siedzibą w Dalmine. Pracowałem przy platformie Ardaké, która monitoruje zużycie i produkcję energii.",
+        "keywords": [
+          "Ardaké",
+          "Automatyzacja danych",
+          "Excel",
+          "Protokoły",
+          "Testy",
+          "Dokumentacja"
+        ],
+        "activities": [
+          {
+            "title": "Platforma Ardaké",
+            "text": "Nowe funkcje do monitorowania zużycia i produkcji energii."
+          },
+          {
+            "title": "Automatyzacja danych",
+            "text": "Przepływy w Excelu, które ograniczają pracę ręczną i liczbę błędów."
+          },
+          {
+            "title": "Protokoły między systemami",
+            "text": "Zrozumienie i obsługa komunikacji między systemami platformy."
+          },
+          {
+            "title": "Testy i debugowanie",
+            "text": "Weryfikacja funkcji i naprawa wykrytych problemów."
+          },
+          {
+            "title": "Dokumentacja techniczna",
+            "text": "Przygotowanie dokumentacji wykonanej pracy."
+          },
+          {
+            "title": "Praca zespołowa",
+            "text": "Regularne spotkania z zespołem w celu uzgodnienia priorytetów i postępów."
+          }
+        ],
+        "takeaway": "Praca przy prawdziwej platformie energetycznej, w zespole: automatyzacja danych, testy i dokumentowanie każdego etapu.",
+        "photoAlt": "Słońce wschodzi między dwoma zboczami gór i odbija się w ciemnym jeziorze.",
+        "extraLabel": "Strona spółdzielni",
+        "metaTitle": "Sun-Fai — Praktyki",
+        "metaDescription": "Praktyki w Sun-Fai, społeczności energetycznej z Dalmine: rozwój platformy Ardaké, automatyzacja danych w Excelu, testy i dokumentacja techniczna."
+      },
+      "ips": {
+        "title": "Bazy danych i oprogramowanie biznesowe",
+        "area": "Bazy danych i rozwój oprogramowania biznesowego",
+        "period": "10–14 czerwca 2024",
+        "periodShort": "cze 2024",
+        "summary": "Tydzień pracy na prawdziwych danych i aplikacjach: firmowe bazy danych w SQL Server, komponenty oprogramowania biznesowego w VB.NET i sieć TCP/IP.",
+        "intro": "W I.P.S. Informatica pracowałem na firmowych bazach danych i aplikacjach biznesowych działających produkcyjnie, wykorzystując wiedzę o bazach danych, językach programowania i sieciach.",
+        "keywords": [
+          "SQL Server",
+          "VB.NET",
+          "MySQL",
+          "TCP/IP",
+          "Zapytania i modelowanie"
+        ],
+        "activities": [
+          {
+            "title": "Firmowe bazy danych",
+            "text": "Tworzenie zapytań i zarządzanie bazami danych w SQL Server."
+          },
+          {
+            "title": "Komponenty oprogramowania biznesowego",
+            "text": "Rozwój i utrzymanie komponentów w Visual Basic / VB.NET."
+          },
+          {
+            "title": "Modelowanie danych",
+            "text": "Dbałość o strukturę i spójność danych."
+          },
+          {
+            "title": "Sieć TCP/IP",
+            "text": "Wsparcie przy konfiguracji i diagnostyce sieci."
+          }
+        ],
+        "takeaway": "Praca na prawdziwych danych i aplikacjach działających produkcyjnie, z precyzją i odpowiedzialnością.",
+        "photoAlt": "Czarno-biała betonowa architektura: zakrzywione żebra nad schodami.",
+        "extraLabel": "",
+        "metaTitle": "I.P.S. Informatica — Praktyki",
+        "metaDescription": "Praktyki w I.P.S. Informatica S.r.l. (Bergamo): firmowe bazy danych w SQL Server, komponenty oprogramowania biznesowego w VB.NET i sieć TCP/IP."
+      },
+      "marconi": {
+        "title": "Informatyka i telekomunikacja",
+        "area": "Profil informatyczny",
+        "period": "2021–2026",
+        "periodShort": "2021–2026",
+        "summary": "Pięć lat informatyki, systemów i sieci, TPSIT oraz telekomunikacji. Dyplom z wynikiem 94/100 i pierwsze miejsce w szkolnym hackathonie CIVISUN.",
+        "intro": "W ITI G. Marconi ukończyłem kierunek informatyka i telekomunikacja o profilu informatycznym: od programowania po sieci, z wieloma projektami praktycznymi.",
+        "keywords": [
+          "Programowanie",
+          "Bazy danych",
+          "Systemy i sieci",
+          "TPSIT",
+          "Telekomunikacja"
+        ],
+        "activities": [
+          {
+            "title": "Programowanie i algorytmy",
+            "text": "Podstawy tworzenia oprogramowania, od języków po algorytmy."
+          },
+          {
+            "title": "Bazy danych",
+            "text": "Projektowanie, modelowanie i odpytywanie danych."
+          },
+          {
+            "title": "Systemy i sieci",
+            "text": "Architektury, TCP/IP, bezpieczeństwo i podstawy administracji."
+          },
+          {
+            "title": "TPSIT",
+            "text": "Technologie i projektowanie systemów informatycznych i telekomunikacyjnych."
+          },
+          {
+            "title": "Telekomunikacja",
+            "text": "Sygnały, transmisja danych i protokoły komunikacyjne."
+          }
+        ],
+        "takeaway": "Pięć lat, które zamieniły ciekawość kodu w metodę. To fundament, na którym opieram się każdego dnia, także poza szkołą.",
+        "photoAlt": "Otwarta książka, której strony oświetla ciepłe światło.",
+        "extraLabel": "Szkolny hackathon",
+        "extraValue": "1. miejsce",
+        "metaTitle": "ITI G. Marconi — Edukacja",
+        "metaDescription": "Dyplom z informatyki i telekomunikacji w ITI G. Marconi (2021–2026), 94/100, z pierwszym miejscem w szkolnym hackathonie CIVISUN."
+      }
+    }
+  },
+  "profile": {
+    "title": "Profil",
+    "lead": "Jestem junior programistą i technikiem IT z dyplomem z informatyki i telekomunikacji.",
+    "body": "Pracowałem w realnych warunkach przy bazach danych, automatyzacji danych i platformach cyfrowych. Do problemów podchodzę metodycznie i z dbałością o szczegóły, a naukę kontynuuję także poza szkołą.",
+    "collageAlt": "Osobisty kolaż: zdjęcie z dzieciństwa w stroju Batmana, flagi Polski i Włoch, wycięte litery VFA, laptop z kodem eat(), train(), learn(), sleep(), gitara, słuchawki i traktor.",
+    "collageCaption": "Osobisty kolaż: polsko-włoskie korzenie, pasje, kod. Najedź kursorem lub zaznacz, aby zobaczyć go w kolorze.",
+    "skillsTitle": "Umiejętności według poziomu",
+    "skillsIntro": "Nie wszystko ma tę samą wagę: oddzielam to, czego używałem w praktyce, od tego, co znam tylko częściowo.",
+    "levels": {
+      "pratico": {
+        "label": "W praktyce",
+        "note": "Używane podczas praktyk lub w konkretnych projektach."
+      },
+      "familiare": {
+        "label": "Znajomość",
+        "note": "Używane podczas nauki lub okazjonalnie."
+      },
+      "basi": {
+        "label": "Podstawy",
+        "note": "Wiedza wstępna, do pogłębienia."
+      }
+    },
+    "areas": {
+      "dev": "Programowanie",
+      "data": "Dane",
+      "systems": "Systemy",
+      "workflow": "Workflow",
+      "web": "Web i mobile",
+      "cloud": "Chmura",
+      "tools": "Narzędzia techniczne"
+    },
+    "skills": {
+      "sqlserver": "SQL Server",
+      "mysql": "MySQL",
+      "sql": "SQL: zapytania i modelowanie",
+      "excel": "Excel / VBA",
+      "dataflows": "Automatyzacja przepływów danych",
+      "vbnet": "VB.NET / Visual Basic",
+      "python": "Python",
+      "javascript": "JavaScript",
+      "htmlcss": "HTML i CSS",
+      "git": "Git i GitHub",
+      "tcpip": "Sieci TCP/IP",
+      "windows": "Windows / Office 365",
+      "typescript": "TypeScript",
+      "cpp": "C i C++",
+      "csharp": "C#",
+      "processing": "Processing",
+      "branching": "Branch i merge",
+      "cicd": "CI/CD (dokumentacja)",
+      "freecad": "FreeCAD",
+      "aws": "AWS",
+      "api": "API"
+    },
+    "capsTitle": "Co mogę zrobić",
+    "caps": [
+      {
+        "title": "Tworzenie stron i front-end",
+        "text": "Responsywne strony i interfejsy, dopracowane na urządzeniach mobilnych, z podstawami dostępności i technicznego SEO."
+      },
+      {
+        "title": "Automatyzacja danych i skrypty",
+        "text": "Automatyzacje w Excelu i VBA, przetwarzanie przepływów danych, skrypty w Pythonie."
+      },
+      {
+        "title": "Bazy danych i backend",
+        "text": "SQL Server i MySQL, zapytania i modelowanie danych, podstawy chmury."
+      }
+    ]
+  },
+  "contact": {
+    "title": "Napisz do mnie.",
+    "text": "Współpraca lub stanowisko juniorskie? Odpowiadam osobiście, e-mailem lub na LinkedIn.",
+    "copy": "Kopiuj",
+    "copied": "Skopiowano",
+    "copiedMsg": "Adres skopiowany do schowka.",
+    "copyFail": "Nie udało się skopiować: zaznacz adres i skopiuj go ręcznie.",
+    "writeEmail": "Napisz e-mail",
+    "placeLabel": "Miejsce tygodnia",
+    "placeAria": "Miejsce zdjęcia z tego tygodnia",
+    "localTime": "czas lokalny",
+    "photoCredit": "Zdjęcie: {author}, {license}"
+  },
+  "places": {
+    "planica": {
+      "name": "Planica",
+      "region": "Górna Kraina",
+      "country": "Słowenia",
+      "note": "Dolina w Alpach Julijskich, kilka kilometrów od Kranjskiej Gory, znana ze skoczni narciarskich.",
+      "alt": "Zaśnieżone jodły znikające we mgle nad białą łąką."
+    },
+    "krasnaya-polyana": {
+      "name": "Krasnaja Polana",
+      "region": "Kaukaz Zachodni",
+      "country": "Rosja",
+      "note": "Górska miejscowość w głębi lądu od Soczi: w 2014 roku odbywały się tu konkurencje górskie zimowych igrzysk olimpijskich.",
+      "alt": "Ciemne grzbiety górskie o zmierzchu pod zamglonym niebem."
+    },
+    "scalea": {
+      "name": "Scalea",
+      "region": "Riviera dei Cedri, Kalabria",
+      "country": "Włochy",
+      "note": "Miasteczko nad Morzem Tyrreńskim w prowincji Cosenza: długie kamieniste plaże i stare miasto schodzące tarasami ze wzgórza.",
+      "alt": "Stos gładkich kamieni na kamienistej plaży, słońce zachodzi nad morzem."
+    },
+    "ayllon": {
+      "name": "Ayllón",
+      "region": "Segowia, Kastylia i León",
+      "country": "Hiszpania",
+      "note": "Średniowieczna miejscowość w prowincji Segowia. Na wzgórzu nad nią stoi wieża dawnego zamku.",
+      "alt": "Średniowieczna kamienna wieża o zachodzie słońca pod zachmurzonym niebem."
+    },
+    "cervino": {
+      "name": "Matterhorn",
+      "region": "Zermatt, Valais",
+      "country": "Szwajcaria",
+      "note": "Szczyt o wysokości 4478 metrów wyznacza granicę między Włochami a Szwajcarią. Tutaj odbija się w alpejskim jeziorze nad Zermatt.",
+      "alt": "Ośnieżony Matterhorn odbity w nieruchomej wodzie alpejskiego jeziora."
+    },
+    "londra": {
+      "name": "Londyn",
+      "region": "South Bank",
+      "country": "Wielka Brytania",
+      "note": "London Eye na południowym brzegu Tamizy: diabelski młyn o wysokości 135 metrów, otwarty dla zwiedzających od 2000 roku.",
+      "alt": "Konstrukcja London Eye widziana od dołu, gondole na tle błękitnego nieba."
+    }
+  },
+  "faq": {
+    "title": "Pytania",
+    "intro": "Krótkie odpowiedzi na najczęstsze pytania. W innych sprawach napisz do mnie.",
+    "items": [
+      {
+        "q": "Jakich technologii używasz?",
+        "a": "W praktyce, podczas praktyk i projektów: SQL Server i MySQL, VB.NET, Excel/VBA, Python, JavaScript, Git. Znam TypeScript, C/C++ i C#, a AWS i API na poziomie podstawowym. Pełny obraz, podzielony według poziomu, znajdziesz w sekcji Profil."
+      },
+      {
+        "q": "Czy jesteś otwarty na współpracę lub stanowiska juniorskie?",
+        "a": "Tak. Rozważam współpracę i oferty na poziomie junior zgodne z moim profilem, zwłaszcza w obszarze tworzenia oprogramowania, danych i automatyzacji."
+      },
+      {
+        "q": "Czy możesz pracować zdalnie?",
+        "a": "Tak. Rozważam również oferty pracy zdalnej. Nie jestem dostępny na wyjazdy służbowe."
+      },
+      {
+        "q": "W jakich językach możemy się porozumiewać?",
+        "a": "Po włosku (język ojczysty), po angielsku i po polsku na poziomie B2."
+      },
+      {
+        "q": "Jak mogę się z tobą skontaktować?",
+        "a": "E-mailem lub przez LinkedIn: oba kontakty znajdziesz w sekcji Kontakt. Odpowiadam osobiście."
+      }
+    ]
+  },
+  "footer": {
+    "sections": "Sekcje",
+    "elsewhere": "W sieci",
+    "notes": "Informacje",
+    "privacy": "Prywatność",
+    "terms": "Warunki",
+    "credits": "Autorzy zdjęć",
+    "cv": "Życiorys",
+    "email": "E-mail",
+    "backTop": "Do góry"
+  },
+  "mobileNav": {
+    "open": "Otwórz spis sekcji"
+  },
+  "cv": {
+    "title": "Curriculum Vitae",
+    "open": "Zobacz CV",
+    "print": "Drukuj",
+    "download": "Pobierz PDF",
+    "chooseTheme": "Jak chcesz wyświetlić CV?",
+    "chooseThemeHint": "Możesz to zmienić później na stronie CV.",
+    "light": "Tryb jasny",
+    "dark": "Tryb ciemny",
+    "close": "Zamknij",
+    "back": "Wróć do strony",
+    "toolbar": "Narzędzia CV",
+    "metaTitle": "Curriculum Vitae",
+    "metaDescription": "Curriculum Vitae Vittoria Francesca Ardentego, junior programisty i technika IT: doświadczenie, edukacja, umiejętności i języki.",
+    "role": "Junior programista i technik IT",
+    "sections": {
+      "profile": "Profil",
+      "experience": "Doświadczenie",
+      "education": "Edukacja",
+      "skills": "Umiejętności",
+      "languages": "Języki",
+      "other": "Dodatkowe informacje",
+      "contacts": "Kontakt"
+    },
+    "summary": "Junior programista i technik IT z dyplomem z informatyki i telekomunikacji (94/100). Mam praktyczne doświadczenie z firmowymi bazami danych, automatyzacją danych i platformami cyfrowymi, zdobyte podczas dwóch praktyk. Pracuję metodycznie, precyzyjnie i z dbałością o szczegóły.",
+    "languageLevels": {
+      "native": "język ojczysty",
+      "b2": "B2"
+    },
+    "languageNames": {
+      "IT": "Włoski",
+      "EN": "Angielski",
+      "PL": "Polski"
+    },
+    "base": "Dalmine (BG), Włochy",
+    "updated": "Aktualizacja: wrzesień 2026",
+    "more": "Więcej opcji"
+  },
+  "legal": {
+    "updatedLabel": "Ostatnia aktualizacja: {date}",
+    "updatedDate": "wrzesień 2026",
+    "home": "Strona główna",
+    "privacy": {
+      "title": "Prywatność",
+      "description": "Polityka prywatności portfolio Vittoria Francesca Ardentego: bez plików cookie i bez śledzenia.",
+      "lead": "To statyczne, osobiste portfolio. Służy do przedstawienia mojej drogi zawodowej, a nie do zbierania danych: bez plików cookie, bez narzędzi analitycznych i śledzących, bez profilowania.",
+      "sections": [
+        {
+          "h": "Zbierane dane",
+          "p": [
+            "Podczas przeglądania strony nie są zbierane żadne dane osobowe. Jak w przypadku każdej strony, usługa hostingowa (GitHub Pages) może zapisywać podstawowe logi techniczne, na przykład adres IP, ze względów bezpieczeństwa i działania. Nie wykorzystuję tych logów w innych celach."
+          ]
+        },
+        {
+          "h": "Ustawienia zapisane w przeglądarce",
+          "p": [
+            "Strona zapisuje w przeglądarce tylko trzy techniczne ustawienia. Nigdy nie opuszczają one urządzenia i nie pozwalają cię zidentyfikować:"
+          ],
+          "list": [
+            "wybrany język (localStorage);",
+            "wybrany motyw, jasny lub ciemny (localStorage);",
+            "kolejność kart w sekcji „W skrócie”, jeśli ją zmienisz, oraz informację, czy wskazówka o ich przestawianiu była już wyświetlona (localStorage);",
+            "informację, czy animacja początkowa została już wyświetlona w tej sesji (sessionStorage, usuwane po zamknięciu karty)."
+          ]
+        },
+        {
+          "h": "Kontakt e-mailowy",
+          "p": [
+            "Strona nie ma formularzy: przyciski kontaktowe otwierają twój program pocztowy. Jeśli napiszesz na adres {email}, wykorzystam informacje z wiadomości wyłącznie po to, by odpowiedzieć, i nie przekażę ich osobom trzecim."
+          ]
+        },
+        {
+          "h": "Linki zewnętrzne",
+          "p": [
+            "Strona zawiera linki do zewnętrznych serwisów, takich jak LinkedIn, GitHub i sun-fai.org. Obowiązują tam ich własne polityki prywatności, na które nie mam wpływu."
+          ]
+        },
+        {
+          "h": "Twoje prawa",
+          "p": [
+            "W każdej chwili możesz poprosić o dostęp do danych przesłanych e-mailem, ich poprawienie lub usunięcie, pisząc na podany wyżej adres."
+          ]
+        }
+      ]
+    },
+    "terms": {
+      "title": "Warunki",
+      "description": "Warunki korzystania z portfolio Vittoria Francesca Ardentego.",
+      "lead": "Proste zasady, zgodne z charakterem projektu: osobistego portfolio.",
+      "sections": [
+        {
+          "h": "Treści",
+          "p": [
+            "Teksty, grafika i kod strony należą do Vittoria Francesca Ardentego, o ile nie zaznaczono inaczej. Możesz je swobodnie przeglądać; aby je wykorzystać, nawet częściowo, napisz do mnie."
+          ]
+        },
+        {
+          "h": "Zdjęcia",
+          "p": [
+            "Zdjęcia krajobrazów i miejsc pochodzą od innych autorów i są używane zgodnie z ich licencjami (CC0 lub CC BY-SA 4.0). Autorzy, źródła i licencje są wymienieni na stronie z autorami zdjęć."
+          ]
+        },
+        {
+          "h": "Znaki towarowe i podmioty trzecie",
+          "p": [
+            "Nazwy takie jak I.P.S. Informatica, Sun-Fai, Ardaké i ITI G. Marconi należą do ich właścicieli i zostały przywołane wyłącznie po to, by rzetelnie opisać moje doświadczenie."
+          ]
+        },
+        {
+          "h": "Brak gwarancji",
+          "p": [
+            "Strona jest udostępniana w obecnej postaci. Dbam o treści, ale nie gwarantuję, że zawsze są kompletne i wolne od błędów."
+          ]
+        },
+        {
+          "h": "Kontakt",
+          "p": [
+            "Pytania dotyczące tych warunków: {email}."
+          ]
+        }
+      ]
+    },
+    "credits": {
+      "title": "Autorzy zdjęć",
+      "description": "Autorzy, źródła i licencje zdjęć użytych w portfolio Vittoria Francesca Ardentego.",
+      "lead": "Portret i kolaż są moje. Pozostałe zdjęcia pochodzą od innych autorów i są dostępne na wolnych licencjach: dziękuję im i wymieniam ich tutaj.",
+      "placesTitle": "Miejsce tygodnia",
+      "placesText": "Zdjęcia na licencjach Creative Commons lub w domenie publicznej: przy każdym podano autora, źródło i licencję. Na stronie są wyświetlane w stonowanych, przyciemnionych barwach; zmodyfikowane wersje utworów CC BY-SA podlegają tej samej licencji.",
+      "workTitle": "Strony doświadczeń",
+      "workText": "Zdjęcia w domenie publicznej (CC0), wybrane ze względu na nastrój: nie przedstawiają rzeczywistych miejsc doświadczeń.",
+      "photoBy": "zdjęcie: {author}",
+      "source": "źródło",
+      "uses": {
+        "ips": "Strona I.P.S. Informatica",
+        "sunfai": "Strona Sun-Fai",
+        "marconi": "Strona ITI G. Marconi"
+      },
+      "fontTitle": "Krój pisma",
+      "fontText": "Mona Sans od GitHub, na licencji SIL Open Font License 1.1, serwowany bezpośrednio przez stronę.",
+      "streamTitle": "Zdjęcia w sekcji „To, co mnie napędza”",
+      "streamText": "Zdjęcia w sekcji „To, co mnie napędza” to kadry poniższych obrazów, przechowywane na stronie. Autorzy, źródła i licencje:",
+      "codeTitle": "Oprogramowanie zewnętrzne",
+      "codeText": "Oś czasu korzysta z GSAP i ScrollTrigger (GreenSock), udostępnianych na bezpłatnej licencji standardowej GSAP."
+    }
+  },
+  "notFound": {
+    "metaTitle": "Nie znaleziono strony",
+    "title": "Nie znaleziono strony.",
+    "lead": "Link jest nieprawidłowy albo strona została przeniesiona.",
+    "home": "Wróć na stronę główną",
+    "experiences": "Zobacz doświadczenie"
+  },
+  "idle": {
+    "resume": "Dotknij, aby kontynuować"
+  },
+  "arrange": {
+    "handle": "Przesuń kartę: {name}",
+    "hint": "Karty można przestawiać: przeciągnij uchwyt u góry karty (na ekranie dotykowym przytrzymaj go chwilę). Z klawiatury: Alt + strzałki albo Spacja, aby podnieść i upuścić.",
+    "menu": "Opcje siatki",
+    "reset": "Przywróć układ",
+    "resetDone": "Przywrócono pierwotny układ.",
+    "picked": "Podniesiono: {name}, pozycja {pos} z {total}. Strzałki przesuwają, Spacja upuszcza, Esc anuluje.",
+    "moved": "{name}: pozycja {pos} z {total}.",
+    "dropped": "Upuszczono: {name}, pozycja {pos} z {total}.",
+    "cancelled": "Anulowano przesunięcie. {name} zostaje na pozycji {pos}.",
+    "names": {
+      "stack": "Stack",
+      "sql": "Przykładowe zapytanie",
+      "recap": "Ostatnie doświadczenie",
+      "portrait": "Dostępność",
+      "hello": "Przedstawienie",
+      "lang": "Języki",
+      "photo": "Wykształcenie",
+      "cv": "CV",
+      "contact": "Kontakt"
+    },
+    "dragHint": "Przeciągnij, aby zmienić układ",
+    "dragHintTouch": "Przytrzymaj uchwyt i przeciągnij",
+    "dismiss": "Rozumiem"
+  },
+  "dock": {
+    "label": "Szybka nawigacja",
+    "home": "Start",
+    "cv": "CV",
+    "language": "Język",
+    "theme": "Motyw",
+    "menu": "Menu",
+    "expShort": "Dośw."
+  },
+  "journey": {
+    "eyebrow": "Ścieżka",
+    "title": "Od pierwszego dnia do dyplomu.",
+    "lede": "Cztery etapy od 2021 roku: szkoła, dwie praktyki, dyplom.",
+    "details": [
+      [
+        "Informatyka i telekomunikacja",
+        "Systemy i sieci, bazy danych, TPSIT, telekomunikacja"
+      ],
+      [
+        "40 godz. · Bergamo",
+        "SQL Server, komponenty oprogramowania biznesowego w VB.NET, sieć TCP/IP"
+      ],
+      [
+        "75–80 godz. · Dalmine",
+        "Platforma Ardaké: monitoring energii, automatyzacja danych, testy"
+      ],
+      [
+        "ITI G. Marconi · 94/100",
+        "Pierwsze miejsce w szkolnym hackathonie CIVISUN"
+      ]
+    ]
+  },
+  "passions": {
+    "title": [
+      "To, co mnie",
+      "napędza."
+    ],
+    "lead": "Na zdjęciach:",
+    "items": {
+      "headstock": "gitara elektryczna",
+      "vespa": "Vespa",
+      "ploughed-field": "zaorane pole",
+      "turntable": "gramofon",
+      "vfa-code": "mój kod SQL",
+      "alpe-di-siusi": "Alpe di Siusi",
+      "windmills": "wiatraki",
+      "fiber-optics": "światłowody",
+      "classic-guitar": "struny gitary",
+      "clockwork": "koła zębate",
+      "wisla": "Wisła",
+      "propeller": "śmigło samolotu",
+      "castelluccio": "równina Castelluccio",
+      "speaker": "głośnik",
+      "wild-wheat": "kłosy zboża",
+      "audio-jack": "gniazdo audio"
+    }
+  }
+}

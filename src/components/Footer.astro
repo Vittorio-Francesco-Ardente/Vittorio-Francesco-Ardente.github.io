@@ -1,0 +1,102 @@
+---
+import Monogram from './Monogram.astro';
+import Icon from './Icon.astro';
+import { profile } from '../data/profile';
+import { useT, localizePath, type Locale } from '../i18n';
+
+interface Props {
+  home: boolean;
+  locale: Locale;
+}
+const { home, locale } = Astro.props;
+const t = useT(locale);
+const year = new Date().getFullYear();
+const homePath = localizePath('/', locale);
+const sectionHref = (id: string) => (home ? `#${id}` : `${homePath}#${id}`);
+const sections = [
+  { id: 'in-breve', label: t.nav.overview },
+  { id: 'esperienze', label: t.nav.experiences },
+  { id: 'profilo', label: t.nav.profile },
+  { id: 'contatti', label: t.nav.contacts },
+  { id: 'domande', label: t.nav.faq },
+];
+const role = t.cv.role;
+---
+
+<footer class="footer">
+  <div class="shell footer__grid">
+    <div class="footer__id">
+      <Monogram id="footer" class="footer__mark" />
+      <p class="footer__name">{profile.name}</p>
+      <p class="t-meta">{role}</p>
+    </div>
+    <nav class="footer__col" aria-label={t.footer.sections}>
+      <p class="t-meta">{t.footer.sections}</p>
+      <ul role="list">{sections.map((s) => <li><a class="link-quiet" href={sectionHref(s.id)}>{s.label}</a></li>)}</ul>
+    </nav>
+    <div class="footer__col">
+      <p class="t-meta">{t.footer.elsewhere}</p>
+      <ul role="list">
+        <li><a class="link-quiet" href={profile.contacts.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+        <li><a class="link-quiet" href={profile.contacts.github} target="_blank" rel="noopener noreferrer">GitHub</a></li>
+        <li><a class="link-quiet" href={`mailto:${profile.contacts.email}`}>{t.footer.email}</a></li>
+        <li><button class="link-quiet" type="button" data-cv-open>{t.footer.cv}</button></li>
+      </ul>
+    </div>
+    <div class="footer__col">
+      <p class="t-meta">{t.footer.notes}</p>
+      <ul role="list">
+        <li><a class="link-quiet" href={localizePath('/privacy', locale)}>{t.footer.privacy}</a></li>
+        <li><a class="link-quiet" href={localizePath('/terms', locale)}>{t.footer.terms}</a></li>
+        <li><a class="link-quiet" href={localizePath('/crediti', locale)}>{t.footer.credits}</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="shell footer__base">
+    <p class="t-meta">© {year} {profile.name}</p>
+    <p class="t-meta">
+      {profile.base.city} ({profile.base.province}) <span class="footer__sep" aria-hidden="true"></span>
+      <time data-clock data-tz={profile.base.timeZone} data-format="time">--:--</time>
+    </p>
+    <a class="footer__top t-meta" href={home ? '#inizio' : '#contenuto'}>
+      <Icon name="arrowDown" class="footer__top-icon" />
+      {t.footer.backTop}
+    </a>
+  </div>
+</footer>
+
+<style>
+  .footer { position: relative; padding-top: clamp(4rem, 8vw, 7rem); padding-bottom: calc(112px + env(safe-area-inset-bottom)); border-top: 1px solid var(--line); }
+  .footer__grid { display: grid; grid-template-columns: 1.6fr repeat(3, 1fr); gap: 40px 24px; }
+  .footer__id { display: grid; gap: 10px; align-content: start; }
+  .footer__id :global(.footer__mark) { width: 88px; margin-bottom: 14px; }
+  .footer__name { font-size: 1.125rem; font-stretch: 110%; font-weight: 480; letter-spacing: -0.015em; }
+  .footer__col { display: grid; gap: 14px; align-content: start; }
+  .footer__col ul { list-style: none; padding: 0; display: grid; gap: 8px; justify-items: start; }
+  .link-quiet {
+    font-size: var(--t-small);
+    color: var(--ink-2);
+    background-image: linear-gradient(var(--accent), var(--accent));
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    background-size: 0% 1px;
+    padding-bottom: 2px;
+    transition: color var(--motion-ui) var(--ease-standard), background-size var(--motion-ui) var(--ease-standard);
+  }
+  .link-quiet:hover,
+  .link-quiet:focus-visible { color: var(--ink); background-size: 100% 1px; }
+  .footer__base { margin-top: clamp(3.5rem, 7vw, 6rem); padding-top: 22px; border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; gap: 12px 32px; justify-content: space-between; align-items: center; }
+  .footer__sep { display: inline-block; width: 18px; height: 1px; margin-inline: 8px; vertical-align: middle; background: currentColor; opacity: 0.5; }
+  .footer__top { display: inline-flex; align-items: center; gap: 8px; color: var(--ink-2); }
+  .footer__top:hover { color: var(--ink); }
+  .footer__top :global(.footer__top-icon) { width: 16px; height: 16px; transform: rotate(180deg); transition: color var(--motion-micro) var(--ease-standard), transform var(--motion-ui) var(--ease-standard); }
+  .footer__top:hover :global(.footer__top-icon),
+  .footer__top:focus-visible :global(.footer__top-icon) { color: var(--accent); transform: rotate(180deg) translateY(3px); }
+  @media (max-width: 860px) {
+    .footer__grid { grid-template-columns: 1fr 1fr; }
+    .footer__id { grid-column: 1 / -1; }
+  }
+  @media (max-width: 1099px) {
+    .footer { padding-bottom: calc(104px + env(safe-area-inset-bottom)); }
+  }
+</style>

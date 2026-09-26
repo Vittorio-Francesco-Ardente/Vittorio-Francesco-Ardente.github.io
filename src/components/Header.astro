@@ -1,0 +1,583 @@
+---
+/**
+ * Navigazione VFA: una sola navigazione che cambia forma.
+ *  - In cima alla pagina: barra orizzontale (VFA, Esperienze, Profilo, Contatti, IT/EN/PL, tema).
+ *  - Scorrendo: la barra si stacca, si restringe verso il centro e scende fino a diventare
+ *    un Dock fluttuante in basso al centro (ingrandimento per distanza, molle; vedi nav.ts).
+ *  - Telefono: lo stesso Dock diventa una barra di navigazione inferiore touch (5 voci con etichetta).
+ */
+import Monogram from './Monogram.astro';
+import Icon from './Icon.astro';
+import LangSwitch from './LangSwitch.astro';
+import ThemeToggle from './ThemeToggle.astro';
+import { profile } from '../data/profile';
+import { useT, localizePath, locales, type Locale } from '../i18n';
+import type { SectionLink } from '../layouts/Base.astro';
+
+interface Props {
+  home: boolean;
+  page: 'home' | 'experience' | 'legal' | 'error';
+  sections: SectionLink[];
+  locale: Locale;
+  path: string;
+}
+const { home, page, sections, locale, path } = Astro.props;
+const t = useT(locale);
+const homePath = localizePath('/', locale);
+const topLinks = [
+  { id: 'esperienze', label: t.nav.experiences },
+  { id: 'profilo', label: t.nav.profile },
+  { id: 'contatti', label: t.nav.contacts },
+];
+const href = (id: string) => (home ? `#${id}` : `${homePath}#${id}`);
+const homeSections = [
+  { id: 'inizio', label: t.nav.home },
+  { id: 'interessi', label: t.nav.passions },
+  { id: 'in-breve', label: t.nav.overview },
+  { id: 'esperienze', label: t.nav.experiences },
+  { id: 'profilo', label: t.nav.profile },
+  { id: 'percorso', label: t.nav.journey },
+  { id: 'domande', label: t.nav.faq },
+  { id: 'contatti', label: t.nav.contacts },
+];
+const menuSections = sections.length ? sections : homeSections;
+const menuHref = (id: string) => (sections.length ? `#${id}` : `${homePath}#${id}`);
+const pad = (n: number) => String(n).padStart(2, '0');
+const brandHref = home ? '#inizio' : homePath;
+const brandLabel = home ? t.a11y.backToTop : t.a11y.homeLink;
+
+/* Voci del Dock. covers = sezioni della home che accendono l'indicatore della voce. */
+const dockLinks = [
+  { id: 'inizio', label: t.dock.home, icon: 'mark', covers: 'inizio interessi in-breve', mobile: true },
+  { id: 'esperienze', label: t.nav.experiences, icon: 'briefcase', covers: 'esperienze', mobile: true },
+  { id: 'profilo', label: t.nav.profile, icon: 'user', covers: 'profilo', mobile: false },
+  { id: 'percorso', label: t.nav.journey, icon: 'journey', covers: 'percorso', mobile: true },
+  { id: 'contatti', label: t.nav.contacts, icon: 'mail', covers: 'contatti domande', mobile: true },
+] as const;
+const staticCurrent = page === 'experience' ? 'esperienze' : '';
+---
+
+<header class="nd" data-nd>
+  <!-- Superficie della barra (clip-path) e goccia (transform): stesso materiale, contorno unico -->
+  <span class="nd__edge" aria-hidden="true" data-nd-edge></span>
+  <span class="nd__dedge" aria-hidden="true" data-nd-dedge></span>
+  <span class="nd__fill" aria-hidden="true" data-nd-fill></span>
+  <span class="nd__drop" aria-hidden="true" data-nd-drop></span>
+
+  <!-- Il monogramma è uno solo: dalla barra scende nella prima voce del Dock -->
+  <a class="nd__mark" href={brandHref} aria-label={brandLabel} data-nd-mark>
+    <Monogram id="nd" class="nd__mono" />
+  </a>
+
+  <!-- A · barra orizzontale (cima della pagina) -->
+  <div class="nd__bar" data-nd-bar>
+    <div class="nd__barin">
+      <span class="nd__slot" data-nd-slot aria-hidden="true"></span>
+      <a class="nd__name" href={brandHref} tabindex="-1" aria-hidden="true" data-nd-name>{profile.shortName}</a>
+      <nav class="nd__top" aria-label={t.a11y.mainNav} data-nd-links>
+        <ul role="list">
+          {topLinks.map((l) => <li><a href={href(l.id)} data-nav={l.id}>{l.label}</a></li>)}
+        </ul>
+      </nav>
+      <div class="nd__tools" data-nd-tools>
+        <LangSwitch locale={locale} path={path} class="nd__lang" />
+        <ThemeToggle locale={locale} />
+        <button class="nd__tool nd__barmenu" type="button" aria-haspopup="dialog" aria-controls="menu" data-menu-open>
+          <Icon name="menu" />
+          <span class="visually-hidden">{t.a11y.openMenu}</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- B · Dock -->
+  <nav class="dock" aria-label={t.dock.label} data-dock data-home={home ? '' : undefined}>
+    <div class="dock__panel" data-dock-panel>
+      {
+        dockLinks.map((l, i) => (
+          <a
+            class:list={['dock__item', { 'dock__item--desk': !l.mobile }]}
+            href={href(l.id)}
+            data-dock-item
+            data-rail={l.id}
+            data-label={l.label}
+            data-covers={l.covers}
+            aria-current={staticCurrent === l.id ? 'true' : undefined}
+            data-k={i}
+          >
+            <span class="dock__tile" data-slot-home={l.icon === 'mark' ? '' : undefined}>
+              {l.icon === 'mark' ? <Monogram id="dock" class="dock__mono" fade={false} /> : <Icon name={l.icon} class="dock__icon" />}
+            </span>
+            <span class="dock__tip" aria-hidden="true">{l.label}</span>
+            <span class:list={['dock__cap', { 'dock__cap--full': l.id === 'esperienze' }]}>{l.label}</span>
+            {l.id === 'esperienze' && <span class="dock__cap dock__cap--short" aria-hidden="true">{t.dock.expShort}</span>}
+            <span class="dock__dot" aria-hidden="true"></span>
+          </a>
+        ))
+      }
+      <span class="dock__sep" aria-hidden="true"></span>
+      <button class="dock__item dock__item--desk" type="button" data-dock-item data-cv-open data-k="5">
+        <span class="dock__tile"><Icon name="doc" class="dock__icon" /></span>
+        <span class="dock__tip" aria-hidden="true">{t.dock.cv}</span>
+        <span class="dock__cap">{t.dock.cv}</span>
+        <span class="visually-hidden">{t.cv.open}</span>
+      </button>
+      <button
+        class="dock__item dock__item--desk"
+        type="button"
+        data-dock-item
+        data-dock-langbtn
+        aria-expanded="false"
+        aria-controls="dock-lang"
+        aria-label={`${t.dock.language}: ${locales[locale].label}`}
+        data-k="6"
+      >
+        <span class="dock__tile"><span class="dock__code">{locales[locale].short}</span></span>
+        <span class="dock__tip" aria-hidden="true">{t.dock.language}</span>
+        <span class="dock__cap" aria-hidden="true">{t.dock.language}</span>
+      </button>
+      <button
+        class="dock__item dock__item--desk dock__theme"
+        type="button"
+        data-dock-item
+        data-theme-toggle
+        aria-pressed="false"
+        aria-label={t.theme.switchToDark}
+        data-label-dark={t.theme.switchToDark}
+        data-label-light={t.theme.switchToLight}
+        data-k="7"
+      >
+        <span class="dock__tile">
+          <svg class="dock__icon dock__sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"></circle><path d="M12 3.4v2.2M12 18.4v2.2M20.6 12h-2.2M5.6 12H3.4M18.08 5.92l-1.56 1.56M7.48 16.52l-1.56 1.56M18.08 18.08l-1.56-1.56M7.48 7.48 5.92 5.92"></path></svg>
+          <svg class="dock__icon dock__moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M19.25 14.35A7.5 7.5 0 0 1 9.65 4.75a7.5 7.5 0 1 0 9.6 9.6Z"></path></svg>
+        </span>
+        <span class="dock__tip" aria-hidden="true">{t.dock.theme}</span>
+        <span class="dock__cap" aria-hidden="true">{t.dock.theme}</span>
+      </button>
+      <button class="dock__item dock__item--mob" type="button" aria-haspopup="dialog" aria-controls="menu" data-menu-open>
+        <span class="dock__tile"><Icon name="menu" class="dock__icon" /></span>
+        <span class="dock__cap">{t.dock.menu}</span>
+        <span class="visually-hidden">{t.a11y.openMenu}</span>
+      </button>
+    </div>
+    <div class="dock__lang" id="dock-lang" data-dock-lang hidden>
+      <LangSwitch locale={locale} path={path} />
+    </div>
+  </nav>
+</header>
+
+<dialog id="menu" class="menu" aria-label={t.a11y.menu}>
+  <div class="menu__head">
+    <Monogram id="menu" class="menu__mark" />
+    <div class="menu__tools">
+      <ThemeToggle locale={locale} />
+      <button class="nd__tool" type="button" data-menu-close>
+        <Icon name="close" />
+        <span class="visually-hidden">{t.a11y.closeMenu}</span>
+      </button>
+    </div>
+  </div>
+  <nav aria-label={t.a11y.pageSections}>
+    <ol class="menu__list" role="list">
+      {
+        menuSections.map((s, i) => (
+          <li>
+            <a href={menuHref(s.id)} data-menu-link>
+              <span class="menu__num t-meta">{pad(i)}</span>
+              <span class="menu__label">{s.label}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ol>
+  </nav>
+  <div class="menu__foot">
+    <LangSwitch locale={locale} path={path} class="menu__lang" />
+    <a class="u-grow menu__mail" href={`mailto:${profile.contacts.email}`}>{profile.contacts.email}</a>
+    <div class="menu__social">
+      <a href={profile.contacts.linkedin} rel="noopener noreferrer" target="_blank">LinkedIn</a>
+      <a href={profile.contacts.github} rel="noopener noreferrer" target="_blank">GitHub</a>
+      <button type="button" data-cv-open>{t.cv.open}</button>
+      {!home && <a href={homePath}>{t.legal.home}</a>}
+    </div>
+  </div>
+</dialog>
+
+<style>
+  /* ==========================================================================
+     Contenitore fisso, trasparente ai clic. Variabili scritte da nav.ts:
+       --c  condensazione in alto (0→1)   --f  discesa verso il Dock (0→1)
+     ========================================================================== */
+  .nd {
+    --c: 0;
+    --f: 0;
+    --dsh: #fbfaf7;           /* guscio minerale (chiaro): appena più chiaro della carta */
+    --dsh-glass: rgb(251 250 247 / 0.84);
+    --dsh-edge: rgb(22 20 16 / 0.11);
+    --tile: #efede8;
+    --tile-hover: #e6e4de;
+    --dock-ink: #18191b;
+    --dock-ink-2: rgb(24 25 27 / 0.62);
+    position: fixed;
+    z-index: var(--z-navigation);
+    inset: 0;
+    pointer-events: none;
+  }
+  :global(:root[data-theme='dark']) .nd {
+    --dsh: #151616;
+    --dsh-glass: rgb(24 25 25 / 0.82);
+    --dsh-edge: rgb(255 255 255 / 0.13);
+    --tile: var(--room-3);
+    --tile-hover: var(--room-4);
+    --dock-ink: var(--tile-ink);
+    --dock-ink-2: rgb(236 236 233 / 0.6);
+  }
+
+  /* Guscio in transito: bordo + riempimento con la stessa geometria (clip-path da nav.ts) */
+  .nd__edge,
+  .nd__fill {
+    position: absolute;
+    inset: 0;
+    clip-path: inset(0 0 100% 0);
+    opacity: var(--so, 0);
+    will-change: clip-path;
+  }
+  .nd__edge { background: var(--dsh-edge); }
+  .nd__fill { background: var(--dsh); }
+  /* La goccia: un solo elemento dimensionato come il Dock, deformato solo con transform */
+  .nd__dedge,
+  .nd__drop {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: var(--dw, 480px);
+    height: var(--dh, 64px);
+    transform-origin: 0 0;
+    background: var(--dsh);
+    visibility: hidden;
+    will-change: transform;
+  }
+  .nd__dedge { box-shadow: 0 0 0 1px var(--dsh-edge); }
+  .nd__dedge::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    box-shadow: 0 22px 40px -18px rgb(0 0 0 / 0.42);
+    opacity: var(--ds, 0);
+  }
+  .nd[data-drop] :is(.nd__dedge, .nd__drop) { visibility: visible; }
+  .nd[data-docked] :is(.nd__edge, .nd__fill, .nd__dedge, .nd__drop) { visibility: hidden; }
+
+  /* ---------- Monogramma viaggiante ---------- */
+  .nd__mark {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 3;
+    display: block;
+    padding: 6px 4px;
+    color: var(--ink);
+    pointer-events: auto;
+    transform-origin: 0 0;
+    will-change: transform, opacity;
+  }
+  .nd__mark :global(.nd__mono) { display: block; width: 44px; height: auto; }
+  .nd:not([data-ready]) .nd__mark { visibility: hidden; }
+  .nd[data-docked] .nd__mark { visibility: hidden; }
+  .nd[data-rm] .nd__mark { transition: opacity 240ms var(--ease-standard) !important; }
+  .nd__slot { display: block; flex: none; width: 52px; height: 30px; }
+
+  /* ---------- A · barra ---------- */
+  .nd__bar { position: absolute; top: 0; left: 0; right: 0; height: var(--topbar); color: var(--ink); }
+  .nd__barin {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    max-width: calc(var(--shell) + var(--gutter) * 2);
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+  }
+  .nd__barin .nd__slot { margin-left: -4px; margin-right: -12px; }
+  /* Le voci della barra: trasformazione e opacità scritte da nav.ts (si comprimono verso il centro) */
+  .nd__name,
+  .nd__top,
+  .nd__tools { will-change: transform, opacity; }
+  .nd[data-rm] :is(.nd__name, .nd__top, .nd__tools) { transition: opacity 240ms var(--ease-standard) !important; }
+  .nd__name { margin-right: auto; padding: 6px 0; font-size: 0.9375rem; font-stretch: 106%; font-weight: 520; letter-spacing: -0.01em; white-space: nowrap; transform-origin: left center; }
+  .nd__tools { display: flex; align-items: center; gap: 4px; }
+  /* La barra è dentro un contenitore fisso trasparente ai clic (.nd): i suoi controlli li riattivano.
+     :global perché lingua e tema sono componenti figli (LangSwitch, ThemeToggle): un selettore con
+     scope di Header non li raggiungerebbe e resterebbero sordi ai clic. */
+  .nd[data-bar-live] .nd__bar :global(:is(a, button)) { pointer-events: auto; }
+  .nd:not([data-bar-live]) .nd__bar { visibility: hidden; }
+  .nd__top ul { display: flex; gap: clamp(16px, 2.4vw, 34px); }
+  .nd__top a { position: relative; display: inline-block; padding: 10px 0; font-size: 0.9375rem; font-weight: 460; white-space: nowrap; opacity: 0.68; transition: opacity var(--motion-ui) var(--ease-standard); }
+  .nd__top a::after { content: ''; position: absolute; left: 0; bottom: 4px; width: 12px; height: 2px; border-radius: 2px; background: var(--accent-bright); transform: scaleX(0); transform-origin: left; transition: transform var(--motion-card) var(--ease-standard); }
+  .nd__top a:hover,
+  .nd__top a[aria-current='true'] { opacity: 1; }
+  .nd__top a[aria-current='true']::after { transform: scaleX(1); }
+  .nd__tools :global(.nd__lang) { margin-right: 8px; }
+  .nd__tool { display: inline-grid; place-items: center; width: 44px; height: 44px; border-radius: var(--r-2); color: inherit; }
+  .nd__tool :global(.icon) { width: 20px; height: 20px; }
+  .nd__barmenu { display: none; }
+  @media (max-width: 899px) {
+    .nd__top { display: none; }
+    .nd__barmenu { display: inline-grid; }
+  }
+  @media (max-width: 600px) {
+    .nd__name,
+    .nd__tools :global(.nd__lang),
+    .nd__tools > :global(.theme-toggle) { display: none; }
+    .nd__tools { margin-left: auto; }
+  }
+
+  /* ==========================================================================
+     B · Dock (riferimento: Dock di ibelick). Guscio basso e arrotondato, voci circolari
+     allineate in basso: l'ingrandimento le fa salire oltre il bordo superiore, come nel
+     riferimento. La larghezza delle voci (--w) è scritta da nav.ts con una molla.
+     ========================================================================== */
+  .dock {
+    --base: 44px;
+    position: absolute;
+    left: 50%;
+    bottom: calc(18px + env(safe-area-inset-bottom));
+    transform: translate(-50%, calc((1 - var(--dockin, 1)) * -28px));
+    opacity: var(--dockin, 1);
+    color: var(--dock-ink);
+  }
+  .nd[data-rm] .dock { transition: opacity 240ms var(--ease-standard) !important; }
+  .nd:not([data-dock-live]) .dock { visibility: hidden; }
+  .nd[data-dock-live] .dock :is(a, button) { pointer-events: auto; }
+  .dock__panel {
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+    height: 64px;
+    padding: 0 12px 10px;
+    border-radius: var(--r-4);
+    background: var(--dsh);
+    /* materiale: guscio minerale caldo, filo neutro, ombra di contatto morbida, luce sul bordo alto */
+    box-shadow: 0 0 0 1px var(--dsh-edge), var(--shadow-contact), 0 14px 30px -20px rgb(30 24 16 / 0.28), inset 0 1px 0 rgb(255 255 255 / 0.7);
+    width: max-content;
+    transition: background-color 240ms var(--ease-ui);
+  }
+  :global(:root[data-theme='dark']) .dock__panel { box-shadow: 0 0 0 1px var(--dsh-edge), var(--shadow-contact), inset 0 1px 0 rgb(255 255 255 / 0.07); }
+  /* Posato: il guscio diventa appena traslucido, con una sfocatura minima (niente "vetro" generico).
+     Durante la goccia resta pieno, identico alle superfici che si deformano. */
+  @supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .nd[data-docked] .dock__panel,
+    .nd:not([data-mode='desk']) .dock__panel {
+      background: var(--dsh-glass);
+      -webkit-backdrop-filter: blur(12px) saturate(1.25);
+      backdrop-filter: blur(12px) saturate(1.25);
+    }
+  }
+  /* Desktop: finché la goccia non si è posata è lei il pannello (stesso colore, stessa forma) */
+  .nd[data-mode='desk']:not([data-docked]) .dock__panel { background: transparent; box-shadow: none; }
+
+  .dock__item {
+    --e: clamp(0, (var(--di, 0) - var(--k, 0) * 0.05) * 2.4, 1);
+    position: relative;
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: var(--w, var(--base));
+    height: var(--w, var(--base));
+    border-radius: 50%;
+    color: var(--dock-ink);
+    opacity: var(--e);
+    transform: translateY(calc((1 - var(--e)) * 6px));
+    -webkit-tap-highlight-color: transparent;
+  }
+  .dock__item[data-k='1'] { --k: 1; }
+  .dock__item[data-k='2'] { --k: 2; }
+  .dock__item[data-k='3'] { --k: 3; }
+  .dock__item[data-k='4'] { --k: 4; }
+  .dock__item[data-k='5'] { --k: 5; }
+  .dock__item[data-k='6'] { --k: 6; }
+  .dock__item[data-k='7'] { --k: 7; }
+  .dock__tile {
+    display: grid;
+    place-items: center;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: var(--tile);
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.45), 0 1px 2px rgb(0 0 0 / 0.08);
+    transition: background-color var(--motion-ui) var(--ease-standard);
+  }
+  :global(:root[data-theme='dark']) .dock__tile { box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.06), 0 1px 2px rgb(0 0 0 / 0.4); }
+  .dock__item:hover .dock__tile { background: var(--tile-hover); }
+  .dock__tile :global(.dock__icon) {
+    width: calc(var(--w, var(--base)) * 0.45);
+    height: calc(var(--w, var(--base)) * 0.45);
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .dock__tile :global(.dock__mono) { width: calc(var(--w, var(--base)) * 0.6); height: auto; }
+  .dock__code { font-size: calc(var(--w, var(--base)) * 0.3); font-stretch: 92%; font-weight: 650; letter-spacing: 0.04em; }
+  .dock__moon { display: none; }
+  :global(:root[data-theme='dark']) .dock__sun { display: none; }
+  :global(:root[data-theme='dark']) .dock__moon { display: block; }
+
+  /* Etichetta sopra la voce: al passaggio e col focus da tastiera; non sposta la geometria */
+  .dock__tip {
+    position: absolute;
+    left: 50%;
+    bottom: calc(100% + 10px);
+    padding: 4px 9px;
+    border-radius: var(--r-1);
+    background: var(--dock-ink);
+    color: var(--dsh);
+    font-size: 0.75rem;
+    font-weight: 540;
+    line-height: 1.3;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    transform: translate(-50%, 4px);
+    transition: opacity 150ms var(--ease-standard), transform 150ms var(--ease-standard);
+  }
+  .dock__item:hover .dock__tip,
+  .dock__item:focus-visible .dock__tip { opacity: 1; transform: translate(-50%, 0); }
+  .dock__item[aria-expanded='true'] .dock__tip { opacity: 0; }
+  .dock__item:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  .dock__cap { display: none; }
+
+  /* Sezione attiva: un punto arancio sotto l'icona, dentro il guscio */
+  .dock__dot {
+    position: absolute;
+    left: 50%;
+    bottom: -7px;
+    width: 4px;
+    height: 4px;
+    margin-left: -2px;
+    border-radius: 50%;
+    background: #ff8d28;
+    opacity: 0;
+    transform: scale(0.4);
+    transition: opacity var(--motion-ui) var(--ease-standard), transform var(--motion-ui) var(--ease-standard);
+  }
+  .dock__item[aria-current='true'] .dock__dot { opacity: 1; transform: none; }
+  .dock__sep { flex: none; align-self: center; width: 1px; height: 26px; margin: 0 2px 0; background: var(--dsh-edge); transform: translateY(-5px); opacity: var(--di, 0); }
+  .dock__item--mob { display: none; }
+
+  .dock__lang {
+    position: absolute;
+    right: 0;
+    bottom: calc(100% + 14px);
+    padding: 2px 14px;
+    border-radius: var(--r-2);
+    background: var(--dsh);
+    box-shadow: 0 0 0 1px var(--dsh-edge), 0 14px 30px -14px rgb(0 0 0 / 0.45);
+    color: var(--dock-ink);
+    pointer-events: auto;
+  }
+  .dock__lang[hidden] { display: none; }
+  .dock__lang :global(a) { padding-block: 10px; }
+
+  /* Tablet touch: voci stabili e grandi, nessun ingrandimento (lo gestisce nav.ts) */
+  @media (hover: none) and (min-width: 701px) {
+    .dock { --base: 46px; }
+    .dock__tip { display: none; }
+  }
+
+  /* ---------- Telefono: barra inferiore touch derivata dal Dock ---------- */
+  @media (max-width: 700px) {
+    .dock {
+      left: 10px;
+      right: 10px;
+      bottom: calc(10px + env(safe-area-inset-bottom));
+      transform: translateY(calc((1 - var(--dockin, 1)) * -28px));
+    }
+    .dock__panel {
+      width: auto;
+      height: 64px;
+      align-items: center;
+      justify-content: space-around;
+      gap: 0;
+      padding: 0 4px;
+      border-radius: var(--r-3);
+    }
+    .dock__item--desk,
+    .dock__sep { display: none; }
+    .dock__item--mob { display: grid; }
+    .dock__item {
+      flex: 1 1 0;
+      min-width: 0;
+      width: auto;
+      height: 56px;
+      border-radius: var(--r-2);
+      grid-template-rows: 26px auto;
+      align-content: center;
+      gap: 2px;
+    }
+    .dock__tile { width: 26px; height: 26px; background: none; box-shadow: none; border-radius: 0; }
+    .dock__tile :global(.dock__icon) { width: 21px; height: 21px; }
+    .dock__tile :global(.dock__mono) { width: 26px; }
+    .dock__item:hover .dock__tile { background: none; }
+    .dock__tip { display: none; }
+    .dock__cap {
+      display: block;
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-size: 0.6875rem;
+      font-stretch: 84%;
+      font-weight: 520;
+      letter-spacing: -0.005em;
+      line-height: 1.2;
+      color: var(--dock-ink-2);
+    }
+    .dock__cap--short { display: none; }
+    .dock__item[aria-current='true'] .dock__cap { color: var(--dock-ink); font-weight: 640; }
+    .dock__dot { top: 3px; bottom: auto; left: calc(50% + 15px); }
+    .dock__item:active { background: var(--tile); }
+  }
+  /* Telefoni molto stretti: etichetta breve dove quella intera non entra */
+  @media (max-width: 379px) {
+    .dock__cap--full { display: none; }
+    .dock__cap--short { display: block; }
+  }
+
+  /* ---------- Menu a tutto schermo ---------- */
+  .menu {
+    width: 100%;
+    max-width: none;
+    height: 100%;
+    max-height: none;
+    margin: 0;
+    padding: calc(14px + env(safe-area-inset-top)) var(--gutter) calc(24px + env(safe-area-inset-bottom));
+    border: 0;
+    background: var(--paper);
+    color: var(--ink);
+    display: none;
+    flex-direction: column;
+    overflow-y: auto;
+  }
+  .menu[open] { display: flex; animation: menu-in 280ms var(--ease-standard); }
+  .menu[data-closing] { animation: menu-out 180ms var(--ease-standard) forwards; }
+  .menu::backdrop { background: transparent; }
+  @keyframes menu-in { from { opacity: 0; transform: translateY(6px); } }
+  @keyframes menu-out { to { opacity: 0; transform: translateY(6px); } }
+  .menu__head { display: flex; align-items: center; justify-content: space-between; height: 50px; }
+  .menu__head :global(.menu__mark) { width: 44px; }
+  .menu__tools { display: flex; align-items: center; gap: 4px; }
+  .menu__list { margin-top: 4vh; display: grid; gap: 2px; }
+  .menu__list a { display: flex; align-items: baseline; gap: 18px; padding: 7px 0; border-bottom: 1px solid var(--line); }
+  .menu__label { min-width: 0; font-size: clamp(1.625rem, 7.2vw, 2.75rem); font-stretch: 118%; font-weight: 330; letter-spacing: -0.035em; line-height: 1.08; overflow-wrap: anywhere; }
+  .menu__num { min-width: 2.6ch; white-space: nowrap; transition: color var(--motion-micro) var(--ease-standard); }
+  .menu__list a:hover .menu__num,
+  .menu__list a:focus-visible .menu__num,
+  .menu__list a[aria-current='true'] .menu__num { color: var(--accent-ink); }
+  .menu__foot { margin-top: auto; padding-top: 24px; display: grid; gap: 16px; font-size: var(--t-small); justify-items: start; }
+  .menu__mail { overflow-wrap: anywhere; }
+  .menu__social { display: flex; flex-wrap: wrap; gap: 10px 22px; color: var(--ink-2); }
+  .menu__social :is(a, button) { min-height: 32px; color: inherit; }
+</style>

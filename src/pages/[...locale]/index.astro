@@ -1,0 +1,46 @@
+---
+import Base from '../../layouts/Base.astro';
+import Intro from '../../components/Intro.astro';
+import PlaceData from '../../components/PlaceData.astro';
+import Hero from '../../components/Hero.astro';
+import Bento from '../../components/Bento.astro';
+import Experiences from '../../components/Experiences.astro';
+import Profile from '../../components/Profile.astro';
+import Contact from '../../components/Contact.astro';
+import Faq from '../../components/Faq.astro';
+import Passions from '../../components/Passions.astro';
+import Journey from '../../components/Journey.astro';
+import { useT, localeStaticPaths, type Locale } from '../../i18n';
+
+export const getStaticPaths = localeStaticPaths;
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = useT(locale);
+const sections = [
+  { id: 'inizio', label: t.nav.home },
+  { id: 'interessi', label: t.nav.passions },
+  { id: 'in-breve', label: t.nav.overview },
+  { id: 'esperienze', label: t.nav.experiences },
+  { id: 'profilo', label: t.nav.profile },
+  { id: 'percorso', label: t.nav.journey },
+  { id: 'domande', label: t.nav.faq },
+  { id: 'contatti', label: t.nav.contacts },
+];
+---
+
+<Base locale={locale} path="/" page="home" sections={sections}>
+  <Fragment slot="intro">
+    <Intro locale={locale} />
+    <PlaceData locale={locale} />
+  </Fragment>
+  <Hero locale={locale} />
+  <Passions locale={locale} />
+  <Bento locale={locale} />
+  <Experiences locale={locale} />
+  <Profile locale={locale} />
+  <Journey locale={locale} />
+  <Faq locale={locale} />
+  <Contact locale={locale} />
+</Base>

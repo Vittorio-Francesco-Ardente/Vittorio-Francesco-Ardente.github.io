@@ -1,0 +1,48 @@
+---
+/**
+ * Ritorno sempre raggiungibile dalle schede esperienza, senza risalire alla barra:
+ * torna al punto da cui si è arrivati, altrimenti alla sezione Esperienze della home.
+ */
+import Icon from './Icon.astro';
+import { useT, localizePath, type Locale } from '../i18n';
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = useT(locale);
+---
+
+<a class="backhome" href={`${localizePath('/', locale)}#esperienze`} data-backhome data-home={localizePath('/', locale)}>
+  <span class="backhome__icon" aria-hidden="true"><Icon name="arrowLeft" /></span>
+  <span>{t.nav.backOverview}</span>
+</a>
+
+<style>
+  .backhome {
+    position: fixed;
+    z-index: var(--z-navigation-aux);
+    right: clamp(12px, 2vw, 24px);
+    bottom: calc(96px + env(safe-area-inset-bottom)); /* sopra il Dock */
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 44px;
+    padding: 0 16px 0 12px;
+    border-radius: var(--r-2);
+    background: color-mix(in oklab, var(--paper) 82%, transparent);
+    -webkit-backdrop-filter: blur(14px) saturate(1.2);
+    backdrop-filter: blur(14px) saturate(1.2);
+    box-shadow: inset 0 0 0 1px var(--frame-line), 0 8px 24px -16px rgb(0 0 0 / 0.5);
+    color: var(--ink);
+    font-size: 0.875rem;
+    font-weight: 520;
+    transition: box-shadow var(--motion-ui) var(--ease-standard), background-color 300ms var(--ease-standard),
+      color 300ms var(--ease-standard);
+  }
+  .backhome[data-on-dark] { background: rgb(12 13 13 / 0.6); color: var(--tile-ink); --frame-line: rgb(255 255 255 / 0.12); }
+  .backhome:hover { box-shadow: inset 0 0 0 1px var(--accent-border), 0 8px 24px -16px rgb(0 0 0 / 0.5); }
+  .backhome__icon { display: grid; place-items: center; width: 20px; height: 20px; color: var(--accent); transition: transform var(--motion-ui) var(--ease-standard); }
+  .backhome[data-on-dark] .backhome__icon { color: var(--room-accent); }
+  .backhome__icon :global(.icon) { width: 16px; height: 16px; }
+  .backhome:hover .backhome__icon { transform: translateX(-3px); }
+</style>

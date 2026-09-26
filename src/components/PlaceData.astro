@@ -1,0 +1,42 @@
+---
+/**
+ * Dati del "luogo della settimana" per il client, nella lingua della pagina:
+ * testi, coordinate, fuso, crediti e sorgenti ottimizzate. Blocco JSON non eseguibile.
+ */
+import { getImage } from 'astro:assets';
+import { places, formatCoords } from '../data/places';
+import { useT, fill, locales, type Locale } from '../i18n';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = useT(locale);
+const widths = [960, 1600, 2400];
+const data = await Promise.all(
+  places.map(async (p) => {
+    const pt = t.places[p.id];
+    const [avif, webp] = await Promise.all([
+      Promise.all(widths.map((w) => getImage({ src: p.photo, width: w, format: 'avif', quality: 58 }))),
+      Promise.all(widths.map((w) => getImage({ src: p.photo, width: w, format: 'webp', quality: 70 }))),
+    ]);
+    return {
+      id: p.id,
+      name: pt.name,
+      where: `${pt.region}, ${pt.country}`,
+      coords: formatCoords(p.lat, p.lon, locales[locale].intl),
+      tz: p.timeZone,
+      note: pt.note,
+      alt: pt.alt,
+      position: p.position,
+      credit: fill(t.contact.photoCredit, { author: p.credit.author, license: p.credit.license }),
+      creditHref: p.credit.source,
+      avif: avif.map((r, i) => `${r.src} ${widths[i]}w`).join(', '),
+      webp: webp.map((r, i) => `${r.src} ${widths[i]}w`).join(', '),
+      src: webp[1]!.src,
+    };
+  }),
+);
+---
+
+<script is:inline type="application/json" id="place-data" set:html={JSON.stringify(data)} />

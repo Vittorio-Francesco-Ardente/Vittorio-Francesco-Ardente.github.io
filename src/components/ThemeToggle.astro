@@ -1,0 +1,60 @@
+---
+/**
+ * Interruttore del tema: due icone con stessa griglia (24), stesso tratto (1.5), mostrate a 18px.
+ * Tema chiaro → sole; tema scuro → luna. Transizione 200ms, rotazioni minime.
+ */
+import { useT, type Locale } from '../i18n';
+interface Props {
+  locale: Locale;
+}
+const t = useT(Astro.props.locale);
+---
+
+<button
+  class="theme-toggle"
+  type="button"
+  aria-pressed="false"
+  aria-label={t.theme.switchToDark}
+  data-theme-toggle
+  data-label-dark={t.theme.switchToDark}
+  data-label-light={t.theme.switchToLight}
+>
+  <svg class="tt tt--sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+    <circle cx="12" cy="12" r="4" />
+    <path d="M12 3.4v2.2M12 18.4v2.2M20.6 12h-2.2M5.6 12H3.4M18.08 5.92l-1.56 1.56M7.48 16.52l-1.56 1.56M18.08 18.08l-1.56-1.56M7.48 7.48 5.92 5.92" />
+  </svg>
+  <svg class="tt tt--moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+    <path d="M19.25 14.35A7.5 7.5 0 0 1 9.65 4.75a7.5 7.5 0 1 0 9.6 9.6Z" />
+  </svg>
+</button>
+
+<style>
+  .theme-toggle {
+    position: relative;
+    display: inline-grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+  }
+  .tt {
+    grid-area: 1 / 1;
+    width: 17.5px;
+    height: 17.5px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.45;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .tt--moon { opacity: 0; transform: rotate(-10deg) scale(0.9); }
+  :global(:root[data-theme='dark']) .tt--sun { opacity: 0; transform: rotate(10deg) scale(0.9); }
+  :global(:root[data-theme='dark']) .tt--moon { opacity: 1; transform: none; }
+  /* Risposta minima: un filo più di contrasto e di scala al passaggio, un filo meno alla pressione */
+  .theme-toggle { opacity: 0.86; transition: opacity 180ms var(--ease-ui); }
+  .theme-toggle:hover,
+  .theme-toggle:focus-visible { opacity: 1; }
+  .tt { scale: 1; transition: opacity 180ms var(--ease-standard), transform 180ms var(--ease-standard), scale 160ms var(--ease-ui); }
+  .theme-toggle:hover .tt { scale: 1.07; }
+  .theme-toggle:active .tt { scale: 0.93; transition-duration: 90ms; }
+  .theme-toggle:focus-visible { outline-offset: 0; border-radius: var(--r-2); }
+</style>

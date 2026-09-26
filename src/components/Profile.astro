@@ -1,0 +1,159 @@
+---
+import Icon from './Icon.astro';
+import { byLevel, levelOrder, levelRank, capabilityIcons } from '../data/skills';
+import { useT, type Locale } from '../i18n';
+
+interface Props {
+  locale: Locale;
+}
+const t = useT(Astro.props.locale);
+---
+
+<section id="profilo" class="section profile" aria-labelledby="profile-title" data-section>
+  <div class="shell">
+    <div class="profile__intro">
+      <h2 id="profile-title" class="t-h2" data-reveal="title">{t.profile.title}</h2>
+      <div class="profile__about" data-reveal="fade">
+        <p class="profile__lead">{t.profile.lead}</p>
+        <p class="muted">{t.profile.body}</p>
+      </div>
+    </div>
+
+    <div class="skills" aria-labelledby="skills-title">
+      <div class="skills__head">
+        <h3 id="skills-title" class="t-h3" data-reveal="title">{t.profile.skillsTitle}</h3>
+        <p class="muted">{t.profile.skillsIntro}</p>
+      </div>
+      <div class="skills__cols" data-stagger>
+        {
+          levelOrder.map((lv) => (
+            <section class="skills__col" aria-labelledby={`lv-${lv}`}>
+              <header class="skills__col-head">
+                <span class="meter" data-rank={levelRank[lv]} aria-hidden="true"><i /><i /><i /></span>
+                <h4 id={`lv-${lv}`}>{t.profile.levels[lv].label}</h4>
+                <p class="t-meta">{t.profile.levels[lv].note}</p>
+              </header>
+              <ul role="list">
+                {byLevel(lv).map((sk) => (
+                  <li>
+                    <span>{t.profile.skills[sk.id]}</span>
+                    <span class="t-meta">{t.profile.areas[sk.area]}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ))
+        }
+      </div>
+    </div>
+
+    <div class="caps" aria-labelledby="caps-title">
+      <h3 id="caps-title" class="t-h3" data-reveal="title">{t.profile.capsTitle}</h3>
+      <ul class="caps__list" role="list">
+        {
+          t.profile.caps.map((c, i) => (
+            <li class="caps__item">
+              <span class="caps__icon" aria-hidden="true"><Icon name={capabilityIcons[i] ?? 'layout'} /></span>
+              <h4>{c.title}</h4>
+              <p class="muted">{c.text}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .profile__intro {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 28px clamp(16px, 2vw, 28px);
+    align-items: start;
+  }
+  .profile__intro h2 { grid-column: 1 / span 5; }
+  .profile__about { grid-column: 6 / span 6; display: grid; gap: 18px; max-width: 40rem; }
+  .profile__lead {
+    font-size: clamp(1.4rem, 2.1vw, 1.9rem);
+    font-stretch: 106%;
+    font-weight: 380;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+  }
+
+  /* ---------- Competenze ---------- */
+  .skills { margin-top: clamp(3.5rem, 7vw, 6rem); }
+  .skills__head {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 16px clamp(16px, 2vw, 28px);
+    align-items: end;
+    margin-bottom: 40px;
+  }
+  .skills__head h3 { grid-column: 1 / span 5; }
+  .skills__head p { grid-column: 6 / span 6; max-width: 44ch; }
+  .skills__cols {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(16px, 2vw, 28px);
+    align-items: start;
+  }
+  .skills__col {
+    padding: 26px 24px 18px;
+    border-radius: var(--r-tile);
+    background: color-mix(in oklab, var(--surface) 70%, transparent);
+    box-shadow: inset 0 0 0 1px var(--frame-line);
+  }
+  .skills__col-head { display: grid; gap: 6px; padding-bottom: 18px; border-bottom: 1px solid var(--line); }
+  .skills__col-head h4 { font-size: 1.25rem; font-stretch: 110%; font-weight: 480; letter-spacing: -0.015em; margin-top: 12px; }
+  .meter { display: inline-flex; gap: 4px; }
+  .meter i { width: 22px; height: 4px; border-radius: 2px; background: var(--line-strong); }
+  .meter[data-rank='3'] i,
+  .meter[data-rank='2'] i:nth-child(-n + 2),
+  .meter[data-rank='1'] i:first-child { background: var(--ink); }
+  .skills__col ul { display: grid; }
+  .skills__col li {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+    padding: 11px 0;
+    border-bottom: 1px solid var(--line);
+    font-size: var(--t-small);
+  }
+  .skills__col li:last-child { border-bottom: 0; }
+  .skills__col li .t-meta { text-align: right; }
+
+  /* ---------- Capacità ---------- */
+  .caps { margin-top: clamp(4rem, 8vw, 7rem); }
+  .caps__list {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(28px, 4vw, 56px);
+    margin-top: 36px;
+    padding-top: 36px;
+    border-top: 1px solid var(--line);
+  }
+  .caps__item { display: grid; gap: 10px; align-content: start; }
+  .caps__icon {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    margin-bottom: 8px;
+    border-radius: var(--r-2);
+    box-shadow: inset 0 0 0 1px var(--line-strong);
+  }
+  .caps__icon :global(.icon) { width: 22px; height: 22px; }
+  .caps__item h4 { font-size: 1.125rem; font-stretch: 106%; font-weight: 520; letter-spacing: -0.01em; }
+  .caps__item p { font-size: var(--t-small); max-width: 34ch; }
+
+  @media (max-width: 960px) {
+    .profile__intro h2,
+    .profile__about,
+    .skills__head h3,
+    .skills__head p { grid-column: 1 / -1; }
+    .skills__cols,
+    .caps__list { grid-template-columns: 1fr; }
+  }
+</style>

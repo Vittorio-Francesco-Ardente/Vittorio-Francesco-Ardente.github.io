@@ -1,0 +1,132 @@
+---
+/**
+ * Scelta del tema prima di aprire il CV: due anteprime in miniatura (chiara, scura).
+ * <dialog> modale nativo: Esc chiude, il focus resta nel dialogo e torna al pulsante d'origine.
+ */
+import Icon from './Icon.astro';
+import { useT, localizePath, type Locale } from '../i18n';
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = useT(locale);
+const cvPath = localizePath('/cv', locale);
+const options = [
+  { theme: 'light', label: t.cv.light },
+  { theme: 'dark', label: t.cv.dark },
+] as const;
+---
+
+<dialog id="cv-dialog" class="cvd" aria-labelledby="cvd-title" aria-describedby="cvd-hint" data-cv-dialog>
+  <div class="cvd__head">
+    <div>
+      <p class="t-meta cvd__kicker">{t.cv.title}</p>
+      <h2 id="cvd-title" class="cvd__title">{t.cv.chooseTheme}</h2>
+    </div>
+    <button class="cvd__close" type="button" data-cv-close>
+      <Icon name="close" />
+      <span class="visually-hidden">{t.cv.close}</span>
+    </button>
+  </div>
+  <div class="cvd__options">
+    {
+      options.map((o) => (
+        <a class:list={['cvd__opt', `cvd__opt--${o.theme}`]} href={`${cvPath}?theme=${o.theme}`}>
+          <span class="cvd__sheet" aria-hidden="true">
+            <span class="cvd__mark" />
+            <span class="cvd__line cvd__line--title" />
+            <span class="cvd__line cvd__line--accent" />
+            <span class="cvd__line" />
+            <span class="cvd__line cvd__line--short" />
+            <span class="cvd__cols">
+              <span class="cvd__line" />
+              <span class="cvd__line" />
+            </span>
+            <span class="cvd__line" />
+            <span class="cvd__line cvd__line--short" />
+          </span>
+          <span class="cvd__label">
+            {o.label}
+            <Icon name="arrowUpRight" class="cvd__arrow" />
+          </span>
+        </a>
+      ))
+    }
+  </div>
+  <p id="cvd-hint" class="t-meta cvd__hint">{t.cv.chooseThemeHint}</p>
+</dialog>
+
+<style>
+  .cvd {
+    width: min(560px, calc(100vw - 32px));
+    margin: auto;
+    padding: 24px;
+    border: 0;
+    border-radius: var(--r-tile);
+    background: var(--surface);
+    color: var(--ink);
+    box-shadow: inset 0 0 0 1px var(--frame-line), 0 30px 80px -20px rgb(0 0 0 / 0.35);
+  }
+  .cvd[open] { animation: cvd-in 280ms var(--ease-standard); }
+  .cvd[data-closing] { animation: cvd-out 180ms var(--ease-standard) forwards; }
+  .cvd::backdrop { background: rgb(12 13 13 / 0.45); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+  @keyframes cvd-in { from { opacity: 0; transform: translateY(6px); } }
+  @keyframes cvd-out { to { opacity: 0; transform: translateY(6px); } }
+  .cvd__head { display: flex; justify-content: space-between; gap: 16px; align-items: start; }
+  .cvd__kicker { margin-bottom: 6px; }
+  .cvd__title { font-size: 1.375rem; font-stretch: 110%; font-weight: 420; letter-spacing: -0.02em; line-height: 1.2; }
+  .cvd__close { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 999px; flex: none; }
+  .cvd__close:hover { background: var(--line); }
+  .cvd__close :global(.icon) { width: 18px; height: 18px; }
+  .cvd__options { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 22px; }
+  .cvd__opt {
+    position: relative;
+    display: grid;
+    gap: 12px;
+    padding: 14px;
+    border-radius: var(--r-2);
+    box-shadow: inset 0 0 0 1px var(--frame-line);
+    transition: box-shadow var(--motion-card) var(--ease-standard), transform var(--motion-card) var(--ease-standard);
+  }
+  .cvd__opt::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 14px;
+    width: 12px;
+    height: 2px;
+    background: var(--accent-bright);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--motion-card) var(--ease-standard);
+  }
+  .cvd__opt:hover,
+  .cvd__opt:focus-visible { box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--accent-bright) 35%, var(--frame-line)); transform: translateY(-2px); }
+  .cvd__opt:hover::after,
+  .cvd__opt:focus-visible::after { transform: scaleX(3); }
+  /* Miniatura A4 */
+  .cvd__sheet {
+    --sheet-bg: #fbfbfa;
+    --sheet-ink: #17181a;
+    display: grid;
+    align-content: start;
+    gap: 6px;
+    aspect-ratio: 210 / 297;
+    padding: 14% 12%;
+    border-radius: 4px;
+    background: var(--sheet-bg);
+    box-shadow: 0 1px 2px rgb(0 0 0 / 0.08), 0 10px 24px -14px rgb(0 0 0 / 0.35);
+  }
+  .cvd__opt--dark .cvd__sheet { --sheet-bg: #121314; --sheet-ink: var(--tile-ink); }
+  .cvd__mark { width: 22%; height: 7px; margin-bottom: 6px; border-radius: 1px; background: var(--sheet-ink); opacity: 0.9; }
+  .cvd__line { height: 3px; border-radius: 2px; background: var(--sheet-ink); opacity: 0.18; }
+  .cvd__line--title { height: 7px; width: 70%; opacity: 0.85; }
+  .cvd__line--accent { width: 14%; height: 2px; background: #ff8d28; opacity: 1; }
+  .cvd__line--short { width: 55%; }
+  .cvd__cols { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-block: 6px; }
+  .cvd__label { display: flex; align-items: center; justify-content: space-between; font-size: 0.9375rem; font-weight: 500; }
+  .cvd__label :global(.cvd__arrow) { width: 16px; height: 16px; transition: color var(--motion-micro) var(--ease-standard), transform var(--motion-ui) var(--ease-standard); }
+  .cvd__opt:hover :global(.cvd__arrow),
+  .cvd__opt:focus-visible :global(.cvd__arrow) { color: var(--accent); transform: translate(3px, -3px); }
+  .cvd__hint { margin-top: 16px; }
+</style>

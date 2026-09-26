@@ -1,0 +1,370 @@
+---
+import { Picture } from 'astro:assets';
+import Icon from './Icon.astro';
+import portrait from '../assets/portrait/portrait-vfa.png';
+import { profile } from '../data/profile';
+import { formatCoords } from '../data/places';
+import { useT, locales, type Locale } from '../i18n';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = useT(locale);
+---
+
+<section id="inizio" class="hero" aria-labelledby="hero-title" data-section>
+  <div class="hero__haze" aria-hidden="true"></div>
+
+  <div class="hero__frame">
+    <!-- Cornice: pannello tonale dietro al ritratto. La figura intera sta davanti; la cornice è larga
+         quanto le spalle, quindi ne escono solo gomiti e avambracci: il bordo passa dietro di loro -->
+    <div class="hero__stage" aria-hidden="true"></div>
+
+    <h1 id="hero-title" class="hero__name">
+      <span class="hero__line hero__line--1"><span class="hero__word">{profile.firstName}</span></span>
+      <span class="visually-hidden">{profile.middleName}</span>
+      <span class="hero__line hero__line--2"><span class="hero__word">{profile.lastName}</span></span>
+    </h1>
+
+    <!-- Ombra di contatto della figura: cade solo sulla cornice e sulla pagina -->
+    <div class="hero__figure hero__figure--shadow" aria-hidden="true">
+      <Picture
+        src={portrait}
+        alt=""
+        formats={['webp']}
+        quality={88}
+        widths={[420, 640, 900, 1029]}
+        sizes="(max-width: 760px) 84vw, min(62vh, 620px)"
+        loading="eager"
+        class="hero__img"
+      />
+    </div>
+
+    <!-- Ritratto intero, mai ritagliato -->
+    <div class="hero__figure hero__figure--main">
+      <Picture
+        src={portrait}
+        alt={t.hero.portraitAlt}
+        formats={['webp']}
+        quality={88}
+        widths={[420, 640, 900, 1029]}
+        sizes="(max-width: 760px) 84vw, min(62vh, 620px)"
+        loading="eager"
+        fetchpriority="high"
+        class="hero__img"
+      />
+    </div>
+    <!-- Stesso ritratto, solo collo: il nome passa dietro il collo e davanti alla polo -->
+    <div class="hero__figure hero__figure--front" aria-hidden="true">
+      <Picture
+        src={portrait}
+        alt=""
+        formats={['webp']}
+        quality={88}
+        widths={[420, 640, 900, 1029]}
+        sizes="(max-width: 760px) 84vw, min(62vh, 620px)"
+        loading="eager"
+        fetchpriority="high"
+        class="hero__img"
+      />
+    </div>
+
+    <!-- Testo e metadati nello stesso flusso: non possono sovrapporsi in nessuna lingua -->
+    <div class="hero__copy">
+      <p class="hero__intro">
+        {profile.name}, {t.hero.role}.
+        <span class="hero__lede">{t.hero.lede}</span>
+      </p>
+      <div class="hero__cta">
+        <a class="btn btn--solid" data-nudge="down" href="#esperienze"><Icon name="arrowDown" />{t.hero.viewExperiences}</a>
+        <a class="btn btn--ghost" data-nudge="right" href="#contatti"><Icon name="mail" />{t.hero.writeMe}</a>
+      </div>
+    </div>
+
+    <dl class="hero__meta t-meta">
+      <div>
+        <dt class="visually-hidden">{t.hero.base}</dt>
+        <dd>{t.cv.base}</dd>
+      </div>
+      <div>
+        <dt class="visually-hidden">{t.hero.coordinates}</dt>
+        <dd>{formatCoords(profile.base.lat, profile.base.lon, locales[locale].intl)}</dd>
+      </div>
+      <div>
+        <dt class="visually-hidden">{t.hero.localTime}</dt>
+        <dd><time data-clock data-tz={profile.base.timeZone} data-format="time">--:--</time> <span data-clock data-tz={profile.base.timeZone} data-format="day"></span></dd>
+      </div>
+      <div class="hero__avail">
+        <dt class="visually-hidden">{t.hero.availability}</dt>
+        <dd><span class="signal-dot" aria-hidden="true"></span>{t.availability.short}</dd>
+      </div>
+    </dl>
+  </div>
+</section>
+
+<style>
+  /* ==========================================================================
+     Hero — il ritratto "rompe la cornice".
+     La cornice (.hero__frame) è allineata alla griglia della pagina e alla barra.
+     Nome e ritratto sono composizione (assoluti); testo e metadati stanno in una
+     colonna in flusso con righe elastiche: se il testo cresce (polacco, schermi bassi)
+     l'hero si allunga invece di sovrapporre i blocchi.
+     ========================================================================== */
+  .hero {
+    position: relative;
+    z-index: 2;
+    isolation: isolate;
+    /* Il ritratto resta dentro l'hero: la parte bassa si dissolve nella carta (stessa della
+       sezione successiva), così il confine non taglia mai braccia o cornice. */
+    overflow: clip;
+    background: var(--paper);
+    transition: background-color 400ms var(--ease-out);
+  }
+  .hero__frame {
+    --fig-w: min(66vh, 650px);
+    --fig-h: calc(var(--fig-w) * 1.375);
+    --fig-x: 62%;
+    /* Il ritratto intero resta visibile: sotto il bordo dell'hero scende solo l'1 % (busto), e la
+       dissolvenza copre il 3 % finale, sotto le braccia. --fig-anchor è la quota di aggancio della
+       composizione: l'hero si allunga di --fig-lift, così nel primo schermo non si sposta nulla. */
+    --fig-anchor: 7vh;
+    --fig-o: calc(var(--fig-h) * 0.01);
+    --fig-fade: calc(var(--fig-h) * 0.03);
+    --fig-lift: max(0px, calc(var(--fig-anchor) - var(--fig-o)));
+    /* Cornice in frazioni del ritratto: larga quanto spalle e maniche, il fondo all'altezza dei
+       gomiti. Ne escono solo gomiti e avambracci (e la testa in alto). */
+    --pf-x0: 0.045;
+    --pf-x1: 0.97;
+    --pf-top: 0.19;
+    --pf-bot: 0.8;
+    /* Livelli dell'hero, dal fondo verso chi guarda (la navigazione sta sopra: --z-navigation) */
+    --z-background: 0;       /* velatura */
+    --z-hero-panel: 1;       /* cornice (fondo e bordo), "Vittorio" */
+    --z-portrait-shadow: 2;  /* ombra di contatto sulla cornice */
+    --z-portrait: 3;         /* ritratto intero: braccia e gomiti passano davanti al bordo */
+    --z-name-front: 4;       /* "Ardente" sul petto */
+    --z-portrait-neck: 5;    /* il collo davanti ad "Ardente" */
+    --z-hero-text: 6;        /* testo e metadati */
+    --name-fs: clamp(4.25rem, 15.2vw, 15.5rem);
+    --name-top: calc(var(--topbar) + 5.5vh);
+    position: relative;
+    max-width: calc(var(--shell) + var(--gutter) * 2);
+    min-height: calc(max(640px, 100svh) + var(--fig-lift));
+    margin-inline: auto;
+    padding: calc(var(--name-top) + var(--name-fs) * 0.86 + 28px) var(--gutter) calc(clamp(24px, 5vh, 48px) + var(--fig-lift));
+    display: grid;
+    grid-template-columns: minmax(0, min(26rem, 34vw));
+    grid-template-rows: 1fr auto minmax(36px, 0.6fr) auto;
+  }
+  .hero__haze {
+    position: absolute;
+    inset: 0;
+    z-index: var(--z-background);
+    pointer-events: none;
+    /* la velatura si spegne prima del bordo: nessuna giuntura con la sezione successiva */
+    -webkit-mask-image: linear-gradient(180deg, #000 60%, transparent 96%);
+    mask-image: linear-gradient(180deg, #000 60%, transparent 96%);
+    background:
+      radial-gradient(34% 55% at 64% 55%, var(--haze-a), transparent 70%),
+      radial-gradient(60% 40% at 20% 100%, var(--haze-b), transparent 70%);
+  }
+  :global(:root[data-theme='dark']) .hero__haze {
+    background:
+      radial-gradient(30% 45% at 64% 58%, rgb(255 255 255 / 0.035), transparent 72%),
+      radial-gradient(60% 40% at 20% 100%, var(--haze-b), transparent 70%);
+  }
+
+  /* ---------- Cornice ---------- */
+  .hero__stage {
+    position: absolute;
+    z-index: var(--z-hero-panel);
+    left: calc(var(--fig-x) - var(--fig-w) * (0.5 - var(--pf-x0)));
+    bottom: calc(var(--fig-h) * (1 - var(--pf-bot)) - var(--fig-o));
+    width: calc(var(--fig-w) * (var(--pf-x1) - var(--pf-x0)));
+    height: calc(var(--fig-h) * (var(--pf-bot) - var(--pf-top)));
+    border-radius: var(--r-3);
+    translate: 0 var(--py, 0px); /* si muove con il ritratto */
+    pointer-events: none;
+    background:
+      radial-gradient(70% 45% at 50% 0%, rgb(255 255 255 / 0.4), transparent 70%),
+      linear-gradient(180deg, #e9e7e2, #dfddd7);
+    box-shadow: inset 0 0 0 1px rgb(22 20 16 / 0.12); /* filo neutro */
+  }
+  :global(:root[data-theme='dark']) .hero__stage {
+    background:
+      radial-gradient(70% 50% at 50% 12%, rgb(255 255 255 / 0.065), transparent 72%),
+      linear-gradient(180deg, #1a1b1d, #121314);
+    box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.11), inset 0 1px 0 rgb(255 255 255 / 0.05); /* filo grafite */
+  }
+
+  /* ---------- Nome ---------- */
+  .hero__name { position: static; }
+  .hero__line {
+    position: absolute;
+    display: block;
+    /* ritaglia solo in basso (per la rivelazione), lascia respirare le lettere ai lati */
+    clip-path: inset(-0.2em -0.3em 0 -0.3em);
+    padding-bottom: 0.06em;
+    font-size: var(--name-fs);
+    font-stretch: 125%;
+    font-weight: 290;
+    letter-spacing: -0.05em;
+    line-height: 0.86;
+    white-space: nowrap;
+  }
+  .hero__word { display: block; }
+  .hero__line--1 { z-index: var(--z-hero-panel); top: var(--name-top); left: var(--gutter); }
+  .hero__line--2 {
+    z-index: var(--z-name-front);
+    right: var(--gutter);
+    /* all'altezza del petto: sotto il colletto, sopra il logo VFA della polo */
+    bottom: calc(var(--fig-h) * 0.425 - var(--fig-o));
+    font-size: min(15.2vw, calc(var(--fig-h) * 0.215), 15.5rem);
+    color: #fff;
+    mix-blend-mode: difference;
+  }
+
+  /* ---------- Ritratto ---------- */
+  .hero__figure {
+    position: absolute;
+    z-index: var(--z-portrait);
+    bottom: calc(var(--fig-o) * -1);
+    left: var(--fig-x);
+    width: var(--fig-w);
+    transform: translateX(-50%);
+    translate: 0 var(--py, 0px); /* parallasse leggerissima (nav.ts), separata dall'ingresso */
+    pointer-events: none;
+  }
+  .hero__figure :global(picture),
+  .hero__figure :global(img) { width: 100%; height: auto; }
+  .hero__figure :global(img) {
+    /* dissolvenza breve sotto le braccia; finisce esattamente sul bordo dell'hero, anche con la parallasse */
+    -webkit-mask-image: linear-gradient(180deg, #000 calc(100% - var(--fig-o) - var(--py, 0px) - var(--fig-fade)), transparent calc(100% - var(--fig-o) - var(--py, 0px)));
+    mask-image: linear-gradient(180deg, #000 calc(100% - var(--fig-o) - var(--py, 0px) - var(--fig-fade)), transparent calc(100% - var(--fig-o) - var(--py, 0px)));
+    filter: none;
+    transition: filter 600ms var(--ease-hover);
+  }
+  :global(:root[data-theme='dark']) .hero__figure :global(img) { filter: brightness(0.95); }
+  /* Ombra di contatto: la stessa sagoma scurita e sfocata, poco più in basso, sotto il ritratto.
+     Stacca gomiti e avambracci dalla cornice nel punto in cui la superano. */
+  .hero__figure--shadow {
+    z-index: var(--z-portrait-shadow);
+    filter: brightness(0) blur(9px) opacity(0.15);
+  }
+  .hero__figure--shadow :global(picture) { display: block; translate: 0 12px; }
+  :global(:root[data-theme='dark']) .hero__figure--shadow { filter: brightness(0) blur(10px) opacity(0.55); }
+  .hero__figure--front {
+    z-index: var(--z-portrait-neck);
+    -webkit-mask: url('/portrait-neck-mask.png') 0 0 / 100% 100% no-repeat;
+    mask: url('/portrait-neck-mask.png') 0 0 / 100% 100% no-repeat;
+  }
+  .hero__figure--front :global(img) { -webkit-mask-image: none; mask-image: none; }
+  @media (hover: hover) and (pointer: fine) {
+    :global(:root[data-theme='dark']) .hero:hover .hero__figure--main :global(img) {
+      filter: brightness(0.95) drop-shadow(1.5px 0 0 rgb(255 146 48 / 0.16));
+    }
+  }
+
+  /* ---------- Colonna di testo (in flusso) ---------- */
+  .hero__copy { grid-row: 2; position: relative; z-index: var(--z-hero-text); display: grid; gap: 26px; min-width: 0; }
+  .hero__intro { font-size: var(--t-lede); line-height: 1.45; color: var(--ink); font-weight: 420; }
+  .hero__lede { display: block; margin-top: 10px; color: var(--ink-2); font-weight: 400; }
+  .hero__cta { display: flex; flex-wrap: wrap; gap: 10px; }
+  .hero__cta :global(.btn) { white-space: normal; text-align: left; min-width: 0; }
+  .hero__meta { grid-row: 4; position: relative; z-index: var(--z-hero-text); display: grid; gap: 1px; min-width: 0; }
+  .hero__meta dd { margin: 0; }
+  .hero__avail { margin-top: 10px; color: var(--ink-2); }
+  .hero__avail dd { display: flex; align-items: baseline; gap: 9px; }
+  .hero__avail :global(.signal-dot) { transform: translateY(-0.1em); }
+
+  /* ---------- Ingresso (≈1,4 s, la pagina è già usabile) ---------- */
+  @media (prefers-reduced-motion: no-preference) {
+    :global(.js) .hero__word { transform: translateY(105%); transition: transform 900ms var(--ease-standard) 80ms; }
+    :global(.js) .hero__line--2 .hero__word { transition-delay: 380ms; }
+    /* cornice e ritratto entrano insieme, con lo stesso spostamento: il ritaglio resta allineato */
+    :global(.js) .hero__stage { opacity: 0; transform: translateY(18px); transition: opacity 900ms var(--ease-standard) 200ms, transform 1000ms var(--ease-standard) 200ms; }
+    :global(.js) .hero__figure { opacity: 0; transform: translateX(-50%) translateY(18px); transition: opacity 900ms var(--ease-standard) 200ms, transform 1000ms var(--ease-standard) 200ms; }
+    :global(.js) .hero__intro { opacity: 0; transform: translateY(10px); transition: opacity 700ms var(--ease-standard) 560ms, transform 700ms var(--ease-standard) 560ms; }
+    :global(.js) .hero__cta { opacity: 0; transform: translateY(10px); transition: opacity 600ms var(--ease-standard) 740ms, transform 600ms var(--ease-standard) 740ms; }
+    :global(.js) .hero__meta { opacity: 0; transition: opacity 700ms var(--ease-standard) 900ms; }
+    :global(.js) .hero[data-ready] .hero__word { transform: none; }
+    :global(.js) .hero[data-ready] .hero__stage { opacity: 1; transform: none; }
+    :global(.js) .hero[data-ready] .hero__figure { opacity: 1; transform: translateX(-50%); }
+    :global(.js) .hero[data-ready] :is(.hero__intro, .hero__cta) { opacity: 1; transform: none; }
+    :global(.js) .hero[data-ready] .hero__meta { opacity: 1; }
+  }
+  /* ---------- Portatili ---------- */
+  @media (min-width: 1100px) and (max-width: 1360px) {
+    .hero__line--2 { font-size: min(13.2vw, calc(var(--fig-h) * 0.215)); }
+  }
+  /* ---------- Tablet e portatili stretti: stessa composizione, sequenza più rada ---------- */
+  @media (max-width: 1099px) {
+    .hero__frame { --fig-x: 68%; --fig-w: min(58vh, 520px); --fig-anchor: 4vh; grid-template-columns: minmax(0, min(34ch, 42vw)); }
+  }
+  /* Tablet verticale: ritratto più grande */
+  @media (min-width: 700px) and (max-width: 1099px) and (orientation: portrait) {
+    .hero__frame { --fig-w: min(64vw, 560px); --fig-x: 66%; min-height: calc(min(100svh, 1080px) + var(--fig-lift)); }
+  }
+
+  /* ---------- Telefono (e telefono orizzontale): impaginazione in flusso ---------- */
+  @media (max-width: 760px), (max-height: 520px) and (orientation: landscape) {
+    .hero__frame {
+      --fig-w: min(86vw, 440px);
+      --fig-o: 7vw;
+      --fig-lift: 0px;
+      --fig-x: 50%;
+      min-height: 0;
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-rows: none;
+      grid-template-areas: 'stage' 'copy' 'meta';
+      padding: calc(var(--topbar) + 12px) 0 40px;
+    }
+    .hero__name {
+      grid-area: stage;
+      position: relative;
+      z-index: var(--z-name-front);
+      height: calc(var(--fig-h) - var(--fig-o) + 14vw);
+      pointer-events: none;
+    }
+    .hero__line { font-size: clamp(3.5rem, 19vw, 6rem); }
+    .hero__line--1 { top: 0; left: var(--gutter); }
+    .hero__line--2 { right: var(--gutter); font-size: clamp(3.2rem, 17vw, 5.5rem); }
+    .hero__stage {
+      grid-area: stage;
+      position: relative;
+      align-self: end;
+      justify-self: center;
+      left: auto;
+      bottom: auto;
+      margin-bottom: calc(var(--fig-h) * (1 - var(--pf-bot)) - var(--fig-o));
+    }
+    .hero__figure {
+      grid-area: stage;
+      position: relative;
+      align-self: end;
+      justify-self: center;
+      left: auto;
+      bottom: auto;
+      width: var(--fig-w);
+      transform: none;
+      margin-top: 14vw;
+      margin-bottom: calc(var(--fig-o) * -1);
+    }
+    :global(.js) .hero__figure { transform: translateY(18px); }
+    :global(.js) .hero[data-ready] .hero__figure { transform: none; }
+    .hero__figure :global(img) {
+      /* braccia intere: si dissolve solo il busto sotto le braccia */
+      -webkit-mask-image: linear-gradient(180deg, #000 96%, transparent 100%);
+      mask-image: linear-gradient(180deg, #000 96%, transparent 100%);
+    }
+    .hero__copy { grid-area: copy; padding: calc(24px + var(--fig-o)) var(--gutter) 0; }
+    .hero__meta { grid-area: meta; padding: 28px var(--gutter) 0; }
+  }
+  @media (max-height: 520px) and (orientation: landscape) {
+    .hero__frame { --fig-w: min(44vw, 360px); --fig-o: 3vw; --fig-lift: 0px; }
+    .hero__name { height: calc(var(--fig-h) - var(--fig-o) + 8vw); }
+    .hero__line { font-size: clamp(3.5rem, 11vw, 6rem); }
+    .hero__line--2 { font-size: clamp(3rem, 9vw, 5rem); }
+  }
+</style>

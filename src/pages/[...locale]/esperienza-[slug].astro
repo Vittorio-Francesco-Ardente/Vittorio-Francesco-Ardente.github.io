@@ -1,0 +1,405 @@
+---
+import type { GetStaticPaths } from 'astro';
+import { Picture } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import Icon from '../../components/Icon.astro';
+import { experiences, nextExperience, type Experience } from '../../data/experiences';
+import { profile } from '../../data/profile';
+import { useT, supportedLocales, defaultLocale, localizePath, type Locale } from '../../i18n';
+
+export const getStaticPaths = (() =>
+  supportedLocales.flatMap((l) =>
+    experiences.map((e) => ({ params: { locale: l === defaultLocale ? undefined : l, slug: e.slug }, props: { e, locale: l } })),
+  )) satisfies GetStaticPaths;
+
+interface Props {
+  e: Experience;
+  locale: Locale;
+}
+const { e, locale } = Astro.props;
+const t = useT(locale);
+const x = t.experiences.items[e.slug];
+const next = nextExperience(e.slug);
+const nx = t.experiences.items[next.slug];
+const internship = e.kind === 'internship';
+const durationValue = internship ? e.hours ?? '' : (e.grade ?? '').split('/')[0]!;
+const durationUnit = internship ? t.experiences.hoursUnit : '/100';
+const durationText = internship ? `${e.hours} ${t.experiences.hoursUnit}` : e.grade;
+const sections = [
+  { id: 'scheda', label: t.nav.sheet },
+  { id: 'in-sintesi', label: t.nav.summary },
+  { id: 'attivita', label: t.nav.activities },
+  { id: 'prossima', label: t.nav.next },
+];
+const extraValue = 'extraValue' in x ? (x as { extraValue: string }).extraValue : e.extra?.value;
+---
+
+<Base locale={locale} path={`/esperienza-${e.slug}`} title={x.metaTitle} description={x.metaDescription} page="experience" sections={sections} tone={e.slug}>
+  <section id="scheda" class="xhero" aria-labelledby="x-title" data-section>
+    <div class="shell xhero__grid">
+      <div class="xhero__text">
+        <a class="xhero__back t-meta" href={`${localizePath('/', locale)}#esperienze`}><Icon name="arrowLeft" />{t.experiences.back}</a>
+        <p class="t-meta xhero__meta">
+          <span class="xhero__kind"><span class="tone-mark" aria-hidden="true"></span>{t.experiences.kinds[e.kind]}</span><span>{x.period}</span><span>{durationText}</span>
+        </p>
+        <h1 id="x-title" class="t-h1 xhero__org">{e.orgShort}</h1>
+        <p class="xhero__title">{x.title}</p>
+        <p class="t-lede">{x.intro}</p>
+      </div>
+      <figure class="xhero__photo">
+        <div class="xhero__frame" data-reveal="photo" data-depth>
+          <Picture src={e.photo} alt={x.photoAlt} formats={['avif', 'webp']} widths={[640, 1000, 1500]} sizes="(max-width: 960px) 92vw, 46vw" loading="eager" fetchpriority="high" class={`xhero__img xhero__img--${e.slug}`} />
+        </div>
+        <dl class="xhero__card">
+          <div><dt>{t.experiences.place}</dt><dd>{e.place}</dd></div>
+          <div><dt>{t.experiences.period}</dt><dd>{x.periodShort}</dd></div>
+          {e.tutor ? <div><dt>{t.experiences.tutor}</dt><dd>{e.tutor}</dd></div> : <div><dt>{t.experiences.track}</dt><dd>{x.area}</dd></div>}
+        </dl>
+      </figure>
+    </div>
+  </section>
+
+  <section id="in-sintesi" class="xbrief bleed" aria-labelledby="xb-title" data-section data-surface="dark">
+    <div class="shell">
+      <h2 id="xb-title" class="t-h2 xbrief__title" data-reveal="title">{t.experiences.summaryTitle}</h2>
+      <div class="xbento" data-stagger>
+        <article class="xt xt--dur sig" data-sig="1">
+          <p class="xt__label">{internship ? t.experiences.duration : t.experiences.grade}</p>
+          <p class:list={['xt__big', { 'xt__big--long': durationValue.length > 3 }]}><span>{durationValue}</span><small>{durationUnit}</small></p>
+          <p class="xt__sub">{x.period}</p>
+        </article>
+        <article class="xt xt--area sig" data-sig="1">
+          <p class="xt__label xt__label--tone"><span class="tone-mark" aria-hidden="true"></span>{t.experiences.area}</p>
+          <h3 class="xt__area">{x.area}</h3>
+          <ul class="xt__pills" role="list">{x.keywords.map((k) => <li>{k}</li>)}</ul>
+        </article>
+        <article class="xt xt--info sig" data-sig="1">
+          <p class="xt__label">{t.experiences.whereWhen}</p>
+          <dl class="xt__list">
+            <div><dt>{internship ? t.experiences.company : t.experiences.institute}</dt><dd>{e.org}</dd></div>
+            <div><dt>{t.experiences.place}</dt><dd>{e.place}</dd></div>
+            <div><dt>{t.experiences.period}</dt><dd>{x.period}</dd></div>
+            {e.tutor && <div><dt>{t.experiences.tutor}</dt><dd>{e.tutor}</dd></div>}
+            {
+              x.extraLabel && (
+                <div>
+                  <dt>{x.extraLabel}</dt>
+                  <dd>
+                    {e.extra?.href ? (
+                      <a class="xt__link" href={e.extra.href} target="_blank" rel="noopener noreferrer">{extraValue}<Icon name="arrowUpRight" /></a>
+                    ) : (
+                      <>{extraValue}{e.extra?.note && <span class="xt__note"> {e.extra.note}</span>}</>
+                    )}
+                  </dd>
+                </div>
+              )
+            }
+          </dl>
+        </article>
+        <article class="xt xt--take sig" data-sig="1">
+          <p class="xt__label">{t.experiences.takeaway}</p>
+          <blockquote class="xt__quote"><p>{x.takeaway}</p></blockquote>
+          <div class="xt__cta">
+            <a class="btn btn--light btn--sm" data-nudge="down" href="#attivita"><Icon name="arrowDown" />{t.experiences.activitiesCta}</a>
+            <a class="btn btn--dark btn--sm" data-nudge="right" href={`${localizePath('/', locale)}#contatti`}><Icon name="mail" />{t.hero.writeMe}</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="attivita" class="section xact" aria-labelledby="xa-title" data-section>
+    <div class="shell">
+      <header class="xact__head">
+        <h2 id="xa-title" class="t-h2" data-reveal="title">{t.experiences.activitiesTitle}</h2>
+        <p class="muted" data-reveal="fade">{x.summary}</p>
+      </header>
+      <ul class="xact__grid" role="list" data-count={x.activities.length} data-stagger>
+        {
+          x.activities.map((a, i) => (
+            <li class="xact__card sig" data-sig="1">
+              <span class="xact__icon" aria-hidden="true"><Icon name={e.activityIcons[i] ?? 'layers'} /></span>
+              <h3>{a.title}</h3>
+              <p>{a.text}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section id="prossima" class="xnext" aria-labelledby="xn-title" data-section data-tone={next.slug}>
+    <a class="xnext__link" href={localizePath(`/esperienza-${next.slug}`, locale)}>
+      <div class="shell xnext__grid">
+        <div class="xnext__text">
+          <p class="t-meta">{t.experiences.next}</p>
+          <h2 id="xn-title" class="xnext__org">{next.orgShort}</h2>
+          <p class="muted">{nx.title}, {nx.periodShort}</p>
+          <span class="xnext__arrow" aria-hidden="true"><Icon name="arrowUpRight" /></span>
+        </div>
+        <div class="xnext__photo">
+          <Picture src={next.photo} alt="" formats={['avif', 'webp']} widths={[640, 1000]} sizes="(max-width: 860px) 92vw, 40vw" loading="lazy" class={`xnext__img xhero__img--${next.slug}`} />
+        </div>
+      </div>
+    </a>
+    <div class="shell xnext__foot">
+      <p class="muted">{t.experiences.talk} <a class="link" href={`mailto:${profile.contacts.email}`}>{profile.contacts.email}</a>.</p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  /* ---------- Scheda ---------- */
+  .xhero { position: relative; padding-top: calc(var(--topbar) + clamp(2rem, 6vh, 4rem)); padding-bottom: clamp(4rem, 9vw, 8rem); }
+  .xhero__grid {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 40px clamp(16px, 2vw, 28px);
+    align-items: end;
+  }
+  .xhero__text { grid-column: 1 / span 6; display: grid; justify-items: start; gap: 0; padding-bottom: 12px; }
+  .xhero__back { display: inline-flex; align-items: center; gap: 8px; padding: 6px 0; color: var(--ink-2); }
+  .xhero__back:hover { color: var(--ink); }
+  .xhero__back :global(.icon) { width: 16px; height: 16px; transition: color var(--t-micro) var(--ease-hover), transform var(--t-hover) var(--ease-hover); }
+  .xhero__back:hover :global(.icon),
+  .xhero__back:focus-visible :global(.icon) { color: var(--accent); transform: translateX(-3px); }
+  .xhero__kind { display: inline-flex; align-items: center; gap: 8px; }
+  .xhero__meta { display: flex; flex-wrap: wrap; gap: 4px 16px; margin-top: clamp(2.5rem, 8vh, 5rem); }
+  .xhero__meta span + span::before {
+    content: '';
+    display: inline-block;
+    width: 12px;
+    height: 1px;
+    margin-right: 16px;
+    vertical-align: middle;
+    background: currentColor;
+    opacity: 0.5;
+  }
+  .xhero__org { margin-top: 20px; }
+  .xhero__title {
+    margin-top: 18px;
+    font-size: clamp(1.25rem, 1.8vw, 1.625rem);
+    font-stretch: 108%;
+    font-weight: 430;
+    letter-spacing: -0.02em;
+  }
+  .xhero__text .t-lede { margin-top: 20px; }
+
+  .xhero__photo { grid-column: 7 / span 6; position: relative; }
+  .xhero__frame { aspect-ratio: 4 / 5; max-height: 78svh; width: 100%; overflow: hidden; border-radius: var(--r-photo); background: var(--paper-deep); }
+  .xhero__frame :global(picture),
+  .xhero__frame :global(img) { width: 100%; height: 100%; }
+  .xhero__frame :global(img) { object-fit: cover; }
+  @media (prefers-reduced-motion: no-preference) {
+    .xhero__frame :global(img) { view-transition-name: xphoto; }
+  }
+  :global(.xhero__img--ips) { filter: grayscale(1) contrast(1.08); }
+  :global(.xhero__img--sunfai) { filter: saturate(0.55) sepia(0.12) contrast(1.02); }
+  :global(.xhero__img--marconi) { filter: saturate(0.45) contrast(1.04) brightness(0.95); }
+  .xhero__card {
+    position: absolute;
+    left: 18px;
+    bottom: 18px;
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    gap: 18px 26px;
+    padding: 16px 20px;
+    border-radius: var(--r-panel);
+    background: rgb(20 21 23 / 0.62);
+    -webkit-backdrop-filter: blur(18px) saturate(1.1);
+    backdrop-filter: blur(18px) saturate(1.1);
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.1), 0 0 0 1px rgb(255 255 255 / 0.08), 0 18px 40px -18px rgb(0 0 0 / 0.6);
+    color: var(--tile-ink);
+  }
+  .xhero__card dt { font-size: 0.75rem; font-stretch: 90%; color: rgb(236 236 233 / 0.6); }
+  .xhero__card dd { margin: 2px 0 0; font-size: 0.9375rem; font-weight: 500; white-space: nowrap; }
+
+  /* ---------- In sintesi ---------- */
+  .xbrief { background: var(--room); color: var(--tile-ink); padding-block: clamp(5rem, 9vw, 8rem); }
+  /* Nelle stanze scure la traccia del progetto usa la variante chiara */
+  :global([data-tone='ips']) .xbrief .tone-mark { background: #86a9d4; }
+  :global([data-tone='sunfai']) .xbrief .tone-mark { background: #c2bd73; }
+  :global([data-tone='marconi']) .xbrief .tone-mark { background: #86b6bd; }
+  .xt__label--tone { display: inline-flex; align-items: center; gap: 8px; }
+  .xbrief__title { margin-bottom: clamp(2rem, 4vw, 3rem); }
+  .xbento {
+    display: grid;
+    gap: 14px;
+    grid-template-columns: 1fr 1.25fr 1.25fr;
+    grid-template-areas:
+      'dur  area area'
+      'info take take';
+  }
+  .xt {
+    position: relative;
+    overflow: hidden;
+    padding: 24px;
+    border-radius: var(--r-tile);
+    background: linear-gradient(180deg, var(--tile-hi), var(--tile));
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.045);
+    display: flex;
+    flex-direction: column;
+    min-height: 240px;
+  }
+  .xt--dur { grid-area: dur; }
+  .xt--area { grid-area: area; }
+  .xt--info { grid-area: info; }
+  .xt--take {
+    grid-area: take;
+    background:
+      radial-gradient(70% 90% at 0% 0%, rgb(255 255 255 / 0.05), transparent 60%),
+      linear-gradient(180deg, var(--room-3), var(--tile));
+  }
+  .xt__label { font-size: 0.8125rem; font-stretch: 92%; font-weight: 520; color: var(--tile-ink-3); }
+  .xt__big { margin-top: auto; display: flex; align-items: baseline; gap: 10px; }
+  .xt__big span {
+    font-size: clamp(4rem, 8vw, 6.5rem);
+    font-stretch: 120%;
+    font-weight: 280;
+    letter-spacing: -0.05em;
+    line-height: 0.9;
+  }
+  .xt__big span { white-space: nowrap; }
+  .xt__big--long span { font-size: clamp(3rem, 5.2vw, 4.75rem); }
+  .xt__big small { font-size: 1.125rem; color: var(--tile-ink-2); }
+  .xt__sub { margin-top: 10px; font-size: 0.875rem; color: var(--tile-ink-2); }
+  .xt__area { margin-top: 14px; font-size: clamp(1.5rem, 2.4vw, 2.125rem); font-stretch: 110%; font-weight: 380; letter-spacing: -0.025em; line-height: 1.1; }
+  .xt__pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; padding-top: 24px; }
+  .xt__pills li {
+    display: inline-flex;
+    align-items: center;
+    height: 34px;
+    padding: 0 14px;
+    border-radius: 999px;
+    background: linear-gradient(180deg, var(--room-4), var(--room-3));
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.07), 0 0 0 1px rgb(255 255 255 / 0.06), 0 2px 6px rgb(0 0 0 / 0.35);
+    font-size: 0.8125rem;
+    font-weight: 500;
+  }
+  .xt__list { display: grid; gap: 12px; margin-top: 16px; }
+  .xt__list div { display: grid; gap: 1px; }
+  .xt__list dt { font-size: 0.75rem; color: var(--tile-ink-3); }
+  .xt__list dd { margin: 0; font-size: 0.9375rem; }
+  .xt__note { color: var(--tile-ink-2); }
+  .xt__link { display: inline-flex; align-items: center; gap: 6px; text-decoration: underline; text-underline-offset: 0.2em; text-decoration-color: rgb(255 255 255 / 0.3); }
+  .xt__link :global(.icon) { width: 15px; height: 15px; }
+  .xt__quote { margin-top: 16px; }
+  .xt__quote p {
+    font-size: clamp(1.4rem, 2.3vw, 2rem);
+    font-stretch: 106%;
+    font-weight: 360;
+    letter-spacing: -0.025em;
+    line-height: 1.2;
+    max-width: 26ch;
+  }
+  .xt__cta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; padding-top: 24px; }
+
+  /* ---------- Attività ---------- */
+  .xact__head {
+    display: grid;
+    grid-template-columns: 1fr minmax(0, 30rem);
+    gap: 18px 60px;
+    align-items: end;
+    margin-bottom: clamp(2.5rem, 5vw, 4rem);
+  }
+  .xact__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 14px; }
+  .xact__grid > li { grid-column: span 4; }
+  .xact__grid[data-count='4'] > li { grid-column: span 3; }
+  .xact__grid[data-count='5'] > li:nth-child(n + 4) { grid-column: span 6; }
+  .xact__grid[data-count='2'] > li { grid-column: span 6; }
+  .xact__card {
+    display: grid;
+    align-content: start;
+    gap: 10px;
+    min-height: 230px;
+    padding: 24px;
+    border-radius: var(--r-tile);
+    background: color-mix(in oklab, var(--surface) 70%, transparent);
+  }
+  .xact__icon {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    margin-bottom: auto;
+    border-radius: var(--r-2);
+    box-shadow: inset 0 0 0 1px var(--line-strong);
+    color: var(--tone);
+  }
+  .xact__icon :global(.icon) { width: 22px; height: 22px; }
+  .xact__card h3 { margin-top: 36px; font-size: 1.1875rem; font-stretch: 106%; font-weight: 500; letter-spacing: -0.015em; }
+  .xact__card p { font-size: var(--t-small); color: var(--ink-2); max-width: 34ch; }
+
+  /* ---------- Prossima ---------- */
+  .xnext { border-top: 1px solid var(--line); padding-top: clamp(3rem, 6vw, 5rem); padding-bottom: clamp(3rem, 6vw, 5rem); }
+  .xnext__link { display: block; }
+  .xnext__grid {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 28px clamp(16px, 2vw, 28px);
+    align-items: center;
+  }
+  .xnext__text { grid-column: 1 / span 6; display: grid; gap: 12px; justify-items: start; }
+  .xnext__org {
+    font-size: clamp(3rem, 7vw, 6.5rem);
+    font-stretch: 122%;
+    font-weight: 300;
+    letter-spacing: -0.045em;
+    line-height: 0.92;
+  }
+  .xnext__arrow {
+    display: grid;
+    place-items: center;
+    width: 52px;
+    height: 52px;
+    margin-top: 12px;
+    border-radius: 50%;
+    border: 1px solid var(--line-strong);
+    transition: border-color var(--t-hover) var(--ease-hover), color var(--t-micro) var(--ease-hover);
+  }
+  .xnext__arrow :global(.icon) { width: 20px; height: 20px; transition: transform var(--t-hover) var(--ease-hover); }
+  .xnext__link:hover .xnext__arrow,
+  .xnext__link:focus-visible .xnext__arrow { border-color: var(--accent-border); color: var(--accent); }
+  .xnext__link:hover .xnext__arrow :global(.icon),
+  .xnext__link:focus-visible .xnext__arrow :global(.icon) { transform: translate(4px, -4px); }
+  .xnext__link:focus-visible { outline-offset: -2px; }
+  .xnext__photo { position: relative; grid-column: 8 / span 5; aspect-ratio: 16 / 10; overflow: hidden; border-radius: var(--r-photo); }
+  .xnext__photo::before {
+    content: '';
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    width: 42%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent-bright) 0 14px, var(--accent-warm) 14px, transparent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--t-large) var(--ease-hover);
+    pointer-events: none;
+  }
+  .xnext__link:hover .xnext__photo::before,
+  .xnext__link:focus-visible .xnext__photo::before { transform: scaleX(1); }
+  .xnext__photo :global(picture),
+  .xnext__photo :global(img) { width: 100%; height: 100%; }
+  .xnext__photo :global(img) { object-fit: cover; transition: transform 1400ms var(--ease-out); }
+  .xnext__link:hover .xnext__photo :global(img) { transform: scale(1.03); }
+  .xnext__foot { margin-top: clamp(3rem, 6vw, 5rem); }
+
+  @media (max-width: 960px) {
+    .xhero__text,
+    .xhero__photo { grid-column: 1 / -1; }
+    .xhero__card { left: 12px; right: 12px; bottom: 12px; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); }
+    .xbento { grid-template-columns: 1fr 1fr; grid-template-areas: 'dur info' 'area area' 'take take'; }
+    .xact__head { grid-template-columns: 1fr; }
+    .xact__grid[data-count] > li:nth-child(n) { grid-column: span 6; }
+    .xact__grid[data-count='5'] > li:nth-child(n):last-child { grid-column: 1 / -1; }
+    .xnext__text,
+    .xnext__photo { grid-column: 1 / -1; }
+  }
+  @media (max-width: 620px) {
+    .xbento { grid-template-columns: 1fr; grid-template-areas: 'dur' 'area' 'info' 'take'; }
+    .xact__grid[data-count] > li:nth-child(n) { grid-column: 1 / -1; }
+    .xhero__card dd { white-space: normal; }
+  }
+</style>

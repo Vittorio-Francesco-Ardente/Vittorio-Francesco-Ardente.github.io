@@ -1,0 +1,96 @@
+---
+import '../styles/global.css';
+import fontLatin from '@fontsource-variable/mona-sans/files/mona-sans-latin-standard-normal.woff2?url';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import CvDialog from '../components/CvDialog.astro';
+import BackHome from '../components/BackHome.astro';
+import { profile } from '../data/profile';
+import type { Tone } from '../data/experiences';
+import { useT, locales, supportedLocales, defaultLocale, localizePath, type Locale } from '../i18n';
+import { LOCALE_STORAGE_KEY } from '../i18n/config';
+
+export type SectionLink = { id: string; label: string };
+
+interface Props {
+  locale: Locale;
+  /** Percorso senza prefisso di lingua, es. "/" o "/esperienza-ips" */
+  path: string;
+  title?: string;
+  description?: string;
+  page: 'home' | 'experience' | 'legal' | 'error';
+  sections?: SectionLink[];
+  tone?: Tone;
+  ogImage?: string;
+  noindex?: boolean;
+}
+
+const { locale, path, title, description, page, sections = [], tone, ogImage = '/og.jpg', noindex = false } = Astro.props;
+const t = useT(locale);
+const site = Astro.site ?? new URL(profile.site);
+const canonical = new URL(localizePath(path, locale), site).toString();
+const fullTitle = page === 'home' ? t.meta.homeTitle : `${title} | ${t.meta.titleSuffix}`;
+const desc = description ?? t.meta.description;
+const ogUrl = new URL(ogImage, site).toString();
+const nonDefault = supportedLocales.filter((l) => l !== defaultLocale);
+
+/* Script inline (hash nella CSP, calcolato in build): lingua salvata, tema, intro. Prima del primo paint. */
+const boot = `(function(){var d=document.documentElement;d.classList.add('js');setTimeout(function(){if(!d.hasAttribute('data-app'))d.classList.remove('js')},4000);try{var L=${JSON.stringify(nonDefault)},D='${defaultLocale}',p=location.pathname,s=localStorage.getItem('${LOCALE_STORAGE_KEY}'),c=d.getAttribute('lang');if(s&&s!==c&&(s===D||L.indexOf(s)>-1)){var g=p.split('/')[1],r=L.indexOf(g)>-1?(p.slice(g.length+1)||'/'):p,n=s===D?r:('/'+s+(r==='/'?'':r));if(n!==p){location.replace(n+location.search+location.hash);return}}if(localStorage.getItem('vfa-theme')==='dark'){d.setAttribute('data-theme','dark')}if(d.getAttribute('data-page')==='home'&&!location.hash&&!sessionStorage.getItem('vfa-intro')&&!matchMedia('(prefers-reduced-motion: reduce)').matches){d.setAttribute('data-intro','play')}}catch(e){}})();`;
+---
+
+<!doctype html>
+<html lang={locale} data-theme="light" data-page={page} data-intl={locales[locale].intl}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={desc} />
+    <meta name="author" content={profile.name} />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#f2f1ed" data-theme-color />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    {noindex && <meta name="robots" content="noindex" />}
+    <link rel="canonical" href={canonical} />
+    {!noindex && supportedLocales.map((l) => <link rel="alternate" hreflang={l} href={new URL(localizePath(path, l), site).toString()} />)}
+    {!noindex && <link rel="alternate" hreflang="x-default" href={new URL(localizePath(path, defaultLocale), site).toString()} />}
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content={locales[locale].og} />
+    {supportedLocales.filter((l) => l !== locale).map((l) => <meta property="og:locale:alternate" content={locales[l].og} />)}
+    <meta property="og:site_name" content={profile.name} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={desc} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={desc} />
+    <meta name="twitter:image" content={ogUrl} />
+
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="preload" href={fontLatin} as="font" type="font/woff2" crossorigin />
+    <script is:inline set:html={boot} />
+    <slot name="head" />
+  </head>
+  <body data-tone={tone}>
+    <a class="skip-link" href="#contenuto">{t.a11y.skip}</a>
+    <slot name="intro" />
+    <Header home={page === 'home'} page={page} sections={sections} locale={locale} path={path} />
+    <div class="site">
+      <main id="contenuto" tabindex="-1">
+        <slot />
+      </main>
+      <Footer home={page === 'home'} locale={locale} />
+    </div>
+    {page === 'experience' && <BackHome locale={locale} />}
+    <CvDialog locale={locale} />
+    <script>
+      import '../scripts/main';
+    </script>
+  </body>
+</html>
