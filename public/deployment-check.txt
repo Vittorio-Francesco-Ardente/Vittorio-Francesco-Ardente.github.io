@@ -1,0 +1,4 @@
+VFA GitHub Pages Actions deployment
+commit-source: ChatGPT diagnostic
+expected-site: Astro portfolio
+marker: vfa-actions-20260926-2312
