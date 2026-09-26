@@ -1,4 +1,4 @@
-# VFA GitHub Pages deployment
+# VFA GitHub Pages deployment — publish Astro dist artifact only
 name: Deploy to GitHub Pages
 
 on:
