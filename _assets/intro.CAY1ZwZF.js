@@ -1,0 +1,1 @@
+var e;new Promise(t=>e=t);var t=()=>e();export{t};

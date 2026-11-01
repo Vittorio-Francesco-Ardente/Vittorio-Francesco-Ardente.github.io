@@ -1,0 +1,1 @@
+var e=e=>e===`local`?localStorage:sessionStorage,t=(t,n,r=`local`)=>{try{e(r).setItem(t,n)}catch{}};export{t};
