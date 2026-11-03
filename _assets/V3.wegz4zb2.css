@@ -54,3 +54,12 @@
 .lk-vfa{letter-spacing:.5em;color:#ffffffb3;margin-right:-.5em;font:800 14px Archivo}
 @media (prefers-reduced-motion:reduce){.lk-lista li{opacity:1;animation:none}}
 .lk-voce.blu{box-shadow:inset 0 0 0 1.5px #ffffff66,0 14px 30px -18px #0308288c}
+@media (max-width:520px){.s-badge .az{display:grid;grid-template-columns:1fr 1fr;gap:10px}.s-badge .az .btn{justify-content:space-between;min-width:0;padding-left:18px}.s-badge .az .btn:first-child{grid-column:1/-1}.s-badge .email-pill{width:100%;justify-content:space-between}.s-badge .email-pill span{min-width:0;overflow:hidden;text-overflow:ellipsis}}
+@media (max-width:900px){.s-badge{--cv:clamp(260px,50svh,640px);align-content:start;padding-top:calc(var(--cv) + clamp(22px,3.5svh,36px))}
+.s-badge canvas{height:var(--cv);inset:0 0 auto 0}
+.s-badge .sx{margin-top:0;max-width:560px}
+.s-badge h1{font-size:clamp(46px,11vw,84px)}}
+@media (max-width:760px){.nav .testa-top{top:10px;left:12px;right:12px;padding:6px 8px 6px 14px;background:color-mix(in oklab,var(--ink) 84%,transparent);-webkit-backdrop-filter:blur(14px) saturate(1.3);backdrop-filter:blur(14px) saturate(1.3);border:1px solid #ffffff24;border-radius:18px;box-shadow:0 12px 28px -14px #03082899}
+.nav .testa-top .mark-top .logo-anim,.nav .testa-top .mark-top svg{height:30px;width:auto}
+.nav .testa-top .soc,.nav.su-chiaro .testa-top .soc{color:#fff}
+.nav .testa-top .menu-btn2{width:40px;height:40px;margin-left:0;background:#ffffff1f!important;color:#fff!important}}
