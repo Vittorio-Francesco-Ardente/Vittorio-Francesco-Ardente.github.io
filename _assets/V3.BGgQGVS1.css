@@ -17,3 +17,7 @@
 .s-mazzo .carta small{color:color-mix(in oklab,var(--brand) 72%,#fff)}
 .s-mazzo .carta .cn{color:var(--brand)}
 .s-mazzo .carta img{position:relative;z-index:1}
+.menu-btn2 i,.menu-btn2 i:before,.menu-btn2 i:after{width:18px;height:2px;border-radius:2px}
+.menu-btn2 i:before,.menu-btn2 i:after{content:"";position:absolute;left:0}
+.menu-btn2 i:before{top:-6px}
+.menu-btn2 i:after{background:currentColor;top:6px}
