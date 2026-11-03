@@ -10,3 +10,10 @@
 .s-mazzo .carta small{color:#ffffffd9}
 .s-mazzo .carta:before{border-radius:0 0 22px 22px}
 .piede-lingua{margin-top:0}
+.s-mazzo .carta{color:var(--brand)}
+.s-mazzo .carta:before{height:100%;background:url(/portfolio-v24/v3/img/grana-neutra.webp) 0 0/256px;mix-blend-mode:multiply;opacity:.1;border-radius:22px}
+.s-mazzo .carta b,.s-mazzo .carta small{text-shadow:none}
+.s-mazzo .carta b{color:var(--brand)}
+.s-mazzo .carta small{color:color-mix(in oklab,var(--brand) 72%,#fff)}
+.s-mazzo .carta .cn{color:var(--brand)}
+.s-mazzo .carta img{position:relative;z-index:1}
