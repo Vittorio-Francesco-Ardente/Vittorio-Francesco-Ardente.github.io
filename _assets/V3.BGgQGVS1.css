@@ -21,3 +21,5 @@
 .menu-btn2 i:before,.menu-btn2 i:after{content:"";position:absolute;left:0}
 .menu-btn2 i:before{top:-6px}
 .menu-btn2 i:after{background:currentColor;top:6px}
+@media (min-width:761px){.nav .testa-top{display:grid;grid-template-columns:1fr auto 1fr;align-items:center}.nav .testa-top .mark-top{justify-self:start}.nav .testa-top .soc{justify-self:end}}
+@media (min-width:761px){.nav .testa-top .soc b{display:none!important}}
