@@ -63,3 +63,6 @@
 .nav .testa-top .mark-top .logo-anim,.nav .testa-top .mark-top svg{height:30px;width:auto}
 .nav .testa-top .soc,.nav.su-chiaro .testa-top .soc{color:#fff}
 .nav .testa-top .menu-btn2{width:40px;height:40px;margin-left:0;background:#ffffff1f!important;color:#fff!important}}
+.s-forma .anelli,.s-forma .anelli:after{display:none!important}
+.s-forma{background:radial-gradient(120% 90% at 50% 100%,var(--hero-b),var(--hero-a) 55%,var(--hero-c))}
+.s-forma .ritratto img{filter:drop-shadow(0 30px 40px #040c3040)}
