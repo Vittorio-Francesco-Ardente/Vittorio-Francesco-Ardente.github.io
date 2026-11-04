@@ -6,7 +6,7 @@
 .d-cv .btn.contorno{color:#fff;background:#ffffff14;border:1px solid #ffffff47;padding:0 22px;transition:background .3s,color .3s}
 .d-cv .btn.contorno:hover{color:var(--ink);background:#fff}
 .foglio-cv{border-radius:22px;position:relative;isolation:isolate;box-shadow:0 40px 90px -40px #000c,0 0 0 1px #ffffff1f}
-.foglio-cv:before{content:"";z-index:-1;pointer-events:none;mix-blend-mode:multiply;opacity:.07;background:url(/portfolio-v24/v3/img/grana-neutra.webp) 0 0/256px;border-radius:inherit;position:absolute;inset:0}
+.foglio-cv:before{content:"";z-index:-1;pointer-events:none;mix-blend-mode:multiply;opacity:.07;background:url(/v3/img/grana-neutra.webp) 0 0/256px;border-radius:inherit;position:absolute;inset:0}
 .foglio-cv h1{color:var(--ink);font-weight:800;font-stretch:var(--w100);letter-spacing:-.045em;text-transform:none;line-height:.95}
 .foglio-cv .ruolo{color:var(--brand);font-weight:600}
 .foglio-cv h2{color:var(--brand);border-bottom:1.5px solid color-mix(in oklab,var(--brand) 30%,transparent);align-items:center;gap:9px;font:700 12px Montserrat;display:flex}
