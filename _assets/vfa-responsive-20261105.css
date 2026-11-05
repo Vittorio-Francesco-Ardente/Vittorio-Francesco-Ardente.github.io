@@ -1166,20 +1166,7 @@ body[data-pagina="lavori"] .s-rayder .vetrina-r {
  #menu .m-corpo ol>li>a,#menu .m-corpo ol>li>a>span:not(.vfa-route-pin) {transition:none!important}
 }
 
-/* VFA genuine dry-brush SVG highlighter. Color follows data-tema without enabling theme switching. */
-html #menu {
-  --vfa-brush-start:#0758d6;
-  --vfa-brush-mid:#166ef2;
-  --vfa-brush-end:#328dff;
-}
-html[data-tema="inverno"] #menu {--vfa-brush-start:#1a5185;--vfa-brush-mid:#267ab8;--vfa-brush-end:#5ba9cb;}
-html[data-tema="primavera"] #menu {--vfa-brush-start:#127b50;--vfa-brush-mid:#289b66;--vfa-brush-end:#5abb92;}
-html[data-tema="estate"] #menu {--vfa-brush-start:#0865a5;--vfa-brush-mid:#008eb5;--vfa-brush-end:#12b6ca;}
-html[data-tema="autunno"] #menu {--vfa-brush-start:#873625;--vfa-brush-mid:#bb5025;--vfa-brush-end:#d17d30;}
-html[data-tema="natale"] #menu {--vfa-brush-start:#971d39;--vfa-brush-mid:#bb3041;--vfa-brush-end:#186248;}
-html[data-tema="capodanno"] #menu {--vfa-brush-start:#344692;--vfa-brush-mid:#5660aa;--vfa-brush-end:#8c6b31;}
-html[data-tema="pasqua"] #menu {--vfa-brush-start:#69439d;--vfa-brush-mid:#9156af;--vfa-brush-end:#a85891;}
-html[data-tema="halloween"] #menu {--vfa-brush-start:#60258d;--vfa-brush-mid:#903b9d;--vfa-brush-end:#ce5b24;}
+/* ACTIVE PAGE | Large, pure-white genuine dry-brush stroke; saturated-blue lettering. */
 #menu .m-corpo ol > li > a:is(.vfa-nav-active,[aria-current="page"]) {
   isolation:isolate !important;
   z-index:1;
@@ -1190,16 +1177,16 @@ html[data-tema="halloween"] #menu {--vfa-brush-start:#60258d;--vfa-brush-mid:#90
   position:absolute !important;
   z-index:-1;
   pointer-events:none;
-  top:1% !important;
-  bottom:0 !important;
-  left:-.24em !important;
-  right:-.32em !important;
-  opacity:1;
+  top:-34% !important;
+  bottom:-34% !important;
+  left:calc(-1 * clamp(19px,2.3vw,40px)) !important;
+  right:calc(-1 * clamp(23px,2.6vw,46px)) !important;
+  opacity:1 !important;
   clip-path:none !important;
   border:0 !important;
   border-radius:0 !important;
   box-shadow:none !important;
-  background:linear-gradient(103deg,var(--vfa-brush-start) 0%,var(--vfa-brush-mid) 53%,var(--vfa-brush-end) 100%) !important;
+  background:#ffffff !important;
   -webkit-mask-image:url('/_assets/vfa-menu-brush-dry-20261105.svg');
   mask-image:url('/_assets/vfa-menu-brush-dry-20261105.svg');
   -webkit-mask-repeat:no-repeat;
@@ -1208,35 +1195,43 @@ html[data-tema="halloween"] #menu {--vfa-brush-start:#60258d;--vfa-brush-mid:#90
   mask-position:center;
   -webkit-mask-size:100% 100%;
   mask-size:100% 100%;
-  transform:rotate(-2.2deg) scaleX(1);
+  transform:rotate(-1.8deg) scaleX(1);
   transform-origin:36% 50%;
 }
 #menu .m-corpo ol > li > a:is(.vfa-nav-active,[aria-current="page"]) > span:not(.vfa-route-pin),
 #menu .m-corpo ol > li > a:is(.vfa-nav-active,[aria-current="page"]):is(:hover,:focus-visible) > span:not(.vfa-route-pin) {
   position:relative !important;
   z-index:1;
-  color:#fff !important;
-  text-shadow:0 1px 6px rgba(0,18,55,.24) !important;
+  color:#0751c9 !important;
+  text-shadow:none !important;
 }
 #menu.aperto .m-corpo ol > li > a:is(.vfa-nav-active,[aria-current="page"])::before {
-  animation:vfa-brush-paint .62s cubic-bezier(.16,.91,.22,1) both;
+  animation:vfa-white-brush-reveal .6s cubic-bezier(.16,.91,.22,1) both;
   animation-delay:.08s;
 }
-@keyframes vfa-brush-paint {
-  from {opacity:.8;transform:rotate(-2.2deg) scaleX(.03);}
-  to {opacity:1;transform:rotate(-2.2deg) scaleX(1);}
+@keyframes vfa-white-brush-reveal {
+  from {opacity:.6;transform:rotate(-1.8deg) scaleX(.03);}
+  to {opacity:1;transform:rotate(-1.8deg) scaleX(1);}
 }
 @media(max-width:760px) {
   #menu .m-corpo ol > li > a:is(.vfa-nav-active,[aria-current="page"])::before {
-    top:1% !important;
-    bottom:1% !important;
-    left:-.27em !important;
-    right:-.34em !important;
+    top:-28% !important;
+    bottom:-28% !important;
+    left:-15px !important;
+    right:-18px !important;
+  }
+}
+@media(max-width:380px) {
+  #menu .m-corpo ol > li > a:is(.vfa-nav-active,[aria-current="page"])::before {
+    top:-24% !important;
+    bottom:-24% !important;
+    left:-10px !important;
+    right:-13px !important;
   }
 }
 @media(prefers-reduced-motion:reduce) {
   #menu.aperto .m-corpo ol > li > a:is(.vfa-nav-active,[aria-current="page"])::before {
     animation:none !important;
-    transform:rotate(-2.2deg) scaleX(1) !important;
+    transform:rotate(-1.8deg) scaleX(1) !important;
   }
 }
