@@ -1,0 +1,47 @@
+# One-time recovery for a GitHub Pages deployment that remained locked
+# after the managed "pages build and deployment" workflow failed.
+# Re-run manually only if GitHub reports the same orphaned SHA again.
+name: Ripara pubblicazione Pages bloccata
+on:
+  push:
+    paths:
+      - ".github/workflows/repair-stuck-pages.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+jobs:
+  cancel-stale-pages-deployment:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cancel the orphaned Pages deployment, not the last live website
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          STUCK_SHA: "eecc0d28a8cab2ccf09f46a12d877ba7e48fb5c7"
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "Canceling stale Pages deployment ${STUCK_SHA}"
+          response="$(mktemp)"
+          code="$(curl --silent --show-error --location --request POST \
+            --header "Accept: application/vnd.github+json" \
+            --header "Authorization: Bearer ${GH_TOKEN}" \
+            --header "X-GitHub-Api-Version: 2022-11-28" \
+            --output "${response}" --write-out '%{http_code}' \
+            "https://api.github.com/repos/${REPO}/pages/deployments/${STUCK_SHA}/cancel")"
+          case "${code}" in
+            204)
+              echo "Stale deployment canceled (HTTP 204)."
+              ;;
+            404)
+              echo "Stale deployment not found (HTTP 404); it may already be gone."
+              ;;
+            *)
+              echo "::error::Pages cancellation returned HTTP ${code}"
+              cat "${response}"
+              exit 1
+              ;;
+          esac
+          # The push creating this repair workflow separately requests a new
+          # normal Pages deployment. We do not trigger another here.
