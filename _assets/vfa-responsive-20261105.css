@@ -1166,7 +1166,8 @@ body[data-pagina="lavori"] .s-rayder .vetrina-r {
  #menu .m-corpo ol>li>a,#menu .m-corpo ol>li>a>span:not(.vfa-route-pin) {transition:none!important}
 }
 
-/* Approved HOME preview: actual traced brush shape, with dynamic blue navigation text. */
+/* VFA approved white brush: actual transparent PNG with dynamic blue navigation text.
+   The image is decoration only; all navigation labels remain HTML and accessible. */
 #menu .m-corpo ol > li > a:is(.vfa-nav-active,[aria-current="page"]) {
  isolation:isolate !important;
  z-index:1;
@@ -1175,67 +1176,60 @@ body[data-pagina="lavori"] .s-rayder .vetrina-r {
  content:"" !important;
  display:block !important;
  position:absolute !important;
- z-index:-1;
- pointer-events:none;
- top:-50% !important;
- bottom:-49% !important;
- left:-19% !important;
- right:-19% !important;
+ z-index:-1 !important;
+ pointer-events:none !important;
+ top:-48% !important;
+ bottom:-46% !important;
+ left:-20% !important;
+ right:-20% !important;
+ opacity:1 !important;
+ background:transparent url('/_assets/vfa-menu-brush-white-20261105.png') center center / 100% 100% no-repeat !important;
  border:0 !important;
  border-radius:0 !important;
- opacity:1 !important;
  box-shadow:none !important;
  clip-path:none !important;
- background:
-   repeating-linear-gradient(177deg,rgba(199,216,241,.23) 0px,rgba(255,255,255,0) 1.4px,rgba(250,252,255,.16) 3px,rgba(255,255,255,0) 5px),
-   linear-gradient(105deg,#fff 0%,#f8faff 24%,#ffffff 58%,#f0f5ff 84%,#fff 100%) !important;
- -webkit-mask-image:url('/_assets/vfa-brush-approved-20261105.svg');
- mask-image:url('/_assets/vfa-brush-approved-20261105.svg');
- -webkit-mask-repeat:no-repeat;
- mask-repeat:no-repeat;
- -webkit-mask-position:center;
- mask-position:center;
- -webkit-mask-size:115% 100%;
- mask-size:115% 100%;
- transform:rotate(-.8deg) scaleX(1);
+ -webkit-mask-image:none !important;
+ mask-image:none !important;
+ transform:rotate(-.7deg) scaleX(1);
  transform-origin:40% 50%;
 }
 #menu .m-corpo ol > li > a:is(.vfa-nav-active,[aria-current="page"]) > span:not(.vfa-route-pin),
 #menu .m-corpo ol > li > a:is(.vfa-nav-active,[aria-current="page"]):is(:hover,:focus-visible) > span:not(.vfa-route-pin) {
  color:#0751c9 !important;
+ z-index:1 !important;
  position:relative !important;
- z-index:1;
  text-shadow:none !important;
 }
 #menu.aperto .m-corpo ol > li > a:is(.vfa-nav-active,[aria-current="page"])::before {
- animation:vfa-approved-paint .63s cubic-bezier(.17,.85,.23,1) both;
+ animation:vfa-png-brush-in .58s cubic-bezier(.16,.9,.22,1) both;
  animation-delay:.08s;
 }
-@keyframes vfa-approved-paint {
- from {opacity:.7;transform:rotate(-.8deg) scaleX(.04)}
- to {opacity:1;transform:rotate(-.8deg) scaleX(1)}
+@keyframes vfa-png-brush-in {
+ from{opacity:.75;transform:rotate(-.7deg) scaleX(.035)}
+ to{opacity:1;transform:rotate(-.7deg) scaleX(1)}
 }
-/* Keep the visible brush inside narrow viewports, especially right-aligned labels. */
 @media(max-width:760px) {
  #menu .m-corpo ol > li > a:is(.vfa-nav-active,[aria-current="page"])::before {
-   top:-46% !important;
-   bottom:-46% !important;
-   left:-16% !important;
-   right:-12% !important;
+  top:-44% !important;
+  bottom:-44% !important;
+  left:-17% !important;
+  right:-13% !important;
  }
  #menu .m-corpo ol > li:nth-child(3) > a:is(.vfa-nav-active,[aria-current="page"])::before,
  #menu .m-corpo ol > li:nth-child(6) > a:is(.vfa-nav-active,[aria-current="page"])::before {
-   left:-28% !important;right:-3% !important;
+  left:-25% !important;
+  right:-2% !important;
  }
 }
 @media(max-width:380px) {
  #menu .m-corpo ol > li > a:is(.vfa-nav-active,[aria-current="page"])::before {
-   top:-40% !important;bottom:-40% !important;
+  top:-39% !important;
+  bottom:-39% !important;
  }
 }
 @media(prefers-reduced-motion:reduce) {
  #menu.aperto .m-corpo ol > li > a:is(.vfa-nav-active,[aria-current="page"])::before {
-   animation:none !important;
-   transform:rotate(-.8deg) scaleX(1) !important;
+  animation:none !important;
+  transform:rotate(-.7deg) scaleX(1) !important;
  }
 }
