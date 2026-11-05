@@ -97,16 +97,17 @@ gl_FragColor=vec4(clamp(col,0.,1.),1.);
   const loc=gl.getAttribLocation(program,'a_position');
   gl.enableVertexAttribArray(loc);gl.vertexAttribPointer(loc,2,gl.FLOAT,false,0,0);
   const uni=Object.fromEntries(['colors','scene','shape','surface','finish','transform','space','cursor'].map(k=>[k,gl.getUniformLocation(program,'u_'+k)]));
+  // Dark Silk shades mapped to each portfolio theme.
   const paletteByTheme={
-    base:['#11092b','#211056','#401097','#1d0e4b'],
-    inverno:['#06152e','#143c78','#3873b4','#112a53'],
-    primavera:['#102d2a','#236c63','#5b9a7c','#153d42'],
-    estate:['#123657','#146d9d','#27a5b3','#183f70'],
-    autunno:['#2d1421','#713041','#ad633b','#482237'],
-    natale:['#0c2827','#155444','#286e5b','#182f3d'],
-    capodanno:['#101326','#29234d','#5a4485','#202341'],
-    pasqua:['#30214c','#7257a4','#aa7eb9','#45366b'],
-    halloween:['#1d0b2d','#4d1765','#7c3090','#30123f']
+    base:['#06102c','#102b79','#1247ba','#091c53'],
+    inverno:['#071b31','#123c68','#2b6797','#0b2c50'],
+    primavera:['#0c2b28','#15584c','#2a846c','#103e36'],
+    estate:['#072c48','#08628a','#1397ad','#0b4165'],
+    autunno:['#2c1620','#69352d','#9c532e','#47221d'],
+    natale:['#092821','#12533b','#1e7051','#0c382d'],
+    capodanno:['#10172c','#273b70','#4d5395','#1b254e'],
+    pasqua:['#30234a','#62478e','#8a62a4','#42305e'],
+    halloween:['#1b0c2c','#4a1968','#7b3588','#2d123f']
   };
   function toRgb(hex){const v=hex.replace('#','');return [0,2,4].map(i=>parseInt(v.slice(i,i+2),16)/255);}
   let theme='',raf=0,active=false,last=0,elapsed=0;
