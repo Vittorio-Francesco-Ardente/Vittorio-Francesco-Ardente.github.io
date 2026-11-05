@@ -1409,7 +1409,7 @@ html:lang(pl) #menu.vfa-six-brush-ready .m-corpo ol > li > a:is(.vfa-nav-active,
     flex-direction:column !important;
     grid-template-columns:none !important;
     grid-template-rows:none !important;
-    align-items:stretch !important;
+    align-items:center !important;
     justify-content:center !important;
     width:min(86vw,980px) !important;
     max-width:980px !important;
@@ -1423,7 +1423,7 @@ html:lang(pl) #menu.vfa-six-brush-ready .m-corpo ol > li > a:is(.vfa-nav-active,
   #menu .m-corpo ol > li:nth-child(n) {
     display:flex !important;
     flex:none !important;
-    justify-content:flex-start !important;
+    justify-content:center !important;
     align-items:center !important;
     width:100% !important;
     min-height:0 !important;
@@ -1433,9 +1433,10 @@ html:lang(pl) #menu.vfa-six-brush-ready .m-corpo ol > li > a:is(.vfa-nav-active,
   #menu .m-corpo ol > li > a {
     display:inline-flex !important;
     align-items:center !important;
-    justify-content:flex-start !important;
+    justify-content:center !important;
     width:auto !important;
     height:auto !important;
+    text-align:center !important;
     min-height:clamp(50px,8svh,86px) !important;
     max-height:none !important;
     padding:0 8px !important;
