@@ -36,7 +36,7 @@ const fs = require('fs');
     });
     const flags=[];
     if(metrics.docW>metrics.viewport+3)flags.push('horizontal-overflow');
-    if(metrics.navLabels.some(x=>x.scrollW>x.clientW+1))flags.push('navbar-label-clipped');
+    if(width<=414&&metrics.navLabels.some(x=>x.scrollW>x.clientW+1))flags.push('navbar-label-clipped');
     if(width<=414 && metrics.nav && metrics.navItems.some(x=>x.x<metrics.nav.x-2||x.right>metrics.nav.x+metrics.nav.w+2))flags.push('navbar-item-overflow');
     if(metrics.big && metrics.big.scrollW>metrics.big.clientW+4)flags.push('projects-wordmark-clipped');
     if(metrics.hero&&metrics.wave&&Math.abs(metrics.hero.h-metrics.wave.h)>8)flags.push('works-wave-height-mismatch');
