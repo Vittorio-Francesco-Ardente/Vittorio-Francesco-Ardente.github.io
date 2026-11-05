@@ -21,7 +21,7 @@ const fs=require("fs");
   const data=await page.evaluate(()=>{
     const q=s=>document.querySelector(s);
     const rect=e=>{if(!e)return null;let a=e.getBoundingClientRect();return{w:+a.width.toFixed(1),h:+a.height.toFixed(1),x:+a.x.toFixed(1),y:+a.y.toFixed(1),right:+a.right.toFixed(1),bottom:+a.bottom.toFixed(1)}};
-    const footer=q(".s-sent"),first=footer?.firstElementChild,cols=q(".s-sent .colonne");
+    const footer=q(".s-sent"),first=q(".s-sent > div:has(> h2)"),cols=q(".s-sent .colonne");
     const canvas=q("#c-badge"),badge=q(".s-badge"),mail=q(".s-badge .email-pill");
     return {
       docWidth:document.documentElement.scrollWidth,viewport:innerWidth,
