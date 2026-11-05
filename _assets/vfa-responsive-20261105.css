@@ -195,3 +195,97 @@ main, main > .schermo { min-width:0; }
 }
 
 /* Deployment marker: mobile layout fixes enabled on all portfolio pages. */
+
+
+/* Follow-up mobile corrections 2026-11-05: screenshots IMG_5372-5376. */
+@media (max-width:760px) {
+  /* Icon-only mobile tab bar; keep the labels accessible to screen readers. */
+  .nav .barra .voce,
+  .nav.su-chiaro .barra .voce {
+    flex-direction:row;
+    justify-content:center;
+    align-items:center;
+    gap:0;
+    height:54px;
+  }
+  .nav .barra .voce svg {
+    width:26px;
+    height:26px;
+    flex:none;
+  }
+  .nav .barra .voce span,
+  .nav .barra .voce.on span,
+  .nav .barra .voce:hover span,
+  .nav .barra .voce:focus-visible span {
+    position:absolute !important;
+    width:1px !important;
+    min-width:1px !important;
+    max-width:1px !important;
+    height:1px !important;
+    max-height:1px !important;
+    margin:0 !important;
+    padding:0 !important;
+    border:0 !important;
+    overflow:hidden !important;
+    opacity:1 !important;
+    white-space:nowrap !important;
+    clip:rect(0,0,0,0) !important;
+    clip-path:inset(50%) !important;
+  }
+  .nav .barra .cursore { border-radius:18px; }
+  .nav .testa-top {
+    top:10px;
+    left:12px;
+    right:12px;
+    border-radius:18px;
+    overflow:hidden;
+  }
+
+  /* Each experience section fits its actual content, not an empty viewport. */
+  body[data-pagina="esperienze"] .s-esp {
+    min-height:0 !important;
+    height:auto;
+    align-content:start;
+    align-items:start;
+    row-gap:clamp(18px,4vw,28px);
+    padding-top:clamp(52px,8svh,72px);
+    padding-bottom:clamp(30px,5svh,48px) !important;
+  }
+  body[data-pagina="esperienze"] .s-esp .centro,
+  body[data-pagina="esperienze"] .s-esp .dati {
+    min-width:0;
+    width:100%;
+  }
+
+  /* Remove the sharp blue rectangular seam before the 2 aziende card. */
+  body[data-pagina="home"] .s-forma .mezzo {
+    background:linear-gradient(180deg,transparent 0%,#040c3047 38%,#040c3022 72%,transparent 100%) !important;
+    padding-bottom:24px;
+  }
+  body[data-pagina="home"] .s-forma .basso {
+    margin-top:clamp(18px,3svh,30px) !important;
+  }
+
+  /* The animated Lavori scene ends intentionally without an empty black tail. */
+  body[data-pagina="lavori"] .s-agency .hero.hero-titolo {
+    min-height:clamp(510px,79svh,690px) !important;
+    background:var(--brand-deep);
+  }
+  body[data-pagina="lavori"] .s-agency .hero.hero-titolo:after {
+    background:linear-gradient(180deg,#070b1a19 0%,transparent 42%,#070b1a0b 70%,#070b1a26 100%);
+  }
+
+  /* Let the profile portrait reach the lower edge of its card. */
+  body[data-pagina="home"] .s-make {
+    padding-bottom:0 !important;
+  }
+  body[data-pagina="home"] .s-make .persona {
+    height:min(90svh,900px);
+    margin-bottom:0 !important;
+    align-self:end;
+  }
+  /* The Italian post-it adds clutter on the narrow version of this page. */
+  body[data-pagina="home"] .s-make .post-it {
+    display:none !important;
+  }
+}
