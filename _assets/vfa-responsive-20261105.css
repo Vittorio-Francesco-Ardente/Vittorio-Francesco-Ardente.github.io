@@ -1197,3 +1197,9 @@ body[data-pagina="lavori"] .s-rayder .vetrina-r {
   .menu .m-corpo ol li a span {font-size:clamp(25px,7.7vw,37px) !important;}
   .menu .m-soc > a.pill {min-height:42px;}
 }
+
+
+/* Text-only navigation: no image preview, icons, or separators. */
+.menu .m-corpo {display:flex !important;align-items:center;justify-content:center;}
+.menu .m-corpo .m-ante {display:none !important;}
+.menu .m-corpo ol {flex:1 1 auto;}
