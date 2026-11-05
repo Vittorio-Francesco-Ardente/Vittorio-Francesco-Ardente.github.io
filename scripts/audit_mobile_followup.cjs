@@ -21,7 +21,7 @@ for(const [width,height,path] of cases){
  menu:get(".nav .barra"),labels:spans.map(e=>({txt:e.textContent.trim(),width:e.getBoundingClientRect().width,clip:getComputedStyle(e).clipPath})),
  icons:links.map(e=>({svg:!!e.querySelector("svg"),w:e.querySelector("svg")?.getBoundingClientRect().width||0})),
  postit:get(".s-make .post-it"),portrait:get(".s-make .persona"),portraitImage:get(".s-make .persona img"),profile:get(".s-make"),
- homeHero:get(".s-forma"),middle:get(".s-forma .mezzo"),cards:get(".s-forma .basso"),
+ homeHero:get(".s-forma"),worksSection:get(".s-agency"),middle:get(".s-forma .mezzo"),cards:get(".s-forma .basso"),
  worksHero:get(".s-agency .hero"),worksWave:get(".s-agency .hero .onda-bg"),
  experiences:exp,projects:get(".s-rayder"),theme:document.documentElement.dataset.tema
  };
@@ -38,7 +38,7 @@ for(const [width,height,path] of cases){
  }
  if(info.theme!=="base")issues.push("theme-not-fixed");
  problems.push(...issues.map(issue=>({path,width,issue})));
- console.log("MOBILE_REPORT",JSON.stringify({width,height,path,issues,navLabels:info.labels,profileGap:info.profile&&info.portrait?Math.round(info.profile.bottom-info.portrait.bottom):null,experiences:info.experiences,worksHeroHeight:Math.round(info.worksHero?.height||0),homeCardsGap:info.middle&&info.cards?Math.round(info.cards.top-info.middle.bottom):null}));
+ console.log("MOBILE_REPORT",JSON.stringify({width,height,path,issues,navLabels:info.labels,profileGap:info.profile&&info.portrait?Math.round(info.profile.bottom-info.portrait.bottom):null,experiences:info.experiences,worksHeroHeight:Math.round(info.worksHero?.height||0),worksSectionHeight:Math.round(info.worksSection?.height||0),worksSectionTail:info.worksHero&&info.worksSection?Math.round(info.worksSection.bottom-info.worksHero.bottom):null,homeTail:info.homeHero&&info.cards?Math.round(info.homeHero.bottom-info.cards.bottom):null,homeCardsGap:info.middle&&info.cards?Math.round(info.cards.top-info.middle.bottom):null}));
  if(width===390&&["/","/lavori.html","/esperienze.html"].includes(path)){
   const selectors=path==="/"?[".s-forma .basso",".s-make"]:path==="/lavori.html"?[".s-agency",".s-rayder"]:[".s-esp"];
   for(let j=0;j<selectors.length;j++){
