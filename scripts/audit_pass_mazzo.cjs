@@ -11,6 +11,10 @@ const fs=require('fs');
    const errors=[];page.on('pageerror',e=>errors.push(e.message.slice(0,160)));
    await page.goto('http://127.0.0.1:8765'+path,{waitUntil:'domcontentloaded',timeout:25000});
    await page.waitForTimeout(path.includes('contatti')?1800:750);
+   if(['/', '/en.html', '/pl.html'].includes(path)){
+     await page.locator('.s-mazzo').scrollIntoViewIfNeeded();
+     await page.waitForTimeout(1300);
+   }
    const metrics=await page.evaluate(()=>{
      const q=s=>document.querySelector(s);
      const rect=e=>{if(!e)return null;let r=e.getBoundingClientRect();return{x:+r.x.toFixed(1),y:+r.y.toFixed(1),w:+r.width.toFixed(1),h:+r.height.toFixed(1),right:+r.right.toFixed(1),bottom:+r.bottom.toFixed(1)}};
