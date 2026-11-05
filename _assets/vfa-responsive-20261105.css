@@ -1491,3 +1491,112 @@ body[data-pagina="contatti"] .s-badge .email-pill:focus-visible {
   outline:2px solid var(--accent);
   outline-offset:4px;
 }
+
+
+/* 2026-11-06 | VFA homepage card deck: Safari/iPad-safe image and caption separation.
+   The photograph is a flexible pane; the title and description always own real space. */
+.s-mazzo .carta {
+  display:flex !important;
+  flex-direction:column !important;
+  box-sizing:border-box !important;
+  min-width:0 !important;
+  min-height:0 !important;
+  gap:0 !important;
+  padding:clamp(10px,1.25vw,14px) clamp(10px,1.25vw,14px) clamp(15px,1.7vw,22px) !important;
+  overflow:hidden !important;
+  isolation:isolate;
+}
+.s-mazzo .carta > img {
+  display:block !important;
+  flex:1 1 0% !important;
+  align-self:stretch !important;
+  width:100% !important;
+  height:0 !important;
+  min-width:0 !important;
+  min-height:0 !important;
+  max-height:none !important;
+  margin:0 0 clamp(9px,1.1vw,14px) !important;
+  object-fit:cover !important;
+  object-position:center !important;
+  position:relative !important;
+  z-index:0 !important;
+}
+.s-mazzo .carta > img.mz-site-shot {
+  object-position:100% center !important;
+}
+.s-mazzo .carta > img.mz-portrait {
+  object-fit:contain !important;
+  object-position:center bottom !important;
+}
+.s-mazzo .carta > b,
+.s-mazzo .carta > small {
+  display:block !important;
+  flex:0 0 auto !important;
+  align-self:stretch !important;
+  position:relative !important;
+  box-sizing:border-box !important;
+  width:100% !important;
+  height:auto !important;
+  min-height:0 !important;
+  margin:0 !important;
+  background:#f4f6f9 !important;
+  text-shadow:none !important;
+  overflow:visible !important;
+  z-index:2 !important;
+}
+.s-mazzo .carta > b {
+  padding:2px 8px 3px !important;
+  color:#14213b !important;
+  line-height:1.15 !important;
+  font-size:clamp(22px,2.6vw,32px) !important;
+}
+.s-mazzo .carta > small {
+  padding:2px 8px 5px !important;
+  color:#44526b !important;
+  line-height:1.4 !important;
+  font-size:clamp(12px,1.15vw,14px) !important;
+  overflow-wrap:break-word !important;
+}
+.s-mazzo .carta > .cn {
+  position:absolute !important;
+  top:clamp(20px,2vw,28px) !important;
+  left:clamp(20px,2vw,28px) !important;
+  z-index:3 !important;
+}
+/* iPad landscape and smaller laptops: keep the deck fully inside its column. */
+@media (min-width:981px) and (max-width:1280px) {
+  .s-mazzo {
+    grid-template-columns:minmax(0,1fr) minmax(0,.95fr) !important;
+    gap:clamp(20px,2.8vw,42px) !important;
+  }
+  .s-mazzo .mazzo {
+    width:min(100%,clamp(275px,31vw,345px)) !important;
+    aspect-ratio:3 / 4.35 !important;
+  }
+  .s-mazzo h2 {
+    font-size:clamp(45px,5.6vw,76px) !important;
+    overflow-wrap:normal;
+  }
+}
+/* Tablet portrait: intentional vertical composition with enough caption space. */
+@media (min-width:761px) and (max-width:980px) {
+  .s-mazzo {
+    gap:clamp(28px,4vw,48px) !important;
+    padding-top:clamp(78px,9svh,110px) !important;
+    padding-bottom:clamp(74px,8svh,110px) !important;
+  }
+  .s-mazzo .mazzo {
+    width:min(345px,75vw) !important;
+    aspect-ratio:3 / 4.38 !important;
+  }
+}
+/* Small phones retain the same card treatment, with readable two-line labels. */
+@media (max-width:760px) {
+  .s-mazzo .carta > b {
+    font-size:clamp(21px,6.2vw,27px) !important;
+  }
+  .s-mazzo .carta > small {
+    font-size:clamp(11.5px,3.2vw,13px) !important;
+    line-height:1.35 !important;
+  }
+}
