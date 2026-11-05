@@ -51,3 +51,5 @@ for(const [width,height,path] of cases){
 console.log("MOBILE_SUMMARY",JSON.stringify({cases:cases.length,problems}));
 await browser.close();if(problems.length)process.exitCode=1;
 })().catch(e=>{console.log("AUDIT_FATAL",e.stack||String(e));process.exitCode=1});
+
+// Audit: mobile icons, whitespace, poster and section boundaries.
