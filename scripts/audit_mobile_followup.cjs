@@ -1,6 +1,8 @@
 const { chromium } = require('playwright');
 (async()=>{
-const browser=await chromium.launch({headless:true});
+const fs = require('fs');
+const executable=['/usr/bin/google-chrome','/usr/bin/google-chrome-stable','/usr/bin/chromium'].find(x=>fs.existsSync(x));
+const browser=await chromium.launch({headless:true,...(executable?{executablePath:executable}:{})});
 let problems=[];
 const cases=[[320,700,"/"],[390,844,"/"],[430,932,"/"],[390,844,"/lavori.html"],[390,844,"/esperienze.html"],[390,844,"/en.html"],[390,844,"/pl.html"],[768,1024,"/"],[1440,900,"/lavori.html"]];
 for(const [width,height,path] of cases){
