@@ -822,3 +822,19 @@ body[data-pagina="lavori"] .s-rayder .vetrina-r {
   .s-mazzo .carta b {font-size:25px;}
   .s-mazzo .carta small {font-size:12.5px;}
 }
+
+
+/* Prevent single-character email wrapping on narrow phones. */
+@media (max-width:360px) {
+  body[data-pagina="contatti"] .s-badge .email-pill span {
+    white-space:nowrap;
+    overflow:hidden;
+    overflow-wrap:normal;
+    text-overflow:ellipsis;
+    font-size:11px;
+    letter-spacing:-.025em;
+  }
+  body[data-pagina="contatti"] .s-badge .email-pill button {
+    padding-inline:14px;
+  }
+}
