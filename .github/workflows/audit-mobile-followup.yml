@@ -1,0 +1,27 @@
+name: Controllo visuale mobile (temporaneo)
+on:
+  push:
+    paths:
+      - 'scripts/audit_mobile_followup.cjs'
+  workflow_dispatch:
+jobs:
+  verifica:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Prepara browser
+        run: |
+          npm install --prefix /tmp/vfa-audit playwright@1.56.1
+          /tmp/vfa-audit/node_modules/.bin/playwright install chromium
+      - name: Avvia portfolio locale
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/vfa-audit-server.log 2>&1 &
+          sleep 3
+      - name: Test viewport e screenshot
+        env:
+          NODE_PATH: /tmp/vfa-audit/node_modules
+        run: node scripts/audit_mobile_followup.cjs
