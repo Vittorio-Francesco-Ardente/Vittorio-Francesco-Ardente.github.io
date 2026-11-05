@@ -838,3 +838,210 @@ body[data-pagina="lavori"] .s-rayder .vetrina-r {
     padding-inline:14px;
   }
 }
+
+
+/* Screenshot refinements 2026-11-05: menu, header, card captions, contacts, footer. */
+@media (max-width:760px) {
+  /* The menu must not leave an empty half-screen above its links. */
+  .menu {
+    box-sizing:border-box;
+    height:100dvh;
+    min-height:0;
+    justify-content:flex-start !important;
+    align-content:start;
+    gap:clamp(12px,2.3svh,20px) !important;
+    padding:calc(16px + env(safe-area-inset-top))
+            clamp(18px,4.5vw,28px)
+            calc(18px + env(safe-area-inset-bottom)) !important;
+    overflow-x:hidden;
+    overflow-y:auto;
+    -webkit-overflow-scrolling:touch;
+  }
+  .menu .m-top {
+    min-height:50px;
+    height:50px;
+    width:100%;
+    flex:0 0 50px;
+  }
+  .menu .chiudi-menu {
+    width:48px;
+    height:48px;
+    position:relative;
+    top:auto;
+    right:auto;
+    margin:0 0 0 auto;
+    flex:0 0 48px;
+  }
+  .menu .m-corpo {
+    margin:clamp(4px,2svh,18px) 0 0 !important;
+    flex:0 0 auto;
+    width:100%;
+    align-self:stretch;
+  }
+  .menu .m-corpo ol {
+    margin:0 auto;
+    width:100%;
+    max-width:510px;
+  }
+  .menu ol a {
+    min-height:44px;
+    padding:clamp(5px,1.15svh,10px) 3px;
+    text-align:center !important;
+    box-sizing:border-box;
+  }
+  .menu ol a span {
+    font-size:clamp(27px,8.4vw,44px) !important;
+    line-height:1.08;
+    letter-spacing:-.015em;
+    word-break:normal;
+    overflow-wrap:normal;
+  }
+  .menu .m-piede {
+    flex:0 0 auto;
+    margin:clamp(4px,1svh,10px) 0 0 !important;
+    padding:0 !important;
+    gap:8px;
+  }
+  .menu .m-soc { width:min(100%,510px); gap:8px; }
+  .menu .m-soc > a.pill {
+    min-height:48px;
+    padding:8px 5px;
+    box-sizing:border-box;
+    touch-action:manipulation;
+  }
+  .menu .m-soc .menu-lingue {
+    grid-column:1/-1;
+    margin:6px auto 0;
+    gap:10px;
+  }
+  .menu .menu-lingue .pill {
+    min-width:48px;
+    min-height:44px;
+    height:44px;
+    box-sizing:border-box;
+  }
+
+  /* Consistent, balanced top header: visible logo and a proper touch target. */
+  .nav .testa-top {
+    min-height:62px;
+    padding:7px 9px 7px 16px;
+    background:rgba(5,12,39,.90);
+    border:1px solid rgba(255,255,255,.15);
+    border-radius:19px;
+    align-items:center;
+    box-sizing:border-box;
+  }
+  .nav .testa-top .mark-top {
+    display:inline-flex;
+    align-items:center;
+    flex:0 0 auto;
+    min-height:44px;
+  }
+  .nav .testa-top .mark-top .logo-anim,
+  .nav .testa-top .mark-top svg {
+    display:block;
+    height:39px !important;
+    width:auto !important;
+    max-width:100%;
+  }
+  .nav .testa-top .menu-btn2 {
+    display:grid;
+    place-items:center;
+    width:46px !important;
+    height:46px !important;
+    min-width:46px;
+    min-height:46px;
+    border:1px solid rgba(255,255,255,.13);
+    border-radius:14px;
+    background:rgba(255,255,255,.10) !important;
+    color:#fff !important;
+    touch-action:manipulation;
+  }
+
+  /* Language switcher already lives in the menu; do not repeat it in the footer. */
+  .s-sent .colonne > div:last-child {
+    display:none !important;
+  }
+  .s-sent .colonne {
+    row-gap:8px;
+  }
+  .s-sent .fondo {
+    margin-top:8px;
+    padding-top:10px !important;
+  }
+
+  /* Contact poster should end after its information, not after a blank viewport. */
+  body[data-pagina="contatti"] .s-club {
+    min-height:0 !important;
+    height:auto !important;
+    padding:clamp(36px,6svh,64px) clamp(20px,5vw,32px)
+            clamp(34px,5svh,55px) !important;
+    justify-content:flex-start;
+    align-items:center;
+  }
+  body[data-pagina="contatti"] .s-club .in {
+    width:100%;
+    align-content:start;
+    gap:clamp(12px,3vw,18px);
+  }
+  body[data-pagina="contatti"] .s-club .righe {
+    gap:clamp(7px,1.5svh,14px);
+  }
+  body[data-pagina="contatti"] .s-club .indirizzo {
+    width:100%;
+    box-sizing:border-box;
+    margin-top:4px;
+  }
+
+  /* Taller card viewport leaves the title and two-line description room to breathe. */
+  .s-mazzo .mazzo {
+    width:min(330px,82vw);
+    aspect-ratio:3/4.5;
+    max-width:100%;
+  }
+  .s-mazzo .carta {
+    grid-template-rows:minmax(0,1fr) auto auto !important;
+    row-gap:0 !important;
+    padding:11px 11px 17px !important;
+    overflow:hidden;
+    box-sizing:border-box;
+  }
+  .s-mazzo .carta img {
+    grid-row:1;
+    min-height:0;
+    height:100%;
+    width:100%;
+    border-radius:12px;
+    object-fit:cover;
+  }
+  .s-mazzo .carta b {
+    grid-row:2;
+    display:block;
+    box-sizing:border-box;
+    width:100%;
+    padding:14px 7px 4px;
+    margin:0;
+    line-height:1.1;
+    font-size:clamp(22px,6.3vw,27px);
+    color:#14213b;
+    background:#f4f6f9;
+  }
+  .s-mazzo .carta small {
+    grid-row:3;
+    display:block;
+    box-sizing:border-box;
+    width:100%;
+    min-height:2.7em;
+    padding:3px 7px 2px;
+    margin:0;
+    font-size:clamp(12px,3.25vw,13px);
+    line-height:1.35;
+    color:#52607a;
+    background:#f4f6f9;
+  }
+}
+@media (max-width:360px) {
+  .menu ol a span {font-size:clamp(25px,8.1vw,30px) !important;}
+  .menu .m-soc > a.pill {font-size:10px;}
+  .s-mazzo .mazzo {width:min(285px,82vw);}
+}
