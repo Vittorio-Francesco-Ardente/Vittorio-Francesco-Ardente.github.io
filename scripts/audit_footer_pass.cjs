@@ -27,7 +27,7 @@ const fs=require("fs");
       docWidth:document.documentElement.scrollWidth,viewport:innerWidth,
       footer:rect(footer),firstDisplay:first?getComputedStyle(first).display:null,
       cols:rect(cols),footerLinks:[...document.querySelectorAll(".s-sent a")].filter(e=>getComputedStyle(e).display!=="none").length,
-      navPagesDisplay:getComputedStyle(q(".s-sent .colonne > nav:nth-child(2)"))?.display,
+      navPagesDisplay:getComputedStyle(q(".s-sent .colonne > nav:nth-child(2)"))?.display,themeSelectDisplay:q(".s-sent #sel-tema")?getComputedStyle(q(".s-sent #sel-tema")).display:"absent",
       footerSocial:[...document.querySelectorAll(".s-sent .fondo nav a")].map(e=>rect(e)),
       canvas:rect(canvas),badge:rect(badge),mail:rect(mail),
       canvasPixels:canvas?[canvas.width,canvas.height]:null,
@@ -43,6 +43,8 @@ const fs=require("fs");
   if(data.badge&&width<=430&&(data.canvas?.right>data.badge?.right+2||data.canvas?.x<data.badge?.x-2))flags.push("pass-canvas-overflow");
   if(width<=430&&data.mail&&data.badge&&(data.mail.right>data.badge.right+2||data.mail.x<data.badge.x-2))flags.push("email-overflow");
   if(data.baseTheme!=="base")flags.push("unexpected-theme");
+  if(data.themeSelectDisplay!=="absent"&&data.themeSelectDisplay!=="none")flags.push("legacy-theme-selector-visible");
+  if(width===390&&data.footer?.h>530)flags.push("footer-still-too-tall");
   if(pageerrors.length)flags.push("page-js-error");
   issues.push(...flags.map(flag=>({width,path,flag})));
   console.log("VIEW_REPORT",JSON.stringify({path,width,height,flags,metrics:data,errors:pageerrors}));
