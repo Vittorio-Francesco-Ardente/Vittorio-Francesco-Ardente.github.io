@@ -18,7 +18,7 @@ const fs=require('fs');
       return {docW:document.documentElement.scrollWidth,viewport:innerWidth,
         badge:r(badge),canvas:r(q('.s-badge #c-badge')),mail:r(mail),badgesx:r(q('.s-badge .sx')),
         projects:r(q('.s-rayder')),word:r(word),wordbox:r(wordbox),wordNatural:word?.scrollHeight,wordClient:word?.clientHeight,
-        person:r(person),photo:r(photo),photointrinsic:photo?[photo.naturalWidth,photo.naturalHeight]:null,
+        homeIcons:[...document.querySelectorAll('.c-persona .ico a')].map(e=>({name:e.getAttribute('aria-label'),rect:r(e)})),projectBackground:wordbox?getComputedStyle(wordbox).backgroundImage:null,person:r(person),photo:r(photo),photointrinsic:photo?[photo.naturalWidth,photo.naturalHeight]:null,
         navHref:[...document.querySelectorAll('.nav .barra .voce')].filter(x=>getComputedStyle(x).display!=='none').map(x=>({tag:x.tagName,txt:x.textContent.trim().slice(0,20)})),
         menuLogo:getComputedStyle(q('.menu .m-top .mark'))?.display || 'none'
       };
@@ -26,6 +26,8 @@ const fs=require('fs');
     const flags=[];
     if(metrics.docW>width+2)flags.push('horizontal-overflow');
     if(width<=430 && metrics.menuLogo!=='none')flags.push('menu-logo-card-visible');
+    if(width<=430&&metrics.homeIcons.some(i=>i.rect.w<44||i.rect.h<44))flags.push('home-social-tap-target-too-small');
+    if(width<=430&&metrics.wordbox&&!metrics.projectBackground.includes('gradient'))flags.push('project-panel-gradient-missing');
     if(width<=430&&metrics.mail&&metrics.badge&&
       (metrics.mail.right>metrics.badge.right+1||metrics.mail.x<metrics.badge.x-1))flags.push('email-card-outside-badge-section');
     if(width<=430&&metrics.word&&metrics.wordbox&&
