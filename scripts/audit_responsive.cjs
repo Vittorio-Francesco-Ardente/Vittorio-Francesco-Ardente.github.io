@@ -22,7 +22,7 @@ const fs = require('fs');
       const box=s=>{let e=document.querySelector(s);if(!e)return null;let r=e.getBoundingClientRect();return {x:Math.round(r.x),y:Math.round(r.y),w:Math.round(r.width),h:Math.round(r.height),scrollW:e.scrollWidth,clientW:e.clientWidth,scrollH:e.scrollHeight}};
       const nav=document.querySelector('.nav .barra');
       return {viewport:innerWidth,docW:document.documentElement.scrollWidth,
-        nav:box('.nav .barra'),navItems:[...(nav?.querySelectorAll('.voce')||[])].filter(e=>getComputedStyle(e).display!=='none').map(e=>({name:e.textContent.trim().slice(0,18),x:Math.round(e.getBoundingClientRect().x),right:Math.round(e.getBoundingClientRect().right)})),
+        nav:box('.nav .barra'),navLabels:[...(nav?.querySelectorAll('.voce span')||[])].filter(e=>getComputedStyle(e.parentElement).display!=='none').map(e=>({text:e.textContent.trim(),scrollW:e.scrollWidth,clientW:e.clientWidth})),navItems:[...(nav?.querySelectorAll('.voce')||[])].filter(e=>getComputedStyle(e).display!=='none').map(e=>({name:e.textContent.trim().slice(0,18),x:Math.round(e.getBoundingClientRect().x),right:Math.round(e.getBoundingClientRect().right)})),
         footer:box('.s-sent'),footerFondo:box('.s-sent .fondo'),
         homeCards:[...document.querySelectorAll('.s-forma .basso > *')].map(e=>({top:Math.round(e.getBoundingClientRect().top),bottom:Math.round(e.getBoundingClientRect().bottom)})),
         hero:box('.s-agency .hero'),wave:box('.s-agency .hero canvas.onda-bg'),
@@ -36,6 +36,7 @@ const fs = require('fs');
     });
     const flags=[];
     if(metrics.docW>metrics.viewport+3)flags.push('horizontal-overflow');
+    if(metrics.navLabels.some(x=>x.scrollW>x.clientW+1))flags.push('navbar-label-clipped');
     if(width<=414 && metrics.nav && metrics.navItems.some(x=>x.x<metrics.nav.x-2||x.right>metrics.nav.x+metrics.nav.w+2))flags.push('navbar-item-overflow');
     if(metrics.big && metrics.big.scrollW>metrics.big.clientW+4)flags.push('projects-wordmark-clipped');
     if(metrics.hero&&metrics.wave&&Math.abs(metrics.hero.h-metrics.wave.h)>8)flags.push('works-wave-height-mismatch');
@@ -48,6 +49,11 @@ const fs = require('fs');
       await page.waitForTimeout(300);
       const img=await page.screenshot({type:'jpeg',quality:48,fullPage:false});
       console.log('SCREENSHOT_'+path.replace(/\W+/g,'_')+'_BASE64='+img.toString('base64'));
+      if(path==='/lavori.html'){
+        await page.locator('.s-sent .fondo').scrollIntoViewIfNeeded();
+        const img2=await page.screenshot({type:'jpeg',quality:48,fullPage:false});
+        console.log('SCREENSHOT_FOOTER_BASE64='+img2.toString('base64'));
+      }
     }
     await page.close();
   }
