@@ -754,8 +754,9 @@ body[data-pagina="lavori"] .s-rayder .vetrina-r {
   image-rendering:auto;
 }
 .s-mazzo .carta img.mz-site-shot {
-  object-fit:contain;
-  background:#fbf8ef;
+  object-fit:cover;
+  object-position:76% center;
+  background:#e9eef5;
 }
 .s-mazzo .carta img.mz-portrait {
   object-fit:contain;
