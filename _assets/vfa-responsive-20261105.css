@@ -710,3 +710,114 @@ body[data-pagina="lavori"] .s-rayder .vetrina-r {
     padding-top:10px !important;
   }
 }
+
+
+/* Deck art direction: clean editorial cards, crisp images, touch-first navigation. */
+.s-mazzo {
+  background:linear-gradient(154deg,#142d66 0%,#112755 43%,#0a1531 100%);
+  color:#f9fbff;
+}
+.s-mazzo h2 {
+  color:#f8faff;
+  letter-spacing:-.055em;
+  line-height:.98;
+}
+.s-mazzo .lede {
+  color:#cbd6eb;
+  max-width:37ch;
+}
+.s-mazzo .carta {
+  background:#f4f6f9;
+  color:#101a31;
+  border:1px solid #edf0f6;
+  border-radius:22px;
+  box-shadow:0 23px 65px -28px #020b22a8,0 1px 0 #ffffffb5 inset;
+  grid-template-rows:minmax(0,1fr) auto auto;
+  padding:13px 13px 23px;
+  gap:8px;
+}
+.s-mazzo .carta:before,
+.s-mazzo .carta:after {
+  content:none !important;
+  display:none !important;
+}
+.s-mazzo .carta img {
+  filter:none !important;
+  width:100%;
+  height:100%;
+  min-height:0;
+  display:block;
+  border-radius:13px;
+  object-fit:cover;
+  object-position:center;
+  background:#e8edf4;
+  image-rendering:auto;
+}
+.s-mazzo .carta img.mz-site-shot {
+  object-fit:contain;
+  background:#fbf8ef;
+}
+.s-mazzo .carta img.mz-portrait {
+  object-fit:contain;
+  object-position:center bottom;
+  background:linear-gradient(150deg,#a9c5f5 0%,#3466b8 72%,#122954 100%);
+}
+.s-mazzo .carta b,
+.s-mazzo .carta small,
+.s-mazzo .carta .cn {
+  text-shadow:none !important;
+}
+.s-mazzo .carta b {
+  color:#14213b;
+  font-size:clamp(25px,2.4vw,32px);
+  letter-spacing:-.025em;
+  padding-top:8px;
+}
+.s-mazzo .carta small {
+  color:#52607a;
+  font-size:13px;
+  line-height:1.35;
+}
+.s-mazzo .carta .cn {
+  color:#254d90;
+  background:#f5f7fced;
+  border:1px solid #dfe6f1;
+  font-size:11px;
+  font-weight:650;
+  box-shadow:0 2px 12px #172d5133;
+}
+.s-mazzo .carta[data-p="1"],
+.s-mazzo .carta[data-p="2"],
+.s-mazzo .carta[data-p="3"],
+.s-mazzo .carta[data-p="4"] {
+  filter:none;
+}
+.s-mazzo .mz-n { color:#bdc9df; }
+.s-mazzo .mz-comandi button {
+  color:#ecf2ff;
+  border-color:#a4bbde6b;
+}
+@media (max-width:760px), (hover:none) and (pointer:coarse) {
+  .s-mazzo .mz-comandi {
+    margin-top:16px;
+    min-height:20px;
+    justify-content:flex-start;
+  }
+  .s-mazzo .mz-comandi button {
+    display:none !important; /* Swipe replaces touch controls. */
+  }
+}
+@media (max-width:760px) {
+  .s-mazzo {
+    min-height:0 !important;
+    padding-top:clamp(55px,8svh,85px);
+    padding-bottom:clamp(55px,8svh,75px) !important;
+    gap:clamp(24px,5vw,38px);
+  }
+  .s-mazzo h2 {font-size:clamp(42px,12vw,64px);}
+  .s-mazzo .lede {font-size:15px;margin-top:12px;}
+  .s-mazzo .mazzo {width:min(330px,79vw);aspect-ratio:3/4.05;}
+  .s-mazzo .carta {padding:11px 11px 19px;}
+  .s-mazzo .carta b {font-size:25px;}
+  .s-mazzo .carta small {font-size:12.5px;}
+}
