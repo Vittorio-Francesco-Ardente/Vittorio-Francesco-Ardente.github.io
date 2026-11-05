@@ -1203,3 +1203,33 @@ body[data-pagina="lavori"] .s-rayder .vetrina-r {
 .menu .m-corpo {display:flex !important;align-items:center;justify-content:center;}
 .menu .m-corpo .m-ante {display:none !important;}
 .menu .m-corpo ol {flex:1 1 auto;}
+
+
+/* FINAL NAV OVERRIDE: override the legacy !important block-layout rule. */
+.menu .m-corpo {width:100% !important;min-width:0;display:flex !important;align-items:center;justify-content:center;}
+.menu .m-corpo ol {display:flex !important;flex-direction:column;align-items:stretch;justify-content:center;width:min(100%,1050px) !important;max-width:1050px !important;gap:clamp(2px,.6vh,9px);border:0 !important;}
+.menu .m-corpo ol li {display:block !important;border:0 !important;}
+.menu .m-corpo ol li a {display:flex !important;width:100%;align-items:center;min-width:0;border:0 !important;text-align:inherit !important;}
+.menu .m-corpo ol li a span {display:block;max-width:100%;font-size:clamp(36px,6.6vw,100px) !important;line-height:1 !important;letter-spacing:-.035em;}
+.menu .m-corpo ol li:nth-child(1) a {justify-content:flex-start !important;}
+.menu .m-corpo ol li:nth-child(2) a {justify-content:center !important;}
+.menu .m-corpo ol li:nth-child(3) a {justify-content:flex-end !important;}
+.menu .m-corpo ol li:nth-child(4) a {justify-content:center !important;}
+.menu .m-corpo ol li:nth-child(5) a {justify-content:flex-start !important;}
+.menu .m-corpo ol li:nth-child(6) a {justify-content:flex-end !important;}
+.menu .m-deco,.menu .m-ante,.menu .m-luogo {display:none !important;}
+.menu .vfa-theme-control,.menu .tema-controllo,.menu .tema-chip {display:none !important;}
+@media(max-width:760px){
+ .menu .m-corpo {flex:1 1 auto !important;min-height:0;align-items:center !important;}
+ .menu .m-corpo ol {width:100% !important;max-width:none !important;gap:clamp(2px,.7svh,9px) !important;}
+ .menu .m-corpo ol li a {min-height:clamp(42px,7.4svh,67px) !important;padding:3px 0 !important;}
+ .menu .m-corpo ol li a span {font-size:clamp(26px,8.2vw,56px) !important;line-height:1.03 !important;}
+ .menu .m-piede {margin:0 !important;}
+}
+@media(max-width:380px){
+ .menu .m-corpo ol li a span {font-size:clamp(25px,7.7vw,34px) !important;}
+}
+@media(max-height:700px) and (max-width:760px){
+ .menu .m-corpo ol li a {min-height:36px !important;padding:1px 0 !important;}
+ .menu .m-corpo ol li a span {font-size:clamp(23px,7.3vw,34px) !important;}
+}
