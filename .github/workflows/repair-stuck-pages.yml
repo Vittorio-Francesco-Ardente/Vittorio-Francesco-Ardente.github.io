@@ -1,47 +1,53 @@
-# One-time recovery for a GitHub Pages deployment that remained locked
-# after the managed "pages build and deployment" workflow failed.
-# Re-run manually only if GitHub reports the same orphaned SHA again.
+# One-time repair. This workflow only runs when this file is changed
+# or manually dispatched; it does not publish the website itself.
 name: Ripara pubblicazione Pages bloccata
+
 on:
   push:
     paths:
       - ".github/workflows/repair-stuck-pages.yml"
   workflow_dispatch:
+
 permissions:
   contents: read
   pages: write
+  actions: write
+
+concurrency:
+  group: pages-repair
+  cancel-in-progress: true
+
 jobs:
-  cancel-stale-pages-deployment:
+  release-blocked-run:
     runs-on: ubuntu-latest
     steps:
-      - name: Cancel the orphaned Pages deployment, not the last live website
+      - name: Cancel only the stalled GitHub Pages build
         env:
           GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
-          STUCK_SHA: "eecc0d28a8cab2ccf09f46a12d877ba7e48fb5c7"
+          STUCK_RUN_ID: "42097856702"
         shell: bash
         run: |
           set -euo pipefail
-          echo "Canceling stale Pages deployment ${STUCK_SHA}"
-          response="$(mktemp)"
-          code="$(curl --silent --show-error --location --request POST \
-            --header "Accept: application/vnd.github+json" \
-            --header "Authorization: Bearer ${GH_TOKEN}" \
-            --header "X-GitHub-Api-Version: 2022-11-28" \
-            --output "${response}" --write-out '%{http_code}' \
-            "https://api.github.com/repos/${REPO}/pages/deployments/${STUCK_SHA}/cancel")"
-          case "${code}" in
-            204)
-              echo "Stale deployment canceled (HTTP 204)."
+          url="https://api.github.com/repos/${REPO}/actions/runs/${STUCK_RUN_ID}"
+          headers=(-H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${GH_TOKEN}" -H "X-GitHub-Api-Version: 2022-11-28")
+          state="$(curl -fsSL "${headers[@]}" "${url}" | jq -r '.status // "unknown"')"
+          echo "Stalled Pages run ${STUCK_RUN_ID} state: ${state}"
+          case "${state}" in
+            completed)
+              echo "Already finished; no cancellation needed."
               ;;
-            404)
-              echo "Stale deployment not found (HTTP 404); it may already be gone."
+            queued|in_progress|waiting|pending|requested)
+              response="$(mktemp)"
+              code="$(curl -sSL -X POST "${headers[@]}" -o "${response}" -w '%{http_code}' "${url}/cancel")"
+              case "${code}" in
+                202|204) echo "Cancellation accepted, allowing the latest Pages build to proceed." ;;
+                409) echo "Run completed before cancellation could be applied." ;;
+                *) echo "::error::Cancel request failed with HTTP ${code}"; cat "${response}"; exit 1 ;;
+              esac
               ;;
             *)
-              echo "::error::Pages cancellation returned HTTP ${code}"
-              cat "${response}"
+              echo "::error::Unknown run state: ${state}"
               exit 1
               ;;
           esac
-          # The push creating this repair workflow separately requests a new
-          # normal Pages deployment. We do not trigger another here.
