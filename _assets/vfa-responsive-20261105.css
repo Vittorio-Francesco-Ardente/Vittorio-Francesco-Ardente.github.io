@@ -660,3 +660,53 @@ body[data-pagina="lavori"] .s-rayder .vetrina-r {
     flex:0 0 48px;
   }
 }
+
+
+/* Final compact footer rows; disable legacy translated theme selector. */
+.s-sent #sel-tema,
+.s-sent label[for="sel-tema"],
+.s-sent h4:has(+ label[for="sel-tema"]) {
+  display:none !important;
+}
+@media (max-width:760px) {
+  .s-sent .colonne {
+    grid-template-columns:minmax(0,1fr);
+    row-gap:10px;
+  }
+  .s-sent .colonne > nav:nth-child(3),
+  .s-sent .colonne > nav:nth-child(4),
+  .s-sent .colonne > div:last-child {
+    grid-column:1/-1;
+  }
+  /* These groups remain accessible via nav aria-labels; the mobile footer is compact. */
+  .s-sent .colonne > nav:nth-child(3) h4,
+  .s-sent .colonne > nav:nth-child(4) h4 {
+    display:none;
+  }
+  .s-sent .colonne > nav:nth-child(3) ul,
+  .s-sent .colonne > nav:nth-child(4) ul {
+    display:flex;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:0 14px;
+  }
+  .s-sent .colonne > nav:nth-child(3) a,
+  .s-sent .colonne > nav:nth-child(4) a {
+    min-height:34px;
+    display:inline-flex;
+    align-items:center;
+  }
+  .s-sent .colonne .marca {
+    gap:3px;
+  }
+  .s-sent .colonne > div:last-child h4 {
+    display:none;
+  }
+  .s-sent .lingue-piede {
+    gap:4px 14px;
+  }
+  .s-sent .fondo {
+    margin-top:10px;
+    padding-top:10px !important;
+  }
+}
