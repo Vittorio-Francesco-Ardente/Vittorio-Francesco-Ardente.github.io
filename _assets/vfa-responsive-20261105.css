@@ -285,7 +285,19 @@ main, main > .schermo { min-width:0; }
     align-self:end;
   }
   /* The Italian post-it adds clutter on the narrow version of this page. */
-  body[data-pagina="home"] .s-make .post-it {
+  html[lang="it"] body[data-pagina="home"] .s-make .post-it {
     display:none !important;
+  }
+}
+
+/* The shared .schermo 96px bottom padding caused the artificial dark strips. */
+@media (max-width:760px) {
+  body[data-pagina="lavori"] .s-agency {
+    min-height:0 !important;
+    padding:0 !important;
+  }
+  body[data-pagina="home"] .s-forma {
+    min-height:0 !important;
+    padding-bottom:clamp(28px,4svh,42px) !important;
   }
 }
