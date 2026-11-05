@@ -20,19 +20,37 @@ import('./vfa-menu-silk-20261105.js').catch(()=>{});
  }
 })();
 
-/* Localized PNG navigation: switch only after the six correct language assets preload.
-   Keep the accessible HTML text if an image is unavailable or fails to decode. */
+/* Localized brush PNG navigation only on smartphones.
+   Desktop and tablet never switch away from the accessible HTML menu labels. */
 (()=>{
  const menu=document.getElementById('menu');
  const locale=(document.documentElement.lang||'it').toLowerCase().slice(0,2);
  if(!menu||!['it','en','pl'].includes(locale))return;
+ const media=window.matchMedia('(max-width: 760px)');
  const sections=['home','lavori','esperienze','certificazioni','chi-sono','contatti'];
  if(!sections.every(id=>menu.querySelector('.m-corpo ol a[data-voce="'+id+'"]')))return;
  const prefix='/_assets/vfa-menu-stroke-'+(locale==='it'?'':locale+'-');
- Promise.all(sections.map(id=>new Promise((resolve,reject)=>{
-  const img=new Image();
-  img.onload=resolve;
-  img.onerror=reject;
-  img.src=prefix+id+'.png';
- }))).then(()=>menu.classList.add('vfa-six-brush-ready')).catch(()=>{});
+ let loaded=false;
+ let loading=false;
+ function syncMenu(){
+  menu.classList.toggle('vfa-six-brush-ready',media.matches&&loaded);
+  if(!media.matches||loaded||loading)return;
+  loading=true;
+  Promise.all(sections.map(id=>new Promise((resolve,reject)=>{
+   const img=new Image();
+   img.onload=resolve;
+   img.onerror=reject;
+   img.src=prefix+id+'.png';
+  }))).then(()=>{
+   loaded=true;
+   loading=false;
+   syncMenu();
+  }).catch(()=>{
+   loading=false;
+   menu.classList.remove('vfa-six-brush-ready');
+  });
+ }
+ if(media.addEventListener)media.addEventListener('change',syncMenu);
+ else if(media.addListener)media.addListener(syncMenu);
+ syncMenu();
 })();
