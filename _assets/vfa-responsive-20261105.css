@@ -193,3 +193,5 @@ main, main > .schermo { min-width:0; }
 @media (prefers-reduced-motion:reduce) {
   .nastri-bg .nb { animation:none; }
 }
+
+/* Deployment marker: mobile layout fixes enabled on all portfolio pages. */
