@@ -1234,13 +1234,13 @@ body[data-pagina="lavori"] .s-rayder .vetrina-r {
  }
 }
 
-/* SIX ORIGINAL PNG MENU LABELS — Italian. Desktop: three staggered pairs; mobile: six open rows.
-   The existing link text remains accessible. Other locales retain translated text. */
-html:lang(it) #menu.vfa-six-brush-ready .m-corpo {
+/* Localized brush PNG labels: IT, EN and PL. Staggered desktop layout, spaced mobile rows.
+   The original HTML remains accessible, and loads as a fallback if images fail. */
+html:is(:lang(it),:lang(en),:lang(pl)) #menu.vfa-six-brush-ready .m-corpo {
  display:flex !important;align-items:center !important;justify-content:center !important;
  overflow:visible !important;min-height:0 !important;
 }
-html:lang(it) #menu.vfa-six-brush-ready .m-corpo ol {
+html:is(:lang(it),:lang(en),:lang(pl)) #menu.vfa-six-brush-ready .m-corpo ol {
  display:grid !important;grid-template-columns:repeat(2,minmax(0,1fr)) !important;
  grid-template-rows:repeat(3,minmax(0,1fr)) !important;
  grid-auto-flow:row !important;
@@ -1252,23 +1252,23 @@ html:lang(it) #menu.vfa-six-brush-ready .m-corpo ol {
  align-items:stretch !important;justify-items:stretch !important;
  border:0 !important;list-style:none !important;
 }
-html:lang(it) #menu.vfa-six-brush-ready .m-corpo ol > li {
+html:is(:lang(it),:lang(en),:lang(pl)) #menu.vfa-six-brush-ready .m-corpo ol > li {
  display:flex !important;align-items:center !important;justify-content:flex-start !important;
  min-width:0 !important;min-height:0 !important;width:100% !important;height:100% !important;
  padding:0 !important;margin:0 !important;
  border:0 !important;position:relative !important;
  transform:translate(var(--vfa-dx,0px),var(--vfa-dy,0px)) rotate(var(--vfa-rot,0deg)) !important;
 }
-html:lang(it) #menu.vfa-six-brush-ready .m-corpo ol > li:nth-child(even) {
+html:is(:lang(it),:lang(en),:lang(pl)) #menu.vfa-six-brush-ready .m-corpo ol > li:nth-child(even) {
  justify-content:flex-end !important;
 }
-html:lang(it) #menu.vfa-six-brush-ready .m-corpo ol > li:nth-child(1) {--vfa-dx:12px;--vfa-dy:-8px;--vfa-rot:-.9deg;--vfa-w:620px;}
-html:lang(it) #menu.vfa-six-brush-ready .m-corpo ol > li:nth-child(2) {--vfa-dx:-12px;--vfa-dy:10px;--vfa-rot:.7deg;--vfa-w:650px;}
-html:lang(it) #menu.vfa-six-brush-ready .m-corpo ol > li:nth-child(3) {--vfa-dx:38px;--vfa-dy:8px;--vfa-rot:-.6deg;--vfa-w:690px;}
-html:lang(it) #menu.vfa-six-brush-ready .m-corpo ol > li:nth-child(4) {--vfa-dx:-25px;--vfa-dy:-8px;--vfa-rot:.35deg;--vfa-w:705px;}
-html:lang(it) #menu.vfa-six-brush-ready .m-corpo ol > li:nth-child(5) {--vfa-dx:25px;--vfa-dy:-8px;--vfa-rot:-.7deg;--vfa-w:610px;}
-html:lang(it) #menu.vfa-six-brush-ready .m-corpo ol > li:nth-child(6) {--vfa-dx:-25px;--vfa-dy:9px;--vfa-rot:.55deg;--vfa-w:640px;}
-html:lang(it) #menu.vfa-six-brush-ready .m-corpo ol > li > a {
+html:is(:lang(it),:lang(en),:lang(pl)) #menu.vfa-six-brush-ready .m-corpo ol > li:nth-child(1) {--vfa-dx:12px;--vfa-dy:-8px;--vfa-rot:-.9deg;--vfa-w:620px;}
+html:is(:lang(it),:lang(en),:lang(pl)) #menu.vfa-six-brush-ready .m-corpo ol > li:nth-child(2) {--vfa-dx:-12px;--vfa-dy:10px;--vfa-rot:.7deg;--vfa-w:650px;}
+html:is(:lang(it),:lang(en),:lang(pl)) #menu.vfa-six-brush-ready .m-corpo ol > li:nth-child(3) {--vfa-dx:38px;--vfa-dy:8px;--vfa-rot:-.6deg;--vfa-w:690px;}
+html:is(:lang(it),:lang(en),:lang(pl)) #menu.vfa-six-brush-ready .m-corpo ol > li:nth-child(4) {--vfa-dx:-25px;--vfa-dy:-8px;--vfa-rot:.35deg;--vfa-w:705px;}
+html:is(:lang(it),:lang(en),:lang(pl)) #menu.vfa-six-brush-ready .m-corpo ol > li:nth-child(5) {--vfa-dx:25px;--vfa-dy:-8px;--vfa-rot:-.7deg;--vfa-w:610px;}
+html:is(:lang(it),:lang(en),:lang(pl)) #menu.vfa-six-brush-ready .m-corpo ol > li:nth-child(6) {--vfa-dx:-25px;--vfa-dy:9px;--vfa-rot:.55deg;--vfa-w:640px;}
+html:is(:lang(it),:lang(en),:lang(pl)) #menu.vfa-six-brush-ready .m-corpo ol > li > a {
  display:block !important;position:relative !important;isolation:isolate !important;
  width:min(100%,var(--vfa-w,640px)) !important;height:100% !important;
  min-height:0 !important;max-height:205px !important;max-width:100% !important;
@@ -1276,7 +1276,7 @@ html:lang(it) #menu.vfa-six-brush-ready .m-corpo ol > li > a {
  background:transparent !important;
  transform:none !important;transition:transform .24s ease !important;
 }
-html:lang(it) #menu.vfa-six-brush-ready .m-corpo ol > li > a::before {
+html:is(:lang(it),:lang(en),:lang(pl)) #menu.vfa-six-brush-ready .m-corpo ol > li > a::before {
  content:"" !important;display:block !important;
  position:absolute !important;inset:0 !important;z-index:-1 !important;
  pointer-events:none !important;
@@ -1290,33 +1290,46 @@ html:lang(it) #menu.vfa-six-brush-ready .m-corpo ol > li > a::before {
  opacity:.66 !important;filter:saturate(.75) brightness(.94);
  transition:opacity .27s ease,filter .27s ease !important;
 }
-html:lang(it) #menu.vfa-six-brush-ready .m-corpo ol > li > a[data-voce="home"]::before {background-image:url('/_assets/vfa-menu-stroke-home.png') !important;}
-html:lang(it) #menu.vfa-six-brush-ready .m-corpo ol > li > a[data-voce="lavori"]::before {background-image:url('/_assets/vfa-menu-stroke-lavori.png') !important;}
-html:lang(it) #menu.vfa-six-brush-ready .m-corpo ol > li > a[data-voce="esperienze"]::before {background-image:url('/_assets/vfa-menu-stroke-esperienze.png') !important;}
-html:lang(it) #menu.vfa-six-brush-ready .m-corpo ol > li > a[data-voce="certificazioni"]::before {background-image:url('/_assets/vfa-menu-stroke-certificazioni.png') !important;}
-html:lang(it) #menu.vfa-six-brush-ready .m-corpo ol > li > a[data-voce="chi-sono"]::before {background-image:url('/_assets/vfa-menu-stroke-chi-sono.png') !important;}
-html:lang(it) #menu.vfa-six-brush-ready .m-corpo ol > li > a[data-voce="contatti"]::before {background-image:url('/_assets/vfa-menu-stroke-contatti.png') !important;}
+html:is(:lang(it),:lang(en),:lang(pl)) #menu.vfa-six-brush-ready .m-corpo ol > li > a[data-voce="home"]::before {background-image:url('/_assets/vfa-menu-stroke-home.png') !important;}
+html:is(:lang(it),:lang(en),:lang(pl)) #menu.vfa-six-brush-ready .m-corpo ol > li > a[data-voce="lavori"]::before {background-image:url('/_assets/vfa-menu-stroke-lavori.png') !important;}
+html:is(:lang(it),:lang(en),:lang(pl)) #menu.vfa-six-brush-ready .m-corpo ol > li > a[data-voce="esperienze"]::before {background-image:url('/_assets/vfa-menu-stroke-esperienze.png') !important;}
+html:is(:lang(it),:lang(en),:lang(pl)) #menu.vfa-six-brush-ready .m-corpo ol > li > a[data-voce="certificazioni"]::before {background-image:url('/_assets/vfa-menu-stroke-certificazioni.png') !important;}
+html:is(:lang(it),:lang(en),:lang(pl)) #menu.vfa-six-brush-ready .m-corpo ol > li > a[data-voce="chi-sono"]::before {background-image:url('/_assets/vfa-menu-stroke-chi-sono.png') !important;}
+html:is(:lang(it),:lang(en),:lang(pl)) #menu.vfa-six-brush-ready .m-corpo ol > li > a[data-voce="contatti"]::before {background-image:url('/_assets/vfa-menu-stroke-contatti.png') !important;}
+/* English and Polish brush assets use the exact localized HTML labels. */
+html:lang(en) #menu.vfa-six-brush-ready .m-corpo ol > li > a[data-voce="home"]::before {background-image:url('/_assets/vfa-menu-stroke-en-home.png') !important;}
+html:lang(en) #menu.vfa-six-brush-ready .m-corpo ol > li > a[data-voce="lavori"]::before {background-image:url('/_assets/vfa-menu-stroke-en-lavori.png') !important;}
+html:lang(en) #menu.vfa-six-brush-ready .m-corpo ol > li > a[data-voce="esperienze"]::before {background-image:url('/_assets/vfa-menu-stroke-en-esperienze.png') !important;}
+html:lang(en) #menu.vfa-six-brush-ready .m-corpo ol > li > a[data-voce="certificazioni"]::before {background-image:url('/_assets/vfa-menu-stroke-en-certificazioni.png') !important;}
+html:lang(en) #menu.vfa-six-brush-ready .m-corpo ol > li > a[data-voce="chi-sono"]::before {background-image:url('/_assets/vfa-menu-stroke-en-chi-sono.png') !important;}
+html:lang(en) #menu.vfa-six-brush-ready .m-corpo ol > li > a[data-voce="contatti"]::before {background-image:url('/_assets/vfa-menu-stroke-en-contatti.png') !important;}
+html:lang(pl) #menu.vfa-six-brush-ready .m-corpo ol > li > a[data-voce="home"]::before {background-image:url('/_assets/vfa-menu-stroke-pl-home.png') !important;}
+html:lang(pl) #menu.vfa-six-brush-ready .m-corpo ol > li > a[data-voce="lavori"]::before {background-image:url('/_assets/vfa-menu-stroke-pl-lavori.png') !important;}
+html:lang(pl) #menu.vfa-six-brush-ready .m-corpo ol > li > a[data-voce="esperienze"]::before {background-image:url('/_assets/vfa-menu-stroke-pl-esperienze.png') !important;}
+html:lang(pl) #menu.vfa-six-brush-ready .m-corpo ol > li > a[data-voce="certificazioni"]::before {background-image:url('/_assets/vfa-menu-stroke-pl-certificazioni.png') !important;}
+html:lang(pl) #menu.vfa-six-brush-ready .m-corpo ol > li > a[data-voce="chi-sono"]::before {background-image:url('/_assets/vfa-menu-stroke-pl-chi-sono.png') !important;}
+html:lang(pl) #menu.vfa-six-brush-ready .m-corpo ol > li > a[data-voce="contatti"]::before {background-image:url('/_assets/vfa-menu-stroke-pl-contatti.png') !important;}
 /* Visually hide only after every image has loaded; the HTML label is retained for screen readers. */
-html:lang(it) #menu.vfa-six-brush-ready .m-corpo ol > li > a > span:not(.vfa-route-pin) {
+html:is(:lang(it),:lang(en),:lang(pl)) #menu.vfa-six-brush-ready .m-corpo ol > li > a > span:not(.vfa-route-pin) {
  position:absolute !important;overflow:hidden !important;
  width:1px !important;height:1px !important;
  padding:0 !important;margin:-1px !important;border:0 !important;
  clip-path:inset(50%) !important;white-space:nowrap !important;
 }
-html:lang(it) #menu.vfa-six-brush-ready .m-corpo ol > li > a:is(.vfa-nav-active,[aria-current="page"])::before {
+html:is(:lang(it),:lang(en),:lang(pl)) #menu.vfa-six-brush-ready .m-corpo ol > li > a:is(.vfa-nav-active,[aria-current="page"])::before {
  opacity:1 !important;filter:drop-shadow(0 0 10px rgba(207,230,255,.43)) !important;
 }
-html:lang(it) #menu.vfa-six-brush-ready .m-corpo ol > li > a:is(:hover,:focus-visible)::before {
+html:is(:lang(it),:lang(en),:lang(pl)) #menu.vfa-six-brush-ready .m-corpo ol > li > a:is(:hover,:focus-visible)::before {
  opacity:1 !important;filter:drop-shadow(0 0 8px rgba(227,241,255,.3)) !important;
 }
-html:lang(it) #menu.vfa-six-brush-ready .m-corpo ol > li > a:is(:hover,:focus-visible) {
+html:is(:lang(it),:lang(en),:lang(pl)) #menu.vfa-six-brush-ready .m-corpo ol > li > a:is(:hover,:focus-visible) {
  transform:scale(1.025) !important;
 }
-html:lang(it) #menu.vfa-six-brush-ready .m-corpo ol > li > a:focus-visible {
+html:is(:lang(it),:lang(en),:lang(pl)) #menu.vfa-six-brush-ready .m-corpo ol > li > a:focus-visible {
  outline:2px solid rgba(255,255,255,.88) !important;outline-offset:0 !important;
  border-radius:8px !important;
 }
-html:lang(it) #menu.vfa-six-brush-ready .m-corpo ol > li > a:is(.vfa-nav-active,[aria-current="page"])::after {
+html:is(:lang(it),:lang(en),:lang(pl)) #menu.vfa-six-brush-ready .m-corpo ol > li > a:is(.vfa-nav-active,[aria-current="page"])::after {
  content:"SEI QUI" !important;display:block !important;
  position:absolute !important;right:7% !important;bottom:1% !important;
  padding:2px 6px !important;border-radius:4px !important;
@@ -1327,43 +1340,47 @@ html:lang(it) #menu.vfa-six-brush-ready .m-corpo ol > li > a:is(.vfa-nav-active,
 }
 /* Phone/tablet portrait: varied horizontal placement, no overlap, large hit targets. */
 @media(max-width:900px) and (min-height:561px) {
- html:lang(it) #menu.vfa-six-brush-ready .m-corpo ol {
+ html:is(:lang(it),:lang(en),:lang(pl)) #menu.vfa-six-brush-ready .m-corpo ol {
   width:100% !important;max-width:100% !important;
   height:min(73svh,625px) !important;
   grid-template-columns:minmax(0,1fr) !important;
   grid-template-rows:repeat(6,minmax(0,1fr)) !important;
   gap:clamp(0px,.55svh,5px) !important;
  }
- html:lang(it) #menu.vfa-six-brush-ready .m-corpo ol > li {
+ html:is(:lang(it),:lang(en),:lang(pl)) #menu.vfa-six-brush-ready .m-corpo ol > li {
   justify-content:center !important;
   transform:translate(var(--vfa-mx,0px),var(--vfa-my,0px)) rotate(var(--vfa-rot,0deg)) !important;
  }
- html:lang(it) #menu.vfa-six-brush-ready .m-corpo ol > li:nth-child(1) {justify-content:flex-start !important;--vfa-mx:2%;--vfa-my:-2px;--vfa-mw:300px;}
- html:lang(it) #menu.vfa-six-brush-ready .m-corpo ol > li:nth-child(2) {justify-content:flex-end !important;--vfa-mx:-3%;--vfa-my:2px;--vfa-mw:315px;}
- html:lang(it) #menu.vfa-six-brush-ready .m-corpo ol > li:nth-child(3) {--vfa-mx:4%;--vfa-my:1px;--vfa-mw:340px;}
- html:lang(it) #menu.vfa-six-brush-ready .m-corpo ol > li:nth-child(4) {--vfa-mx:-1%;--vfa-my:-2px;--vfa-mw:355px;}
- html:lang(it) #menu.vfa-six-brush-ready .m-corpo ol > li:nth-child(5) {justify-content:flex-start !important;--vfa-mx:4%;--vfa-my:1px;--vfa-mw:305px;}
- html:lang(it) #menu.vfa-six-brush-ready .m-corpo ol > li:nth-child(6) {justify-content:flex-end !important;--vfa-mx:-2%;--vfa-my:2px;--vfa-mw:310px;}
- html:lang(it) #menu.vfa-six-brush-ready .m-corpo ol > li > a {
+ html:is(:lang(it),:lang(en),:lang(pl)) #menu.vfa-six-brush-ready .m-corpo ol > li:nth-child(1) {justify-content:flex-start !important;--vfa-mx:2%;--vfa-my:-2px;--vfa-mw:300px;}
+ html:is(:lang(it),:lang(en),:lang(pl)) #menu.vfa-six-brush-ready .m-corpo ol > li:nth-child(2) {justify-content:flex-end !important;--vfa-mx:-3%;--vfa-my:2px;--vfa-mw:315px;}
+ html:is(:lang(it),:lang(en),:lang(pl)) #menu.vfa-six-brush-ready .m-corpo ol > li:nth-child(3) {--vfa-mx:4%;--vfa-my:1px;--vfa-mw:340px;}
+ html:is(:lang(it),:lang(en),:lang(pl)) #menu.vfa-six-brush-ready .m-corpo ol > li:nth-child(4) {--vfa-mx:-1%;--vfa-my:-2px;--vfa-mw:355px;}
+ html:is(:lang(it),:lang(en),:lang(pl)) #menu.vfa-six-brush-ready .m-corpo ol > li:nth-child(5) {justify-content:flex-start !important;--vfa-mx:4%;--vfa-my:1px;--vfa-mw:305px;}
+ html:is(:lang(it),:lang(en),:lang(pl)) #menu.vfa-six-brush-ready .m-corpo ol > li:nth-child(6) {justify-content:flex-end !important;--vfa-mx:-2%;--vfa-my:2px;--vfa-mw:310px;}
+ html:is(:lang(it),:lang(en),:lang(pl)) #menu.vfa-six-brush-ready .m-corpo ol > li > a {
   width:min(var(--vfa-mw,320px),calc(100vw - 26px)) !important;
   height:100% !important;max-height:105px !important;min-height:0 !important;
  }
- html:lang(it) #menu.vfa-six-brush-ready .m-corpo ol > li > a:is(.vfa-nav-active,[aria-current="page"])::after {
+ html:is(:lang(it),:lang(en),:lang(pl)) #menu.vfa-six-brush-ready .m-corpo ol > li > a:is(.vfa-nav-active,[aria-current="page"])::after {
   right:8% !important;bottom:0 !important;font-size:8px !important;
  }
 }
 /* Short landscape screens: three compact rows instead of six cramped rows. */
 @media(max-height:560px) and (min-width:560px) {
- html:lang(it) #menu.vfa-six-brush-ready .m-corpo ol {
+ html:is(:lang(it),:lang(en),:lang(pl)) #menu.vfa-six-brush-ready .m-corpo ol {
   height:min(58svh,390px) !important;
   grid-template-columns:repeat(2,minmax(0,1fr)) !important;
   grid-template-rows:repeat(3,minmax(0,1fr)) !important;
   gap:1svh 2vw !important;
  }
- html:lang(it) #menu.vfa-six-brush-ready .m-corpo ol > li > a {max-height:none !important;}
- html:lang(it) #menu.vfa-six-brush-ready .m-corpo ol > li {--vfa-dx:0px !important;--vfa-dy:0px !important;}
+ html:is(:lang(it),:lang(en),:lang(pl)) #menu.vfa-six-brush-ready .m-corpo ol > li > a {max-height:none !important;}
+ html:is(:lang(it),:lang(en),:lang(pl)) #menu.vfa-six-brush-ready .m-corpo ol > li {--vfa-dx:0px !important;--vfa-dy:0px !important;}
 }
 @media(prefers-reduced-motion:reduce) {
- html:lang(it) #menu.vfa-six-brush-ready .m-corpo ol > li > a,
- html:lang(it) #menu.vfa-six-brush-ready .m-corpo ol > li > a::before {transition:none !important;}
+ html:is(:lang(it),:lang(en),:lang(pl)) #menu.vfa-six-brush-ready .m-corpo ol > li > a,
+ html:is(:lang(it),:lang(en),:lang(pl)) #menu.vfa-six-brush-ready .m-corpo ol > li > a::before {transition:none !important;}
 }
+
+/* Localize the active-page indicator without changing Italian text. */
+html:lang(en) #menu.vfa-six-brush-ready .m-corpo ol > li > a:is(.vfa-nav-active,[aria-current="page"])::after {content:"YOU ARE HERE" !important;}
+html:lang(pl) #menu.vfa-six-brush-ready .m-corpo ol > li > a:is(.vfa-nav-active,[aria-current="page"])::after {content:"TU JESTEŚ" !important;}

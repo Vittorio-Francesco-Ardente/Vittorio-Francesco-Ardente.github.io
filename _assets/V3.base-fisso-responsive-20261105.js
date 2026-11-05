@@ -20,17 +20,19 @@ import('./vfa-menu-silk-20261105.js').catch(()=>{});
  }
 })();
 
-/* Activate the six image-based Italian labels only after all PNG assets load.
-   Otherwise retain the original, fully accessible text menu as a fallback. */
+/* Localized PNG navigation: switch only after the six correct language assets preload.
+   Keep the accessible HTML text if an image is unavailable or fails to decode. */
 (()=>{
  const menu=document.getElementById('menu');
- if(!menu||!((document.documentElement.lang||'').toLowerCase().startsWith('it')))return;
+ const locale=(document.documentElement.lang||'it').toLowerCase().slice(0,2);
+ if(!menu||!['it','en','pl'].includes(locale))return;
  const sections=['home','lavori','esperienze','certificazioni','chi-sono','contatti'];
  if(!sections.every(id=>menu.querySelector('.m-corpo ol a[data-voce="'+id+'"]')))return;
+ const prefix='/_assets/vfa-menu-stroke-'+(locale==='it'?'':locale+'-');
  Promise.all(sections.map(id=>new Promise((resolve,reject)=>{
   const img=new Image();
   img.onload=resolve;
   img.onerror=reject;
-  img.src='/_assets/vfa-menu-stroke-'+id+'.png';
+  img.src=prefix+id+'.png';
  }))).then(()=>menu.classList.add('vfa-six-brush-ready')).catch(()=>{});
 })();
