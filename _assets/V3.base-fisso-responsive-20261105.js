@@ -10,7 +10,8 @@ import('./vfa-menu-silk-20261105.js').catch(()=>{});
  if(['en','pl','it'].includes(parts[0]))parts.shift();
  let section=parts[0]||'home';
  if(section.startsWith('esperienza-'))section='esperienze';
- if(section==='link')section='contatti';
+ if(['cv','crediti'].includes(section))section='chi-sono';
+ if(['link','privacy','terms'].includes(section))section='contatti';
  for(const a of menu.querySelectorAll('.m-corpo ol a[data-voce]')){
   const current=a.dataset.voce===section;
   a.classList.toggle('vfa-nav-active',current);

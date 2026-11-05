@@ -1165,3 +1165,51 @@ body[data-pagina="lavori"] .s-rayder .vetrina-r {
 @media(prefers-reduced-motion:reduce){
  #menu .m-corpo ol>li>a,#menu .m-corpo ol>li>a>span:not(.vfa-route-pin) {transition:none!important}
 }
+
+/* CURRENT PAGE | Hand-painted marker swipe, deliberately the ONLY menu decoration. */
+#menu .m-corpo ol > li > a:is(.vfa-nav-active,[aria-current="page"]) {
+  isolation:isolate !important;
+  z-index:1;
+}
+#menu .m-corpo ol > li > a:is(.vfa-nav-active,[aria-current="page"])::before {
+  content:"" !important;
+  display:block !important;
+  position:absolute;
+  z-index:-1;
+  pointer-events:none;
+  top:10%;
+  bottom:8%;
+  left:-.12em;
+  right:-.12em;
+  opacity:1;
+  background:linear-gradient(104deg,#1368ed 0%,#257ff9 39%,#438fff 66%,#0d60ed 100%);
+  clip-path:polygon(0 19%,2% 10%,7% 13%,12% 6%,20% 11%,30% 4%,42% 8%,53% 4%,64% 9%,75% 3%,86% 10%,94% 5%,99% 15%,100% 31%,98.6% 48%,100% 64%,98% 80%,99% 89%,94% 94%,86% 93%,75% 100%,62% 94%,48% 99%,36% 92%,24% 97%,14% 91%,6% 95%,1% 84%,0 66%,1% 47%);
+  transform:rotate(-1.05deg) scaleX(1);
+  transform-origin:left center;
+  box-shadow:none !important;
+}
+#menu .m-corpo ol > li > a:is(.vfa-nav-active,[aria-current="page"]) > span:not(.vfa-route-pin),
+#menu .m-corpo ol > li > a:is(.vfa-nav-active,[aria-current="page"]):is(:hover,:focus-visible) > span:not(.vfa-route-pin) {
+  position:relative !important;
+  z-index:1;
+  color:#fff !important;
+  text-shadow:0 1px 7px rgba(2,23,78,.18) !important;
+}
+#menu.aperto .m-corpo ol > li > a:is(.vfa-nav-active,[aria-current="page"])::before {
+  animation:vfa-marker-reveal .48s cubic-bezier(.17,.83,.24,1) both;
+  animation-delay:.14s;
+}
+@keyframes vfa-marker-reveal {
+  from{opacity:.55;transform:rotate(-1.05deg) scaleX(.04)}
+  to{opacity:1;transform:rotate(-1.05deg) scaleX(1)}
+}
+@media(max-width:760px) {
+ #menu .m-corpo ol > li > a:is(.vfa-nav-active,[aria-current="page"])::before {
+  left:-.18em;right:-.18em;top:12%;bottom:11%;
+ }
+}
+@media(prefers-reduced-motion:reduce) {
+ #menu.aperto .m-corpo ol > li > a:is(.vfa-nav-active,[aria-current="page"])::before {
+  animation:none !important;transform:rotate(-1.05deg) scaleX(1) !important;
+ }
+}
