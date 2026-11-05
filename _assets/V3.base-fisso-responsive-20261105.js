@@ -4,4 +4,4 @@ import{n as e,r as t,t as n}from"./gsap.Dz7_rVG_.js";var r=`1.3.27`;function i(e
 import('./vfa-menu-silk-20261105.js').catch(()=>{});
 
 /* Animated menu waypoints, shared by all language routes. */
-import('./vfa-menu-route-20261105.js').catch(console.warn);
+import('./vfa-menu-route-20261105.js?v=map-20261105-3').catch(()=>{});
