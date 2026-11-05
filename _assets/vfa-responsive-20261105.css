@@ -1045,3 +1045,24 @@ body[data-pagina="lavori"] .s-rayder .vetrina-r {
   .menu .m-soc > a.pill {font-size:10px;}
   .s-mazzo .mazzo {width:min(285px,82vw);}
 }
+
+
+/* Palette-aware Silk shader behind the full-screen menu, all language routes. */
+.menu { isolation:isolate; }
+.menu .vfa-silk {
+  position:absolute;
+  inset:0;
+  z-index:0;
+  display:block;
+  width:100%;
+  height:100%;
+  pointer-events:none;
+  opacity:.96;
+}
+.menu .vfa-silk[hidden] {display:none;}
+.menu::before {z-index:1;opacity:.12;}
+.menu .m-top,.menu .m-corpo,.menu .m-piede {position:relative;z-index:2;}
+.menu .m-ante {box-shadow:0 28px 75px -30px rgba(0,0,0,.7);}
+@media (prefers-reduced-motion:reduce) {
+  .menu .vfa-silk {opacity:.82;}
+}
