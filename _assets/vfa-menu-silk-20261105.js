@@ -7,44 +7,7 @@
   canvas.className = 'vfa-silk';
   canvas.setAttribute('aria-hidden', 'true');
   menu.prepend(canvas);
-  // The original bundle fixes data-tema to "base" on every page load.
-  // Restore a small, persistent selector so each Silk palette is actually reachable.
-  const themeNames={
-    base:'Base',inverno:'Inverno',primavera:'Primavera',estate:'Estate',
-    autunno:'Autunno',natale:'Natale',capodanno:'Capodanno',
-    pasqua:'Pasqua',halloween:'Halloween'
-  };
-  const themeKey='vfa-theme-choice';
-  const savedTheme=(()=>{try{return localStorage.getItem(themeKey)}catch{return null}})();
-  const currentTheme=Object.hasOwn(themeNames,savedTheme)?savedTheme:'base';
-  document.documentElement.dataset.tema=currentTheme;
-  const foot=menu.querySelector('.m-piede');
-  if(foot&&!foot.querySelector('.vfa-theme-select')){
-    const label=document.createElement('label');
-    label.className='vfa-theme-control';
-    const caption=document.createElement('span');
-    caption.textContent='Tema';
-    const select=document.createElement('select');
-    select.className='vfa-theme-select';
-    select.setAttribute('aria-label','Seleziona il tema del portfolio');
-    for(const [key,name] of Object.entries(themeNames)){
-      const option=document.createElement('option');
-      option.value=key;option.textContent=name;
-      select.append(option);
-    }
-    select.value=currentTheme;
-    select.addEventListener('change',()=>{
-      const next=select.value;
-      if(next===document.documentElement.dataset.tema)return;
-      // Reload applies theme-specific portraits, posters and seasonal decorations,
-      // which are constructed once by the shared site bundle at startup.
-      try{localStorage.setItem(themeKey,next)}catch{}
-      document.documentElement.dataset.tema=next;
-      location.reload();
-    });
-    label.append(caption,select);
-    foot.append(label);
-  }
+  // Theme switching is temporarily disabled; Silk follows the site's fixed base palette.
   const gl = canvas.getContext('webgl', {alpha:false,antialias:false,powerPreference:'low-power'});
   if (!gl) { canvas.hidden = true; return; }
   const vertex = `attribute vec2 a_position; void main(){gl_Position=vec4(a_position,0.,1.);}`;
