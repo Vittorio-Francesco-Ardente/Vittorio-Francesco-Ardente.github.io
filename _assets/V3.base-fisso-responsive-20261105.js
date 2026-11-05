@@ -19,3 +19,18 @@ import('./vfa-menu-silk-20261105.js').catch(()=>{});
   else a.removeAttribute('aria-current');
  }
 })();
+
+/* Activate the six image-based Italian labels only after all PNG assets load.
+   Otherwise retain the original, fully accessible text menu as a fallback. */
+(()=>{
+ const menu=document.getElementById('menu');
+ if(!menu||!((document.documentElement.lang||'').toLowerCase().startsWith('it')))return;
+ const sections=['home','lavori','esperienze','certificazioni','chi-sono','contatti'];
+ if(!sections.every(id=>menu.querySelector('.m-corpo ol a[data-voce="'+id+'"]')))return;
+ Promise.all(sections.map(id=>new Promise((resolve,reject)=>{
+  const img=new Image();
+  img.onload=resolve;
+  img.onerror=reject;
+  img.src='/_assets/vfa-menu-stroke-'+id+'.png';
+ }))).then(()=>menu.classList.add('vfa-six-brush-ready')).catch(()=>{});
+})();
