@@ -642,3 +642,21 @@ body[data-pagina="lavori"] .s-rayder .vetrina-r {
     gap:clamp(14px,3.5vw,20px);
   }
 }
+
+
+/* Footer node correction: canvas/lighting nodes precede the content. */
+@media (max-width:760px) {
+  .s-sent > div:has(> h2) {
+    display:none !important;
+  }
+  .s-sent > div:has(> .colonne) {
+    display:block !important;
+  }
+  .s-sent .fondo nav a {
+    width:48px !important;
+    height:48px !important;
+    min-width:48px;
+    min-height:48px;
+    flex:0 0 48px;
+  }
+}
