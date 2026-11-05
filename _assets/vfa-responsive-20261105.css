@@ -1474,3 +1474,20 @@ html:lang(pl) #menu.vfa-six-brush-ready .m-corpo ol > li > a:is(.vfa-nav-active,
     color:#c7dfff !important;
   }
 }
+
+/* Contacts: email address replaces the clipboard action with a mailto link. */
+body[data-pagina="contatti"] .s-badge .email-pill {
+  justify-content:center;
+  padding:13px 22px;
+  text-align:center;
+}
+body[data-pagina="contatti"] .s-badge .email-pill > span {
+  flex:0 1 auto;
+  min-width:0;
+  max-width:100%;
+  overflow-wrap:anywhere;
+}
+body[data-pagina="contatti"] .s-badge .email-pill:focus-visible {
+  outline:2px solid var(--accent);
+  outline-offset:4px;
+}
