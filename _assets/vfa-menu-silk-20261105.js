@@ -34,8 +34,13 @@
     }
     select.value=currentTheme;
     select.addEventListener('change',()=>{
-      document.documentElement.dataset.tema=select.value;
-      try{localStorage.setItem(themeKey,select.value)}catch{}
+      const next=select.value;
+      if(next===document.documentElement.dataset.tema)return;
+      // Reload applies theme-specific portraits, posters and seasonal decorations,
+      // which are constructed once by the shared site bundle at startup.
+      try{localStorage.setItem(themeKey,next)}catch{}
+      document.documentElement.dataset.tema=next;
+      location.reload();
     });
     label.append(caption,select);
     foot.append(label);
