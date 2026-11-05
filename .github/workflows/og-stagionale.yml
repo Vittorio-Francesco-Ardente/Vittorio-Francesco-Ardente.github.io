@@ -1,0 +1,22 @@
+name: Anteprima link stagionale
+on:
+  schedule:
+    - cron: '5 0 * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  aggiorna:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 scripts/og_tema.py
+      - name: Commit se cambia
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            git config user.name "og-stagionale"
+            git config user.email "actions@users.noreply.github.com"
+            git add -A
+            git commit -m "Anteprima link: tema del giorno"
+            git push
+          fi

@@ -78,3 +78,4 @@
 
 /* Theme selection in the footer, next to the language controls. */
 .tema-controllo{display:grid;justify-items:start;gap:10px;margin-top:24px}.tema-controllo span{font:inherit;font-weight:600}.tema-controllo select{display:block;max-width:100%;min-width:180px;min-height:44px;padding:10px 32px 10px 12px;border:1px solid #ffffff59;border-radius:10px;background:#10182d;color:#fff;font-family:inherit;font-size:14px;cursor:pointer;color-scheme:dark}.tema-controllo select:focus-visible{outline:2px solid #fff;outline-offset:3px}
+@media (max-width:900px){.scena-tema .og.appesa{transform-origin:50% -22vh}.scena-tema .og.appesa .filo{height:22vh;bottom:96%}}.velo-tema.neve{display:none!important}
