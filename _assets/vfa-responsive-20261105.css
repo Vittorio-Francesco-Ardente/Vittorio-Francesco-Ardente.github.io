@@ -508,3 +508,137 @@ body[data-pagina="lavori"] .s-rayder .vetrina-r {
     padding-top:calc(var(--cv) + clamp(30px,4svh,46px));
   }
 }
+
+
+/* Mobile footer compact + contact pass proportions, 2026-11-05. */
+@media (max-width:760px) {
+  /* A footer, not another full-page hero. The regular menu already exposes Pages. */
+  .s-sent {
+    min-height:0 !important;
+    height:auto !important;
+    display:block !important;
+    padding:clamp(22px,4svh,36px) clamp(18px,5vw,28px)
+      calc(92px + env(safe-area-inset-bottom)) !important;
+    gap:0 !important;
+  }
+  .s-sent > div:first-child {
+    display:none !important;
+  }
+  .s-sent > div:nth-child(2) {
+    display:block;
+    min-width:0;
+  }
+  .s-sent .colonne {
+    margin:0 !important;
+    display:grid;
+    grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+    gap:clamp(14px,3.5vw,24px) 18px;
+    align-items:start;
+  }
+  .s-sent .colonne > .marca {
+    grid-column:1/-1;
+    gap:5px;
+    margin:0;
+    font-size:13px;
+    line-height:1.35;
+    min-width:0;
+  }
+  .s-sent .colonne .marca .logo {
+    font-size:18px;
+    gap:8px;
+  }
+  .s-sent .colonne .marca .logo svg {
+    width:28px;
+    height:28px;
+    flex:none;
+  }
+  .s-sent .colonne .marca a {
+    overflow-wrap:anywhere;
+  }
+  .s-sent .colonne > nav:nth-child(2) {
+    display:none !important; /* Duplicate of site/menu navigation */
+  }
+  .s-sent .colonne > nav:nth-child(3),
+  .s-sent .colonne > nav:nth-child(4) {
+    grid-column:auto;
+    min-width:0;
+  }
+  .s-sent .colonne h4 {
+    font-size:12px;
+    margin:0 0 7px;
+  }
+  .s-sent .colonne ul {
+    gap:4px;
+    font-size:12.5px;
+    line-height:1.28;
+  }
+  .s-sent .colonne ul a {
+    display:inline-flex;
+    align-items:center;
+    min-height:30px;
+    max-width:100%;
+    overflow-wrap:anywhere;
+  }
+  .s-sent .colonne > div:last-child {
+    grid-column:1/-1;
+    margin:0;
+  }
+  .s-sent .colonne > div:last-child h4 {
+    margin-bottom:6px;
+  }
+  .s-sent .lingue-piede {
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    gap:6px 14px;
+  }
+  .s-sent .lingue-piede li a {
+    min-height:34px;
+  }
+  .s-sent .fondo {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px 14px;
+    margin-top:clamp(12px,2.5svh,18px);
+    padding:12px 0 0 !important;
+    font-size:11px;
+    line-height:1.35;
+  }
+  .s-sent .fondo > span {
+    flex:1 1 185px;
+    min-width:0;
+  }
+  .s-sent .fondo nav {
+    flex:none;
+    display:flex;
+    gap:8px;
+  }
+  .s-sent .fondo nav a {
+    display:grid;
+    width:44px;
+    height:44px;
+    flex:none;
+  }
+
+  /* Contact identity pass: leave a generous safe area around the 3D card. */
+  body[data-pagina="contatti"] .s-badge {
+    --cv:clamp(300px,47svh,470px);
+    padding-top:calc(var(--cv) + clamp(30px,4svh,46px));
+    padding-bottom:clamp(34px,6svh,55px) !important;
+    min-height:0 !important;
+    row-gap:0;
+  }
+  body[data-pagina="contatti"] .s-badge #c-badge {
+    top:62px;
+    height:calc(var(--cv) - 4px);
+    width:100%;
+    left:0;
+    right:0;
+  }
+  body[data-pagina="contatti"] .s-badge .sx {
+    padding-top:0;
+    margin-top:0;
+    gap:clamp(14px,3.5vw,20px);
+  }
+}
