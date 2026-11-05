@@ -81,3 +81,5 @@ const fs=require('fs');
  console.log('AUDIT_SUMMARY',JSON.stringify({cases:cases.length,problems}));
  if(problems.length)process.exitCode=1;
 })().catch(e=>{console.log('AUDIT_FATAL',e.stack||e);process.exitCode=1});
+
+// Final check: shorter text texture and narrow email layout.
