@@ -3,5 +3,18 @@ import{n as e,r as t,t as n}from"./gsap.Dz7_rVG_.js";var r=`1.3.27`;function i(e
 /* Shared across all portfolio routes and languages. */
 import('./vfa-menu-silk-20261105.js').catch(()=>{});
 
-/* Animated menu waypoints, shared by all language routes. */
-import('./vfa-menu-route-20261105.js?v=map-motion-20261105-4').catch(()=>{});
+/* Highlight the current menu text without inserting graphics. */
+(()=>{
+ const menu=document.getElementById('menu');if(!menu)return;
+ let parts=location.pathname.toLowerCase().replace(/\.html$/,'').replace(/\/index$/,'').split('/').filter(Boolean);
+ if(['en','pl','it'].includes(parts[0]))parts.shift();
+ let section=parts[0]||'home';
+ if(section.startsWith('esperienza-'))section='esperienze';
+ if(section==='link')section='contatti';
+ for(const a of menu.querySelectorAll('.m-corpo ol a[data-voce]')){
+  const current=a.dataset.voce===section;
+  a.classList.toggle('vfa-nav-active',current);
+  if(current)a.setAttribute('aria-current','page');
+  else a.removeAttribute('aria-current');
+ }
+})();
