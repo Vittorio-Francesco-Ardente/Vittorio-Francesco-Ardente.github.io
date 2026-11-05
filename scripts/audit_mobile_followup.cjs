@@ -32,6 +32,9 @@ for(const [width,height,path] of cases){
   if(info.labels.some(x=>x.width>2||x.clip!=="inset(50%)"))issues.push("nav-label-visible");
   if(info.menu&&info.icons.some(x=>x.w<20))issues.push("nav-icon-small");
   if(path==="/"&&info.postit&&info.postit.display!=="none")issues.push("italian-postit-visible");
+  if(path==="/"&&info.homeHero&&info.cards&&info.homeHero.bottom-info.cards.bottom>55)issues.push("home-after-cards-empty-band");
+  if(path.includes("lavori")&&info.worksSection&&info.worksHero&&info.worksSection.bottom-info.worksHero.bottom>12)issues.push("works-dark-bottom-band");
+  if((path==="/en.html"||path==="/pl.html")&&info.postit&&info.postit.display==="none")issues.push("non-italian-postit-hidden");
   if(path==="/"&&info.profile&&info.portrait&&Math.abs(info.profile.bottom-info.portrait.bottom)>22)issues.push("profile-image-not-flush");
   if(path.includes("esperienze")&&info.experiences.some(x=>x.height-x.lastContentBottom>105))issues.push("empty-experience-card-space");
   if(path.includes("lavori")&&info.worksHero?.height>height*0.95)issues.push("works-hero-too-tall");
