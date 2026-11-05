@@ -482,3 +482,29 @@ main, main > .schermo { min-width:0; }
   .menu .m-soc > a.pill { font-size:10px; gap:4px; }
   .menu .m-soc > a.pill svg { width:14px;height:14px; }
 }
+
+
+/* Finish: continuous project panel and minimum social tap targets. */
+body[data-pagina="lavori"] .s-rayder .vetrina-r {
+  background:linear-gradient(180deg,
+    var(--brand) 0%,
+    var(--brand-deep) 56%,
+    color-mix(in oklab,var(--brand-deep) 55%,var(--ink)) 79%,
+    color-mix(in oklab,var(--ink) 85%,#000) 100%);
+}
+@media (max-width:760px) {
+  body[data-pagina="home"] .c-persona .ico a {
+    width:46px;
+    height:46px;
+    min-width:46px;
+    min-height:46px;
+  }
+  body[data-pagina="home"] .c-persona .ico {gap:10px;}
+  body[data-pagina="home"] .c-persona .ico a svg {
+    width:19px;
+    height:19px;
+  }
+  body[data-pagina="contatti"] .s-badge {
+    padding-top:calc(var(--cv) + clamp(30px,4svh,46px));
+  }
+}
