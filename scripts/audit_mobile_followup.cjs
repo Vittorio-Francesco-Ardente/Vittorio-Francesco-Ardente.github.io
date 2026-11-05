@@ -30,7 +30,6 @@ for(const [width,height,path] of cases){
   if(info.labels.some(x=>x.width>2||x.clip!=="inset(50%)"))issues.push("nav-label-visible");
   if(info.menu&&info.icons.some(x=>x.w<20))issues.push("nav-icon-small");
   if(path==="/"&&info.postit&&info.postit.display!=="none")issues.push("italian-postit-visible");
-  if(path==="/"&&info.profile&&info.portrait&&info.profile.bottom-info?.none)issues.push("unused");
   if(path==="/"&&info.profile&&info.portrait&&Math.abs(info.profile.bottom-info.portrait.bottom)>22)issues.push("profile-image-not-flush");
   if(path.includes("esperienze")&&info.experiences.some(x=>x.height-x.lastContentBottom>105))issues.push("empty-experience-card-space");
   if(path.includes("lavori")&&info.worksHero?.height>height*0.95)issues.push("works-hero-too-tall");
