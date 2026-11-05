@@ -1166,6 +1166,8 @@ body[data-pagina="lavori"] .s-rayder .vetrina-r {
  #menu .m-corpo ol>li>a,#menu .m-corpo ol>li>a>span:not(.vfa-route-pin) {transition:none!important}
 }
 
+/* The brush effect applies to phones only. Tablets and desktops keep the original typographic menu. */
+@media(max-width:760px) {
 /* VFA approved white brush: actual transparent PNG with dynamic blue navigation text.
    The image is decoration only; all navigation labels remain HTML and accessible. */
 #menu .m-corpo ol > li > a:is(.vfa-nav-active,[aria-current="page"]) {
@@ -1208,6 +1210,8 @@ body[data-pagina="lavori"] .s-rayder .vetrina-r {
  from{opacity:.75;transform:rotate(-.7deg) scaleX(.035)}
  to{opacity:1;transform:rotate(-.7deg) scaleX(1)}
 }
+
+}
 @media(max-width:760px) {
  #menu .m-corpo ol > li > a:is(.vfa-nav-active,[aria-current="page"])::before {
   top:-44% !important;
@@ -1227,13 +1231,14 @@ body[data-pagina="lavori"] .s-rayder .vetrina-r {
   bottom:-39% !important;
  }
 }
-@media(prefers-reduced-motion:reduce) {
+@media(max-width:760px) and (prefers-reduced-motion:reduce) {
  #menu.aperto .m-corpo ol > li > a:is(.vfa-nav-active,[aria-current="page"])::before {
   animation:none !important;
   transform:rotate(-.7deg) scaleX(1) !important;
  }
 }
 
+@media(max-width:760px) {
 /* Localized brush PNG labels: IT, EN and PL. Staggered desktop layout, spaced mobile rows.
    The original HTML remains accessible, and loads as a fallback if images fail. */
 html:is(:lang(it),:lang(en),:lang(pl)) #menu.vfa-six-brush-ready .m-corpo {
@@ -1338,8 +1343,10 @@ html:is(:lang(it),:lang(en),:lang(pl)) #menu.vfa-six-brush-ready .m-corpo ol > l
  letter-spacing:.08em !important;text-shadow:none !important;
  pointer-events:none !important;
 }
-/* Phone/tablet portrait: varied horizontal placement, no overlap, large hit targets. */
-@media(max-width:900px) and (min-height:561px) {
+
+}
+/* Phone portrait: varied horizontal placement, no overlap, large hit targets. */
+@media(max-width:760px) and (min-height:561px) {
  html:is(:lang(it),:lang(en),:lang(pl)) #menu.vfa-six-brush-ready .m-corpo ol {
   width:100% !important;max-width:100% !important;
   height:min(73svh,625px) !important;
@@ -1366,7 +1373,7 @@ html:is(:lang(it),:lang(en),:lang(pl)) #menu.vfa-six-brush-ready .m-corpo ol > l
  }
 }
 /* Short landscape screens: three compact rows instead of six cramped rows. */
-@media(max-height:560px) and (min-width:560px) {
+@media(max-width:760px) and (max-height:560px) and (min-width:560px) {
  html:is(:lang(it),:lang(en),:lang(pl)) #menu.vfa-six-brush-ready .m-corpo ol {
   height:min(58svh,390px) !important;
   grid-template-columns:repeat(2,minmax(0,1fr)) !important;
@@ -1376,11 +1383,13 @@ html:is(:lang(it),:lang(en),:lang(pl)) #menu.vfa-six-brush-ready .m-corpo ol > l
  html:is(:lang(it),:lang(en),:lang(pl)) #menu.vfa-six-brush-ready .m-corpo ol > li > a {max-height:none !important;}
  html:is(:lang(it),:lang(en),:lang(pl)) #menu.vfa-six-brush-ready .m-corpo ol > li {--vfa-dx:0px !important;--vfa-dy:0px !important;}
 }
-@media(prefers-reduced-motion:reduce) {
+@media(max-width:760px) and (prefers-reduced-motion:reduce) {
  html:is(:lang(it),:lang(en),:lang(pl)) #menu.vfa-six-brush-ready .m-corpo ol > li > a,
  html:is(:lang(it),:lang(en),:lang(pl)) #menu.vfa-six-brush-ready .m-corpo ol > li > a::before {transition:none !important;}
 }
 
+@media(max-width:760px) {
 /* Localize the active-page indicator without changing Italian text. */
 html:lang(en) #menu.vfa-six-brush-ready .m-corpo ol > li > a:is(.vfa-nav-active,[aria-current="page"])::after {content:"YOU ARE HERE" !important;}
 html:lang(pl) #menu.vfa-six-brush-ready .m-corpo ol > li > a:is(.vfa-nav-active,[aria-current="page"])::after {content:"TU JESTEŚ" !important;}
+}
