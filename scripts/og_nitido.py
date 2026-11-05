@@ -71,3 +71,21 @@ image=image.resize((W,H),Image.Resampling.LANCZOS)
 DEST.parent.mkdir(parents=True,exist_ok=True)
 image.save(DEST,format="PNG",optimize=True)
 print(f"Output: {DEST.relative_to(ROOT)}, {image.size}, {DEST.stat().st_size} bytes")
+
+# Metadati Open Graph coerenti in italiano, inglese e polacco.
+import re
+og_rx = re.compile(r'(<meta property="og:image" content=")https://[^"]+/og/og-[a-z-]+\.(?:jpg|png)(")')
+count=0
+for html in ROOT.rglob("*.html"):
+    if "lavori/sunfai/demo" in html.as_posix():
+        continue
+    before=html.read_text(encoding="utf-8")
+    after,n=og_rx.subn(r'\1https://vittorio-francesco-ardente.github.io/og/og-base-nitido.png\2',before)
+    if n>0:
+        after=after.replace('<meta property="og:image:height" content="630">','<meta property="og:image:height" content="628">')
+    if after!=before:
+        html.write_text(after,encoding="utf-8")
+        count+=1
+if count<40:
+    raise RuntimeError(f"Numero inatteso di pagine aggiornate: {count}")
+print(f"Metadati OG aggiornati in {count} pagine")
