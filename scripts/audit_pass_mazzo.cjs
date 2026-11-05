@@ -37,7 +37,7 @@ const fs=require('fs');
    if(metrics.deckVisible&&metrics.images.some(x=>!x.loaded))flags.push('deck-photo-not-loaded');
    if(metrics.deckVisible&&mobile&&metrics.buttons.some(x=>x!=='none'))flags.push('touch-buttons-still-visible');
    if(metrics.deckVisible&&!mobile&&metrics.buttons.some(x=>x==='none'))flags.push('desktop-controls-inaccessible');
-   if(metrics.deckVisible&&(!metrics.images.some(x=>x.src.includes('sunfai-home-desktop'))||!metrics.images.some(x=>x.src.includes('ritratto-pulito'))))flags.push('new-photo-not-used');
+   if(metrics.deckVisible&&(!metrics.images.some(x=>x.src.includes('sunfai-ardake-desktop'))||!metrics.images.some(x=>x.src.includes('ritratto-pulito'))))flags.push('new-photo-not-used');
    if(metrics.deckVisible&&!metrics.sectionBackground.includes('gradient'))flags.push('deck-background-missing');
    if(metrics.pass&&mobile&&(metrics.pass.x<0||metrics.pass.right>metrics.viewport+2))flags.push('pass-canvas-overflow');
    if(errors.length)flags.push('runtime-error');
@@ -63,10 +63,10 @@ const fs=require('fs');
        console.log('SNAP_DECK_SWIPED='+shot.toString('base64'));
      }
    }
-   if(metrics.pass&&width===390&&path==='/contatti.html'){
+   if(metrics.pass&&path==='/contatti.html'&&(width===390||width===320)){
      await page.evaluate(()=>scrollTo(0,0));
      await page.waitForTimeout(250);
-     console.log('SNAP_PASS_MOBILE='+(await page.screenshot({type:'jpeg',quality:66})).toString('base64'));
+     console.log('SNAP_PASS_MOBILE_'+width+'='+(await page.screenshot({type:'jpeg',quality:66})).toString('base64'));
    }
    if(metrics.deckVisible&&width===1440&&path==='/'){
      await page.locator('.s-mazzo').scrollIntoViewIfNeeded();
