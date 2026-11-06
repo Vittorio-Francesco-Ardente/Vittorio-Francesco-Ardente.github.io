@@ -23,17 +23,26 @@ function disegnaRetro(i){
   p.font=`500 28px "JetBrains Mono"`;p.fillStyle=`rgba(255,255,255,.75)`;p.fillText(i.badge.fascia.toUpperCase(),W/2,780);
   p.fillStyle=`#fff`;let bx=312;for(let q=0;q<40;q++){const w=2+(q*7)%5;p.fillRect(bx,1180,w,110);bx+=w+5}
   p.textAlign=`left`;return k}
-function nastroTex(i,mobile){
-  const k=document.createElement(`canvas`);k.width=mobile?256:128;k.height=mobile?1024:2048;const p=k.getContext(`2d`),W=k.width,H=k.height;
-  p.fillStyle=y(`--brand`);p.fillRect(0,0,W,H);
-  p.strokeStyle=`rgba(255,255,255,.07)`;p.lineWidth=1;for(let q=-H;q<H;q+=mobile?4:3){p.beginPath();p.moveTo(0,q);p.lineTo(W,q+W);p.stroke()}
-  p.fillStyle=`rgba(255,255,255,.16)`;p.fillRect(W*.04,0,W*.025,H);p.fillRect(W*.935,0,W*.025,H);
-  p.strokeStyle=`rgba(255,255,255,.55)`;p.lineWidth=W*.012;p.setLineDash([W*.05,W*.04]);p.beginPath();p.moveTo(W*.115,0);p.lineTo(W*.115,H);p.moveTo(W*.885,0);p.lineTo(W*.885,H);p.stroke();p.setLineDash([]);
-  /* Tessuto continuo, senza scritte ripetute: soltanto microtrama e cuciture. */
-  p.strokeStyle=`rgba(1,18,66,.11)`;p.lineWidth=1;
-  for(let q=0;q<H;q+=mobile?6:4){p.beginPath();p.moveTo(0,q);p.lineTo(W,q);p.stroke()}
-  p.strokeStyle=`rgba(255,255,255,.8)`;p.lineWidth=Math.max(1.5,H*.0016);p.setLineDash([W*.07,W*.05]);for(const yy of[.074,.092]){p.beginPath();p.moveTo(W*.1,H*yy);p.lineTo(W*.9,H*yy);p.stroke()}p.setLineDash([]);p.fillStyle=`rgba(0,0,0,.18)`;p.fillRect(0,H*.052,W,H*.014);
-  const t2=new TH.Tex(k);t2.colorSpace=TH.sRGB;t2.anisotropy=8;return t2}
+function tessuto(N,rep){
+  /* tessuto in twill 2/2 generato proceduralmente: colore per filo, ombreggiatura tra i fili, fibrille e mappa normale ricavata dall'altezza */
+  const T=24,P=N/T,H=new Float32Array(N*N),k=document.createElement(`canvas`);k.width=k.height=N;const p=k.getContext(`2d`),im=p.createImageData(N,N);
+  const base=[16,66,214];let sd=7;const rnd=()=>(sd=(sd*16807)%2147483647)/2147483647;
+  const tv=[],th=[];for(let q=0;q<T;q++){tv.push(.9+rnd()*.2);th.push(.9+rnd()*.2)}
+  for(let y=0;y<N;y++)for(let x=0;x<N;x++){
+    const cx=Math.floor(x/P),cy=Math.floor(y/P),fx=x/P-cx,fy=y/P-cy,orditoSopra=((cx+cy)&3)<2;
+    const w=orditoSopra?Math.sin(Math.PI*fx)*(.8+.2*Math.sin(Math.PI*fy)):Math.sin(Math.PI*fy)*(.8+.2*Math.sin(Math.PI*fx));
+    const h=Math.pow(Math.max(0,w),.8)*(orditoSopra?1:.86);H[y*N+x]=h;
+    const v=(orditoSopra?tv[cx]:th[cy])*(.5+.62*h)*(.93+rnd()*.14);const o=(y*N+x)*4;
+    im.data[o]=Math.min(255,base[0]*v);im.data[o+1]=Math.min(255,base[1]*v+(h>.8?6:0));im.data[o+2]=Math.min(255,base[2]*v+(h>.8?10:0));im.data[o+3]=255}
+  p.putImageData(im,0,0);
+  const nk=document.createElement(`canvas`);nk.width=nk.height=N;const np=nk.getContext(`2d`),ni=np.createImageData(N,N),S=4.6;
+  for(let y=0;y<N;y++)for(let x=0;x<N;x++){
+    const L=H[y*N+(x+N-1)%N],R=H[y*N+(x+1)%N],U=H[((y+N-1)%N)*N+x],D=H[((y+1)%N)*N+x];
+    let nx=(L-R)*S,ny=(D-U)*S,nz2=1;const m=Math.hypot(nx,ny,nz2);nx/=m;ny/=m;nz2/=m;const o=(y*N+x)*4;
+    ni.data[o]=(nx*.5+.5)*255;ni.data[o+1]=(ny*.5+.5)*255;ni.data[o+2]=(nz2*.5+.5)*255;ni.data[o+3]=255}
+  np.putImageData(ni,0,0);
+  const mk=(c,srgb)=>{const t2=new TH.Tex(c);if(srgb)t2.colorSpace=TH.sRGB;t2.wrapS=t2.wrapT=1000;t2.repeat.set(1,rep);t2.anisotropy=8;return t2};
+  return{map:mk(k,!0),normalMap:mk(nk,!1)}}
 function rumore(){const k=document.createElement(`canvas`);k.width=k.height=256;const p=k.getContext(`2d`),d=p.createImageData(256,256);for(let q=0;q<d.data.length;q+=4){const v=110+Math.random()*60;d.data[q]=d.data[q+1]=d.data[q+2]=v;d.data[q+3]=255}p.putImageData(d,0,0);const t2=new TH.Tex(k);t2.wrapS=t2.wrapT=1000;t2.repeat.set(5,7);return t2}
 function forma(w,h,r,hx,hy,hr){const s=new TH.Shape,x0=-w/2,x1=w/2,y0=-h/2,y1=h/2;
   s.moveTo(x0+r,y0);s.lineTo(x1-r,y0);s.quadraticCurveTo(x1,y0,x1,y0+r);s.lineTo(x1,y1-r);s.quadraticCurveTo(x1,y1,x1-r,y1);s.lineTo(x0+r,y1);s.quadraticCurveTo(x0,y1,x0,y1-r);s.lineTo(x0,y0+r);s.quadraticCurveTo(x0,y0,x0+r,y0);
@@ -58,8 +67,9 @@ async function badge(i){
   const tR=new TH.Tex(disegnaRetro(i));tR.colorSpace=TH.sRGB;tR.anisotropy=8;
   const stampaF=new TH.Phys({map:tF,roughness:.52,metalness:0,clearcoat:.1,clearcoatRoughness:.5,bumpMap:nz,bumpScale:.22,envMapIntensity:.25});
   const stampaR=new TH.Phys({map:tR,roughness:.55,metalness:0,clearcoat:.12,clearcoatRoughness:.5,envMapIntensity:.5});
-  const stoffa=new TH.Phys({map:nastroTex(i,false),roughness:.88,metalness:0,side:2,sheen:.6,sheenRoughness:.6,sheenColor:`#9fc1ff`,bumpMap:nz,bumpScale:.5});
-  const stoffaM=new TH.Phys({map:nastroTex(i,true),roughness:.88,metalness:0,side:2,sheen:.6,sheenRoughness:.6,sheenColor:`#9fc1ff`,bumpMap:nz,bumpScale:.5});
+  const tA=tessuto(256,7),tB=tessuto(128,7);
+  const matStoffa=t2=>new TH.Phys({map:t2.map,normalMap:t2.normalMap,roughness:.95,metalness:0,side:2,sheen:1,sheenRoughness:.5,sheenColor:`#6f9dff`,envMapIntensity:.6});
+  const stoffa=matStoffa(tA),stoffaM=matStoffa(tB);
   /* geometria della carta e dell'hardware (coordinate locali: origine = punto E dove il nastro entra nel moschettone, y verso l'alto) */
   const CW=1.5,CH=2.109375,CT=.032,HOLE_R=.085,GR_IN=.055,TUBE=.014,RING_R=.105;
   const ringCy=-.30, ringBottom=ringCy-RING_R, holeCy=ringBottom+TUBE-GR_IN, cardTop=holeCy+.20, cardCy=cardTop-CH/2, dB=-cardCy;
@@ -95,11 +105,7 @@ async function badge(i){
   const dS=new TH.Shape;rr(.30,.20,.05,dS);const dH=new TH.Shape;rr(.24,.14,.03,dH);dS.holes.push(dH);
   const dg=new TH.Extrude(dS,{depth:.022,bevelEnabled:!0,bevelThickness:.006,bevelSize:.004,bevelSegments:3,curveSegments:16});dg.translate(0,0,-.011);
   const anelloD=new TH.Mesh(dg,metallo);anelloD.position.set(0,PY_-.092,0);anc.add(anelloD);
-  const piega=new TH.Mesh(new TH.Box(.205,.045,.036),new TH.Phys({color:y(`--brand`),roughness:.87,metalness:0,sheen:.5,sheenColor:`#9fc1ff`}));piega.position.set(0,.115,.014);anc.add(piega);
-  /* Due cuciture e un rivetto rendono credibile il ripiego sul moschettone. */
-  for(const sy of [.105,.125]){const cucitura=new TH.Mesh(new TH.Box(.165,.003,.003),new TH.Std({color:`#b5c8f2`,roughness:.8}));cucitura.position.set(0,sy,.035);anc.add(cucitura)}
-  const fermo=new TH.Mesh(new TH.Torus(.03,.007,12,40),metallo);
-  fermo.position.set(0,.21,.035);anc.add(fermo);
+  const piega=new TH.Mesh(new TH.Box(.2,.022,.034),stoffa);piega.position.set(0,.19,.012);anc.add(piega);   /* piega del nastro attorno alla barra */
   /* nastro: PlaneGeometry deformata ogni frame */
   const NS=9,SEG=30,Ls=1.18,seg=Ls/NS,NSEGS=SEG,BW=.2;
   const nastro=new TH.Mesh(new TH.Plane(1,1,1,NSEGS),stoffa);nastro.frustumCulled=!1;
@@ -121,7 +127,7 @@ async function badge(i){
     for(let it=0;it<26;it++){
       for(let q=0;q<NS;q++)vincola(q,q+1,seg,1);
       vincola(NS,NS+1,dB,1);
-      X[0]=0;Y[0]=0}
+      X[0]=0;Y[0]=0;for(let q=1;q<=NS;q++)if(Y[q]>-.03)Y[q]=-.03;if(Y[NS]>-.1)Y[NS]=-.1;if(Y[NS+1]>-.5)Y[NS+1]=-.5}
     /* passaggio rigido: lunghezze mai superiori al limite (follow-the-leader) senza immettere energia */
     for(let q=1;q<=NS+1;q++){const L=q===NS+1?dB:seg,dx=X[q]-X[q-1],dy=Y[q]-Y[q-1],d=Math.hypot(dx,dy)||1e-9;
       if(q===NS+1||d>L){const k=L/d,nx=X[q-1]+dx*k,ny=Y[q-1]+dy*k;X[q]=nx;Y[q]=ny}}
@@ -134,8 +140,7 @@ async function badge(i){
   const pos=nastro.geometry.attributes.position;
   function aggiornaNastro(){
     const th=ang();
-    /* Il tessuto nasce dalla barra inferiore dell'anello a D, senza un vuoto. */
-    const pts=[[0,.109]];for(let q=0;q<=NS;q++)pts.push([X[q],Y[q]]);
+    const pts=[[0,.19]];for(let q=0;q<=NS;q++)pts.push([X[q],Y[q]]);
     /* prolunga il nastro dentro il moschettone lungo l'asse del corpo */
     const ex=X[NS],ey=Y[NS],ux=Math.sin(th),uy=Math.cos(th);pts.push([ex-ux*(-.02)+0,ey+uy*(-.0)]);
     const n=pts.length;
