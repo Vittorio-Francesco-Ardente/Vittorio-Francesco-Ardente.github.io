@@ -123,7 +123,7 @@ async function badge(i){
   const pos=nastro.geometry.attributes.position;
   function aggiornaNastro(){
     const th=ang();
-    const pts=[[0,.14]];for(let q=0;q<=NS;q++)pts.push([X[q],Y[q]]);
+    const pts=[];for(let q=0;q<=NS;q++)pts.push([X[q],Y[q]]);
     /* prolunga il nastro dentro il moschettone lungo l'asse del corpo */
     const ex=X[NS],ey=Y[NS],ux=Math.sin(th),uy=Math.cos(th);pts.push([ex-ux*(-.02)+0,ey+uy*(-.0)]);
     const n=pts.length;
@@ -134,7 +134,7 @@ async function badge(i){
       const s01=r/NSEGS,tw=yaw*Math.pow(s01,1.6),nx=-ty,ny=tx,wx=nx*Math.cos(tw),wy=ny*Math.cos(tw),wz=Math.sin(tw);
       const hw=BW/2,cx=rows[r][0],cy=rows[r][1];
       /* riga r: PlaneGeometry ordina dall'alto (y=+.5) con v=1 verso v=0: vertici (r*2) sinistra, (r*2+1) destra */
-      pos.setXYZ(r*2,cx-wx*hw,cy-wy*hw,-wz*hw);pos.setXYZ(r*2+1,cx+wx*hw,cy+wy*hw,wz*hw)}
+      const zo=-.026*Math.max(0,1-s01*9);pos.setXYZ(r*2,cx-wx*hw,cy-wy*hw,zo-wz*hw);pos.setXYZ(r*2+1,cx+wx*hw,cy+wy*hw,zo+wz*hw)}
     pos.needsUpdate=!0;nastro.geometry.computeVertexNormals();nastro.geometry.computeBoundingSphere()}
   /* ----- camera / layout ----- */
   const fov=26,tanH=Math.tan(fov*Math.PI/360);
