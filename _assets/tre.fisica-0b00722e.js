@@ -31,6 +31,7 @@ function nastroTex(i,mobile){
   p.strokeStyle=`rgba(255,255,255,.55)`;p.lineWidth=W*.012;p.setLineDash([W*.05,W*.04]);p.beginPath();p.moveTo(W*.115,0);p.lineTo(W*.115,H);p.moveTo(W*.885,0);p.lineTo(W*.885,H);p.stroke();p.setLineDash([]);
   p.save();p.translate(W/2,H);p.rotate(-Math.PI/2);p.fillStyle=`rgba(255,255,255,.92)`;p.font=`600 ${Math.round(W*.42)}px "Inter Tight"`;p.textBaseline=`middle`;
   const step=Math.round(W*4.6);for(let q=0;q*step<H+step;q++)p.fillText(i.badge.fascia+`   ·`,q*step,0);p.restore();
+  p.strokeStyle=`rgba(255,255,255,.8)`;p.lineWidth=Math.max(1.5,H*.0016);p.setLineDash([W*.07,W*.05]);for(const yy of[.074,.092]){p.beginPath();p.moveTo(W*.1,H*yy);p.lineTo(W*.9,H*yy);p.stroke()}p.setLineDash([]);p.fillStyle=`rgba(0,0,0,.18)`;p.fillRect(0,H*.052,W,H*.014);
   const t2=new TH.Tex(k);t2.colorSpace=TH.sRGB;t2.anisotropy=8;return t2}
 function rumore(){const k=document.createElement(`canvas`);k.width=k.height=256;const p=k.getContext(`2d`),d=p.createImageData(256,256);for(let q=0;q<d.data.length;q+=4){const v=110+Math.random()*60;d.data[q]=d.data[q+1]=d.data[q+2]=v;d.data[q+3]=255}p.putImageData(d,0,0);const t2=new TH.Tex(k);t2.wrapS=t2.wrapT=1000;t2.repeat.set(5,7);return t2}
 function forma(w,h,r,hx,hy,hr){const s=new TH.Shape,x0=-w/2,x1=w/2,y0=-h/2,y1=h/2;
@@ -88,7 +89,11 @@ async function badge(i){
   disco(.09,.03,.012,metallo,0,PY_,-.095);               /* testa del chiodo */
   disco(.024,.115,0,metallo,0,PY_,-.085);                /* fusto: sporge dal muro fino oltre il piano del nastro */
   disco(.036,.012,.003,metallo,0,PY_,.03);               /* capocchia di ritenuta */
-  const gancio=new TH.Mesh(new TH.Torus(.15,.016,16,64),metallo);gancio.position.set(0,PY_-.026-(.15-.016),0);gancio.rotation.y=.5;anc.add(gancio);   /* anello appeso al fusto */
+  const rr=(w,h,rd,sh)=>{sh.moveTo(-w/2+rd,-h/2);sh.lineTo(w/2-rd,-h/2);sh.quadraticCurveTo(w/2,-h/2,w/2,-h/2+rd);sh.lineTo(w/2,h/2-rd);sh.quadraticCurveTo(w/2,h/2,w/2-rd,h/2);sh.lineTo(-w/2+rd,h/2);sh.quadraticCurveTo(-w/2,h/2,-w/2,h/2-rd);sh.lineTo(-w/2,-h/2+rd);sh.quadraticCurveTo(-w/2,-h/2,-w/2+rd,-h/2)};
+  /* anello a D piatto (come nei lanyard reali): appeso al fusto, il nastro si ripiega attorno alla barra inferiore */
+  const dS=new TH.Shape;rr(.30,.20,.05,dS);const dH=new TH.Shape;rr(.24,.14,.03,dH);dS.holes.push(dH);
+  const dg=new TH.Extrude(dS,{depth:.022,bevelEnabled:!0,bevelThickness:.006,bevelSize:.004,bevelSegments:3,curveSegments:16});dg.translate(0,0,-.011);
+  const anelloD=new TH.Mesh(dg,metallo);anelloD.position.set(0,PY_-.092,0);anc.add(anelloD);
   /* nastro: PlaneGeometry deformata ogni frame */
   const NS=9,SEG=30,Ls=1.18,seg=Ls/NS,NSEGS=SEG,BW=.2;
   const nastro=new TH.Mesh(new TH.Plane(1,1,1,NSEGS),stoffa);nastro.frustumCulled=!1;
@@ -123,7 +128,7 @@ async function badge(i){
   const pos=nastro.geometry.attributes.position;
   function aggiornaNastro(){
     const th=ang();
-    const pts=[];for(let q=0;q<=NS;q++)pts.push([X[q],Y[q]]);
+    const pts=[[0,.125]];for(let q=0;q<=NS;q++)pts.push([X[q],Y[q]]);
     /* prolunga il nastro dentro il moschettone lungo l'asse del corpo */
     const ex=X[NS],ey=Y[NS],ux=Math.sin(th),uy=Math.cos(th);pts.push([ex-ux*(-.02)+0,ey+uy*(-.0)]);
     const n=pts.length;
