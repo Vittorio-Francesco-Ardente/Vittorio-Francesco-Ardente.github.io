@@ -2358,3 +2358,198 @@ body[data-pagina="contatti"] .vfa-business-area {
 @media(prefers-reduced-motion:reduce) {
   body[data-pagina="contatti"] .vfa-business-lanyard {transition:none !important;}
 }
+
+
+/* VFA universal mobile menu + six-control dock | 2026-11-06 */
+@media (max-width:760px) {
+  /* Native overlay menu, identical typography and interaction to desktop/tablet. */
+  #menu .m-corpo,
+  #menu.vfa-six-brush-ready .m-corpo {
+    display:flex !important;
+    flex:1 1 auto !important;
+    align-items:center !important;
+    justify-content:center !important;
+    min-width:0 !important;
+    overflow:visible !important;
+  }
+  #menu .m-corpo ol,
+  #menu.vfa-six-brush-ready .m-corpo ol {
+    display:flex !important;
+    flex-direction:column !important;
+    flex-wrap:nowrap !important;
+    align-items:stretch !important;
+    justify-content:center !important;
+    grid-template-columns:none !important;
+    grid-template-rows:none !important;
+    width:min(100%,600px) !important;
+    max-width:600px !important;
+    height:auto !important;
+    max-height:calc(100svh - 185px) !important;
+    padding:0 12px !important;
+    margin:0 auto !important;
+    gap:clamp(3px,.8svh,11px) !important;
+    list-style:none !important;
+  }
+  #menu .m-corpo ol > li,
+  #menu.vfa-six-brush-ready .m-corpo ol > li,
+  #menu.vfa-six-brush-ready .m-corpo ol > li:nth-child(n) {
+    position:relative !important;
+    display:flex !important;
+    flex:0 0 auto !important;
+    width:100% !important;
+    min-height:0 !important;
+    height:auto !important;
+    margin:0 !important;
+    padding:0 !important;
+    transform:none !important;
+    justify-content:center !important;
+    align-items:center !important;
+  }
+  #menu .m-corpo ol > li > a,
+  #menu.vfa-six-brush-ready .m-corpo ol > li > a {
+    position:relative !important;
+    isolation:auto !important;
+    display:inline-flex !important;
+    flex:0 1 auto !important;
+    width:auto !important;
+    height:auto !important;
+    min-height:clamp(46px,8svh,74px) !important;
+    max-height:none !important;
+    max-width:100% !important;
+    margin:0 !important;
+    padding:2px 8px !important;
+    background:none !important;
+    justify-content:center !important;
+    align-items:center !important;
+    text-align:center !important;
+    transform:none !important;
+    animation:none !important;
+    filter:none !important;
+  }
+  #menu .m-corpo ol > li > a::before,
+  #menu .m-corpo ol > li > a::after,
+  #menu.vfa-six-brush-ready .m-corpo ol > li > a::before,
+  #menu.vfa-six-brush-ready .m-corpo ol > li > a::after {
+    content:none !important;
+    display:none !important;
+    background:none !important;
+  }
+  #menu .m-corpo ol > li > a > span:not(.vfa-route-pin),
+  #menu.vfa-six-brush-ready .m-corpo ol > li > a > span:not(.vfa-route-pin) {
+    display:block !important;
+    position:static !important;
+    width:auto !important;
+    height:auto !important;
+    min-width:0 !important;
+    max-width:100% !important;
+    margin:0 !important;
+    padding:0 !important;
+    background:none !important;
+    opacity:1 !important;
+    visibility:visible !important;
+    overflow:visible !important;
+    white-space:nowrap !important;
+    text-transform:uppercase !important;
+    font:900 clamp(27px,8.1vw,54px)/1 Archivo,sans-serif !important;
+    font-stretch:var(--w62);
+    letter-spacing:-.035em !important;
+    color:#f7faff !important;
+    text-align:center !important;
+    text-indent:0 !important;
+    text-shadow:none !important;
+    filter:none !important;
+    clip-path:none !important;
+    transform:none !important;
+    animation:none !important;
+  }
+  #menu .m-corpo ol > li > a:is(.vfa-nav-active,[aria-current="page"]) > span:not(.vfa-route-pin),
+  #menu.vfa-six-brush-ready .m-corpo ol > li > a:is(.vfa-nav-active,[aria-current="page"]) > span:not(.vfa-route-pin) {
+    color:#91bdff !important;
+  }
+  #menu .m-corpo ol > li > a:is(:hover,:focus-visible) > span:not(.vfa-route-pin),
+  #menu.vfa-six-brush-ready .m-corpo ol > li > a:is(:hover,:focus-visible) > span:not(.vfa-route-pin) {
+    color:#c7dfff !important;
+  }
+  /* Five destinations + the Menu button = six columns, not five. */
+  .nav .barra {
+    display:grid !important;
+    grid-template-columns:repeat(6,minmax(0,1fr)) !important;
+    grid-template-rows:1fr !important;
+    grid-auto-flow:row !important;
+    align-items:stretch !important;
+    justify-content:center !important;
+    gap:1px !important;
+    box-sizing:border-box !important;
+    width:auto !important;
+    max-width:none !important;
+    left:clamp(6px,2vw,12px) !important;
+    right:clamp(6px,2vw,12px) !important;
+    bottom:calc(8px + env(safe-area-inset-bottom)) !important;
+    padding:6px !important;
+  }
+  .nav .barra > .voce {
+    display:flex !important;
+    flex-direction:column !important;
+    justify-content:center !important;
+    align-items:center !important;
+    align-self:stretch !important;
+    min-width:0 !important;
+    width:100% !important;
+    height:60px !important;
+    gap:4px !important;
+    padding:5px 1px !important;
+    box-sizing:border-box !important;
+    text-align:center !important;
+  }
+  .nav .barra > .voce svg {
+    width:20px !important;
+    height:20px !important;
+    flex:0 0 20px !important;
+  }
+  .nav .barra > .voce span {
+    display:block !important;
+    flex:none !important;
+    min-width:0 !important;
+    max-width:100% !important;
+    width:100% !important;
+    margin:0 !important;
+    padding:0 !important;
+    overflow:visible !important;
+    white-space:normal !important;
+    overflow-wrap:anywhere !important;
+    text-align:center !important;
+    font:700 clamp(8px,1.85vw,10px)/1.06 Montserrat,sans-serif !important;
+    letter-spacing:-.035em !important;
+    opacity:1 !important;
+  }
+  .nav .barra > .voce.on,
+  .nav .barra > .voce[aria-current="page"] {
+    min-width:0 !important;
+    color:#fff !important;
+  }
+  .nav .barra .cursore {
+    top:6px !important;
+    height:calc(100% - 12px) !important;
+    border-radius:15px !important;
+  }
+}
+@media (max-width:760px) and (max-height:580px) {
+  #menu .m-corpo ol > li > a,
+  #menu.vfa-six-brush-ready .m-corpo ol > li > a {
+    min-height:clamp(34px,7svh,49px) !important;
+  }
+  #menu .m-corpo ol > li > a > span:not(.vfa-route-pin),
+  #menu.vfa-six-brush-ready .m-corpo ol > li > a > span:not(.vfa-route-pin) {
+    font-size:clamp(23px,6.4vw,37px) !important;
+  }
+}
+
+/* Keep the six-column dock anchored to both screen edges, never centered twice. */
+@media(max-width:760px) {
+  .nav .barra, .nav:not(.scorre) .barra {
+    transform:translateY(calc(100% + 40px)) !important;
+  }
+  .nav.scorre .barra {
+    transform:translateY(0) !important;
+  }
+}

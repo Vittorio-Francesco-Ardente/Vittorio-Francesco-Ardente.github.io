@@ -25,37 +25,5 @@ import('./vfa-menu-silk-20261105.js').catch(()=>{});
  }
 })();
 
-/* Localized brush PNG navigation only on smartphones.
-   Desktop and tablet never switch away from the accessible HTML menu labels. */
-(()=>{
- const menu=document.getElementById('menu');
- const locale=(document.documentElement.lang||'it').toLowerCase().slice(0,2);
- if(!menu||!['it','en','pl'].includes(locale))return;
- const media=window.matchMedia('(max-width: 760px)');
- const sections=['home','esperienze','certificazioni','chi-sono','contatti'];
- if(!sections.every(id=>menu.querySelector('.m-corpo ol a[data-voce="'+id+'"]')))return;
- const prefix='/_assets/vfa-menu-stroke-'+(locale==='it'?'':locale+'-');
- let loaded=false;
- let loading=false;
- function syncMenu(){
-  menu.classList.toggle('vfa-six-brush-ready',media.matches&&loaded);
-  if(!media.matches||loaded||loading)return;
-  loading=true;
-  Promise.all(sections.map(id=>new Promise((resolve,reject)=>{
-   const img=new Image();
-   img.onload=resolve;
-   img.onerror=reject;
-   img.src=prefix+id+'.png';
-  }))).then(()=>{
-   loaded=true;
-   loading=false;
-   syncMenu();
-  }).catch(()=>{
-   loading=false;
-   menu.classList.remove('vfa-six-brush-ready');
-  });
- }
- if(media.addEventListener)media.addEventListener('change',syncMenu);
- else if(media.addListener)media.addListener(syncMenu);
- syncMenu();
-})();
+/* Native accessible menu on every viewport; no mobile-only PNG replacement. */
+document.getElementById('menu')?.classList.remove('vfa-six-brush-ready');
