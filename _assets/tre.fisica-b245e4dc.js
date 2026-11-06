@@ -29,8 +29,9 @@ function nastroTex(i,mobile){
   p.strokeStyle=`rgba(255,255,255,.07)`;p.lineWidth=1;for(let q=-H;q<H;q+=mobile?4:3){p.beginPath();p.moveTo(0,q);p.lineTo(W,q+W);p.stroke()}
   p.fillStyle=`rgba(255,255,255,.16)`;p.fillRect(W*.04,0,W*.025,H);p.fillRect(W*.935,0,W*.025,H);
   p.strokeStyle=`rgba(255,255,255,.55)`;p.lineWidth=W*.012;p.setLineDash([W*.05,W*.04]);p.beginPath();p.moveTo(W*.115,0);p.lineTo(W*.115,H);p.moveTo(W*.885,0);p.lineTo(W*.885,H);p.stroke();p.setLineDash([]);
-  p.save();p.translate(W/2,H);p.rotate(-Math.PI/2);p.fillStyle=`rgba(255,255,255,.92)`;p.font=`600 ${Math.round(W*.42)}px "Inter Tight"`;p.textBaseline=`middle`;
-  const step=Math.round(W*4.6);for(let q=0;q*step<H+step;q++)p.fillText(i.badge.fascia+`   ·`,q*step,0);p.restore();
+  /* Tessuto continuo, senza scritte ripetute: soltanto microtrama e cuciture. */
+  p.strokeStyle=`rgba(1,18,66,.11)`;p.lineWidth=1;
+  for(let q=0;q<H;q+=mobile?6:4){p.beginPath();p.moveTo(0,q);p.lineTo(W,q);p.stroke()}
   p.strokeStyle=`rgba(255,255,255,.8)`;p.lineWidth=Math.max(1.5,H*.0016);p.setLineDash([W*.07,W*.05]);for(const yy of[.074,.092]){p.beginPath();p.moveTo(W*.1,H*yy);p.lineTo(W*.9,H*yy);p.stroke()}p.setLineDash([]);p.fillStyle=`rgba(0,0,0,.18)`;p.fillRect(0,H*.052,W,H*.014);
   const t2=new TH.Tex(k);t2.colorSpace=TH.sRGB;t2.anisotropy=8;return t2}
 function rumore(){const k=document.createElement(`canvas`);k.width=k.height=256;const p=k.getContext(`2d`),d=p.createImageData(256,256);for(let q=0;q<d.data.length;q+=4){const v=110+Math.random()*60;d.data[q]=d.data[q+1]=d.data[q+2]=v;d.data[q+3]=255}p.putImageData(d,0,0);const t2=new TH.Tex(k);t2.wrapS=t2.wrapT=1000;t2.repeat.set(5,7);return t2}
@@ -72,8 +73,9 @@ async function badge(i){
   /* occhiello metallico di rinforzo */
   const og=new TH.Shape;og.absarc(0,0,HOLE_R,0,Math.PI*2,false);const oh=new TH.Shape;oh.absarc(0,0,GR_IN,0,Math.PI*2,true);og.holes.push(oh);
   const occhiello=new TH.Mesh(new TH.Extrude(og,{depth:CT+.016,bevelEnabled:!0,bevelThickness:.004,bevelSize:.004,bevelSegments:3,curveSegments:40}),metallo);occhiello.geometry.translate(0,0,-(CT+.016)/2);occhiello.position.set(0,holeCy-cardCy,0);card.add(occhiello);
-  /* anello (nel piano y-z: passa dentro l'occhiello) */
-  const anello=new TH.Mesh(new TH.Torus(RING_R,TUBE,16,64),metallo);anello.rotation.y=Math.PI/2;anello.position.set(0,ringCy,0);yawG.add(anello);
+  /* Anello frontale d'acciaio, leggibile da ogni angolo: attraversa la borchia. */
+  const anello=new TH.Mesh(new TH.Torus(RING_R,TUBE,16,64),metallo);
+  anello.position.set(0,ringCy,.023);yawG.add(anello);
   /* moschettone: occhiello (piano x-y) agganciato all'anello + corpo rettangolare che racchiude il nastro piegato */
   const EYE_R=.03,EYE_T=.009,eyeBottom=ringCy+RING_R-(TUBE+EYE_T),eyeCy=eyeBottom+EYE_R;
   const occ=new TH.Mesh(new TH.Torus(EYE_R,EYE_T,12,36),metallo);occ.position.set(0,eyeCy,0);yawG.add(occ);
@@ -94,7 +96,11 @@ async function badge(i){
   const dS=new TH.Shape;rr(.30,.20,.05,dS);const dH=new TH.Shape;rr(.24,.14,.03,dH);dS.holes.push(dH);
   const dg=new TH.Extrude(dS,{depth:.022,bevelEnabled:!0,bevelThickness:.006,bevelSize:.004,bevelSegments:3,curveSegments:16});dg.translate(0,0,-.011);
   const anelloD=new TH.Mesh(dg,metallo);anelloD.position.set(0,PY_-.092,0);anc.add(anelloD);
-  const piega=new TH.Mesh(new TH.Box(.2,.022,.034),new TH.Phys({color:y(`--brand`),roughness:.85,metalness:0,sheen:.5,sheenColor:`#9fc1ff`}));piega.position.set(0,.19,.012);anc.add(piega);   /* piega del nastro attorno alla barra */
+  const piega=new TH.Mesh(new TH.Box(.205,.045,.036),new TH.Phys({color:y(`--brand`),roughness:.87,metalness:0,sheen:.5,sheenColor:`#9fc1ff`}));piega.position.set(0,.115,.014);anc.add(piega);
+  /* Due cuciture e un rivetto rendono credibile il ripiego sul moschettone. */
+  for(const sy of [.105,.125]){const cucitura=new TH.Mesh(new TH.Box(.165,.003,.003),new TH.Std({color:`#b5c8f2`,roughness:.8}));cucitura.position.set(0,sy,.035);anc.add(cucitura)}
+  const fermo=new TH.Mesh(new TH.Torus(.03,.007,12,40),metallo);
+  fermo.position.set(0,.21,.035);anc.add(fermo);
   /* nastro: PlaneGeometry deformata ogni frame */
   const NS=9,SEG=30,Ls=1.18,seg=Ls/NS,NSEGS=SEG,BW=.2;
   const nastro=new TH.Mesh(new TH.Plane(1,1,1,NSEGS),stoffa);nastro.frustumCulled=!1;
@@ -129,7 +135,8 @@ async function badge(i){
   const pos=nastro.geometry.attributes.position;
   function aggiornaNastro(){
     const th=ang();
-    const pts=[[0,.19]];for(let q=0;q<=NS;q++)pts.push([X[q],Y[q]]);
+    /* Il tessuto nasce dalla barra inferiore dell'anello a D, senza un vuoto. */
+    const pts=[[0,.109]];for(let q=0;q<=NS;q++)pts.push([X[q],Y[q]]);
     /* prolunga il nastro dentro il moschettone lungo l'asse del corpo */
     const ex=X[NS],ey=Y[NS],ux=Math.sin(th),uy=Math.cos(th);pts.push([ex-ux*(-.02)+0,ey+uy*(-.0)]);
     const n=pts.length;
