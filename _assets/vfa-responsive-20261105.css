@@ -2562,3 +2562,9 @@ body[data-pagina="contatti"] .vfa-business-area {
     bottom:calc(12px + env(safe-area-inset-bottom)) !important;
   }
 }
+
+@media (max-width:760px) {
+  /* stessa curvatura angoli delle sezioni (28px) */
+  .nav .barra, .nav:not(.scorre) .barra { border-radius:28px !important; }
+  .nav .barra .cursore { border-radius:22px !important; }
+}
