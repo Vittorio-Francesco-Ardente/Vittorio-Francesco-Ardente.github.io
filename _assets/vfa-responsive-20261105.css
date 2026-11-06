@@ -1993,14 +1993,6 @@ body[data-pagina="lavori"] .s-agency .hero > canvas.vfa-work-stripe {
 body[data-pagina="lavori"] .s-agency .hero:after {
   background:linear-gradient(180deg,rgba(4,11,34,.36),rgba(3,13,45,.13) 44%,rgba(3,10,31,.78) 100%);
 }
-@media (max-width:760px) {
-  body[data-pagina="contatti"] .vfa-location-panel {padding:20px clamp(15px,4vw,24px) 44px;}
-  body[data-pagina="contatti"] .vfa-location-card {grid-template-columns:minmax(0,1fr);border-radius:23px;}
-  body[data-pagina="contatti"] .vfa-location-map {grid-row:1;padding:12px 12px 0;}
-  body[data-pagina="contatti"] .vfa-location-map img {min-height:0;aspect-ratio:740/490;}
-  body[data-pagina="contatti"] .vfa-location-copy {gap:12px;padding:23px;}
-  body[data-pagina="contatti"] .vfa-location-card h2 {font-size:clamp(35px,9vw,53px);}
-}
 @media (prefers-reduced-motion:reduce) {
   body[data-pagina="contatti"] .vfa-location-link {transition:none;}
 }
