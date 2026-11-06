@@ -2657,3 +2657,39 @@ body[data-pagina="contatti"] .vfa-concept-sr-only {
     right:calc(var(--g) + 10px)!important;
   }
 }
+
+
+/* Unified card-to-navbar shell, 2026-11-06.
+   Exact var(--g) gutters across sections, top navigation and scroll dock. */
+@media(min-width:761px){
+ .nav .testa-top,.nav.scorre .testa-top{
+   position:fixed!important;top:var(--g)!important;left:var(--g)!important;
+   right:auto!important;width:calc(100vw - 2 * var(--g))!important;
+   max-width:none!important;box-sizing:border-box!important;
+   transform:none!important;padding-inline:clamp(18px,2.5vw,46px)!important;
+   border-radius:var(--r)!important;
+ }
+ .nav.scorre .barra,.nav.su-chiaro.scorre .barra{
+   position:fixed!important;top:var(--g)!important;bottom:auto!important;
+   left:var(--g)!important;right:var(--g)!important;
+   width:calc(100vw - 2 * var(--g))!important;max-width:none!important;
+   margin:0!important;box-sizing:border-box!important;
+   transform:translateY(0)!important;justify-content:center!important;
+   border-radius:var(--r)!important;
+ }
+}
+@media(max-width:760px){
+ .nav .testa-top,.nav.scorre .testa-top{
+   position:fixed!important;top:var(--g)!important;
+   left:var(--g)!important;right:var(--g)!important;
+   width:calc(100vw - 2 * var(--g))!important;max-width:none!important;
+   box-sizing:border-box!important;margin:0!important;transform:none!important;
+   border-radius:clamp(18px,5vw,var(--r))!important;
+ }
+ .nav .barra,.nav.scorre .barra,.nav.su-chiaro .barra{
+   left:var(--g)!important;right:var(--g)!important;
+   width:calc(100vw - 2 * var(--g))!important;max-width:none!important;
+   bottom:calc(var(--g) + env(safe-area-inset-bottom))!important;
+   box-sizing:border-box!important;
+ }
+}
