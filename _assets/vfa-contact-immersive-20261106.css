@@ -8,23 +8,24 @@ body[data-pagina="contatti"] .vfa-location-panel.vfa-concept-scene{
  margin:0!important;padding:0!important;overflow:hidden!important;
  border:0!important;border-radius:var(--r)!important;
  box-shadow:none!important;perspective:1400px;
- background:#174cb5!important;
+ background:#eaf3ff!important;
 }
-/* CSS-only flowing silk fallback when WebGL is unavailable. */
+/* Reference blue-white silk texture fills the section; transform is its only animation. */
 body[data-pagina="contatti"] .vfa-location-panel.vfa-concept-scene::before{
  content:""!important;display:block!important;position:absolute!important;
- z-index:0!important;inset:-32%!important;pointer-events:none!important;
- background:
- radial-gradient(ellipse 22% 32% at 14% 58%,rgba(235,247,255,.91),transparent 83%),
- radial-gradient(ellipse 14% 42% at 77% 24%,rgba(209,233,255,.82),transparent 92%),
- radial-gradient(ellipse 26% 30% at 83% 87%,rgba(148,205,255,.67),transparent 90%),
- linear-gradient(141deg,#071f63 0%,#1e4aa9 28%,#5a92e3 62%,#103a95 90%)!important;
- filter:blur(19px);
- animation:vfa-fabric-wave 10s ease-in-out infinite alternate!important;
+ z-index:0!important;inset:-7%!important;pointer-events:none!important;
+ background-image:url("/_assets/vfa-contact-silk-waves-20261106.webp")!important;
+ background-repeat:no-repeat!important;
+ background-size:cover!important;
+ background-position:center center!important;
+ filter:none!important;
+ opacity:1!important;
+ will-change:transform;
+ animation:vfa-fabric-wave 19s ease-in-out infinite alternate!important;
 }
 @keyframes vfa-fabric-wave{
- 0%{transform:translate3d(-3%,1.5%,0) rotate(-6deg) scale(1.04)}
- 100%{transform:translate3d(4%,-3%,0) rotate(4deg) scale(1.12)}
+ 0%{transform:translate3d(-1.1%,.5%,0) scale(1.035)}
+ 100%{transform:translate3d(1.1%,-.7%,0) scale(1.095)}
 }
 /* No glass, duplicate card, static frame, vignette or tinted overlay. */
 body[data-pagina="contatti"] .vfa-location-panel.vfa-concept-scene::after,
@@ -35,8 +36,9 @@ body[data-pagina="contatti"] .vfa-contact-atmosphere::after{
  background:none!important;border:0!important;box-shadow:none!important;
  -webkit-backdrop-filter:none!important;backdrop-filter:none!important;
 }
-/* Real-time animated blue silk covers the whole scene, not a child panel. */
+/* Older cached WebGL layers are hidden; the original reference texture is definitive. */
 body[data-pagina="contatti"] .vfa-concept-scene > .vfa-contact-gradflow{
+ display:none!important;
  position:absolute!important;z-index:1!important;inset:0!important;
  display:block!important;width:100%!important;height:100%!important;
  pointer-events:none!important;opacity:1!important;mix-blend-mode:normal!important;
