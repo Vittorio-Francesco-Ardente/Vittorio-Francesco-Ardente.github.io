@@ -2217,43 +2217,7 @@ header .barra a[data-voce="lavori"],
   grid-column:1 / -1 !important;justify-content:center !important;
  }
 }
-/* Editorial oversized numeric typography, using the site's Archivo variable font.
-   Existing values, numbers animations, and cards remain intact. */
-body[data-pagina="home"] .s-forma .c-progresso .q b,
-body[data-pagina="home"] .s-forma .c-progresso .t b {
- font-family:Archivo,sans-serif !important;
- font-weight:850 !important;
- font-stretch:76%;
- font-variant-numeric:lining-nums tabular-nums;
- letter-spacing:-.07em !important;
-}
-body[data-pagina="home"] .s-forma .c-progresso .q b {
- display:block;
- color:var(--brand-deep);
- font-size:clamp(21px,2.35vw,32px) !important;
- line-height:1.08;
- margin-top:3px;
-}
-body[data-pagina="home"] .s-forma .c-progresso .t b {font-size:clamp(23px,2.6vw,36px)!important;line-height:1}
-body[data-pagina="home"] .s-poster .num .cifre,
-body[data-pagina="home"] .s-poster .num .cifre i {
- font-family:Archivo,sans-serif !important;
- font-weight:900 !important;
- font-stretch:72%;
- font-style:normal !important;
- font-variant-numeric:lining-nums tabular-nums;
- letter-spacing:-.09em !important;
-}
-body[data-pagina="home"] .s-poster .num .cifre {font-size:clamp(112px,15vw,270px)!important;line-height:.83}
-body[data-pagina="home"] .s-poster .num .cifre.piccole {font-size:clamp(88px,11vw,196px)!important}
-@media(max-width:600px) {
- body[data-pagina="home"] .s-forma .c-progresso .q b {font-size:clamp(19px,5.5vw,26px)!important}
- body[data-pagina="home"] .s-forma .c-progresso .t b {font-size:clamp(23px,7vw,31px)!important}
- body[data-pagina="home"] .s-poster .num .cifre {font-size:clamp(110px,33vw,185px)!important}
- body[data-pagina="home"] .s-poster .num .cifre.piccole {font-size:clamp(90px,26vw,155px)!important}
-}
-
-
+/* Original homepage numeric typography restored; historic overrides intentionally removed. */
 /* VFA assets · 2026-11-06 · digit graphics and requested contact artwork */
 body[data-pagina="contatti"] .vfa-location-panel {
   /* Derived from the exact uploaded blue ribbon/card artwork, cleaned to
@@ -2554,17 +2518,99 @@ body[data-pagina="contatti"] .vfa-business-area {
   }
 }
 
-/* Mobile: la barra in basso segue gli stessi margini laterali delle card e delle sezioni (12px), per una simmetria piena */
+
+/* Approved contact concept - pixel-derived visual, no simulated ribbon or duplicate copy.
+   The WebP includes the card, metallic eyelet, realistic woven ribbon, printed
+   location and map exactly as in the approved reference. */
+body[data-pagina="contatti"] .vfa-location-panel.vfa-concept-scene {
+  display:block !important;
+  position:relative !important;
+  isolation:isolate !important;
+  box-sizing:border-box !important;
+  width:100% !important;
+  height:auto !important;
+  min-height:0 !important;
+  max-height:none !important;
+  margin:0 !important;
+  padding:0 !important;
+  border:0 !important;
+  border-radius:var(--r) !important;
+  overflow:hidden !important;
+  background:#edf3ff !important;
+  box-shadow:none !important;
+}
+body[data-pagina="contatti"] .vfa-location-panel.vfa-concept-scene::before,
+body[data-pagina="contatti"] .vfa-location-panel.vfa-concept-scene::after {
+  content:none !important;
+  display:none !important;
+}
+body[data-pagina="contatti"] .vfa-concept-link {
+  display:block;
+  position:relative;
+  box-sizing:border-box;
+  width:100%;
+  height:auto;
+  color:inherit;
+  text-decoration:none;
+  border-radius:inherit;
+  cursor:pointer;
+}
+body[data-pagina="contatti"] .vfa-concept-link:focus-visible {
+  outline:4px solid #0B2A8C;
+  outline-offset:-6px;
+}
+body[data-pagina="contatti"] .vfa-concept-picture {
+  display:block;
+  width:100%;
+}
+body[data-pagina="contatti"] .vfa-concept-picture > img {
+  display:block;
+  width:100%;
+  max-width:none;
+  height:auto;
+  object-fit:contain;
+  aspect-ratio:1400/681;
+}
+body[data-pagina="contatti"] .vfa-concept-sr-only {
+  position:absolute !important;
+  width:1px !important;
+  height:1px !important;
+  padding:0 !important;
+  margin:-1px !important;
+  overflow:hidden !important;
+  clip:rect(0,0,0,0) !important;
+  white-space:nowrap !important;
+  border:0 !important;
+}
 @media (max-width:760px) {
-  .nav .barra, .nav:not(.scorre) .barra {
-    left:12px !important;
-    right:12px !important;
-    bottom:calc(12px + env(safe-area-inset-bottom)) !important;
+  body[data-pagina="contatti"] .vfa-location-panel.vfa-concept-scene {
+    min-height:0 !important;
+    height:auto !important;
+    padding:0 !important;
+    border-radius:var(--r) !important;
+  }
+  body[data-pagina="contatti"] .vfa-concept-picture > img {
+    aspect-ratio:930/538;
+    width:100%;
+    height:auto;
   }
 }
-
+/* Unify overlay navigation on every device, including active state and
+   layout after retiring the Work destination. */
 @media (max-width:760px) {
-  /* stessa curvatura angoli delle sezioni (28px) */
-  .nav .barra, .nav:not(.scorre) .barra { border-radius:28px !important; }
-  .nav .barra .cursore { border-radius:22px !important; }
+  #menu .m-corpo ol,
+  #menu .m-corpo ol > li,
+  #menu .m-corpo ol > li > a {
+    transform:none !important;
+    animation:none !important;
+  }
+  #menu .m-corpo ol > li > a > span:not(.vfa-route-pin) {
+    font-family:Archivo,sans-serif !important;
+    font-weight:900 !important;
+    color:#f7faff !important;
+    text-transform:uppercase !important;
+  }
+  #menu .m-corpo ol > li > a[aria-current="page"] > span:not(.vfa-route-pin) {
+    color:#91bdff !important;
+  }
 }
