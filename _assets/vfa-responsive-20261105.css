@@ -2252,3 +2252,179 @@ body[data-pagina="home"] .s-poster .num .cifre.piccole {font-size:clamp(88px,11v
  body[data-pagina="home"] .s-poster .num .cifre {font-size:clamp(110px,33vw,185px)!important}
  body[data-pagina="home"] .s-poster .num .cifre.piccole {font-size:clamp(90px,26vw,155px)!important}
 }
+
+
+/* VFA assets · 2026-11-06 · digit graphics and requested contact artwork */
+body[data-pagina="contatti"] .vfa-location-panel {
+  /* Derived from the exact uploaded blue ribbon/card artwork, cleaned to
+     avoid repeating the original image's already-rendered typography. */
+  background-color:#F1F5FE !important;
+  background-image:linear-gradient(90deg,rgba(255,255,255,.67) 0%,rgba(250,251,255,.39) 47%,rgba(247,250,255,.22) 100%),url('/_assets/vfa-contatti-sfondo-referenza-20261106.webp') !important;
+  background-position:center,center !important;
+  background-size:cover,cover !important;
+  background-repeat:no-repeat !important;
+  border-radius:var(--r) !important;
+}
+body[data-pagina="contatti"] .vfa-location-panel::after {opacity:.22 !important;}
+body[data-pagina="contatti"] canvas.vfa-contact-gradflow {
+  opacity:.065 !important;
+  mix-blend-mode:soft-light !important;
+}
+body[data-pagina="contatti"] .vfa-business-stage {
+  position:relative;
+  isolation:isolate;
+  padding-top:110px;
+  min-height:620px;
+}
+body[data-pagina="contatti"] .vfa-business-card-frame {
+  display:flex;
+  position:relative;
+  flex:none;
+  justify-content:center;
+  width:min(100%,455px);
+  max-width:100%;
+  transition:width .64s cubic-bezier(.2,.91,.2,1);
+}
+body[data-pagina="contatti"] .vfa-business-card-frame:has(.vfa-business-card[aria-expanded="true"]) {
+  width:min(100%,650px);
+}
+body[data-pagina="contatti"] .vfa-business-lanyard {
+  position:absolute;
+  z-index:5;
+  top:-163px;
+  left:50%;
+  width:650px;
+  height:240px;
+  max-width:none;
+  transform:translateX(-50%);
+  pointer-events:none;
+  user-select:none;
+  filter:drop-shadow(0 8px 9px rgba(9,26,89,.20));
+  transition:opacity .32s ease;
+}
+body[data-pagina="contatti"] .vfa-business-card-frame:has(.vfa-business-card[aria-expanded="true"]) .vfa-business-lanyard {
+  opacity:0;
+}
+body[data-pagina="contatti"] .vfa-business-card {
+  z-index:3;
+  position:relative;
+}
+body[data-pagina="contatti"] .vfa-card-eyelet {
+  position:absolute;
+  top:10px;
+  right:23px;
+  z-index:4;
+  width:23px;
+  height:23px;
+  border:5px solid #8494AB;
+  border-radius:50%;
+  box-sizing:border-box;
+  background:#E8EEF9;
+  box-shadow:inset 0 1px 4px rgba(3,12,41,.48),0 1px 2px #fff,0 0 0 1.5px rgba(17,30,58,.45);
+  pointer-events:none;
+  transition:opacity .2s ease;
+}
+body[data-pagina="contatti"] .vfa-business-card[aria-expanded="true"] .vfa-card-eyelet {opacity:0}
+body[data-pagina="contatti"] .vfa-business-area {
+  border:1px solid rgba(10,39,132,.21);
+  background:#FFFFFF !important;
+  color:#071D63 !important;
+  font-weight:800 !important;
+  font-size:clamp(9px,.9vw,11px) !important;
+}
+@media(max-width:970px) {
+  body[data-pagina="contatti"] .vfa-business-stage {
+    padding-top:140px;min-height:610px;
+  }
+}
+@media(max-width:760px) {
+  body[data-pagina="contatti"] .vfa-location-panel {
+    background-position:center,center !important;
+    background-size:cover,cover !important;
+  }
+  body[data-pagina="contatti"] .vfa-business-stage {
+    padding-top:115px;min-height:560px;
+  }
+  body[data-pagina="contatti"] .vfa-business-card-frame {
+    width:min(100%,455px);
+  }
+  body[data-pagina="contatti"] .vfa-business-lanyard {
+    top:-158px;
+    width:650px;
+    left:calc(50% + min(0px, (100vw - 455px)/8));
+  }
+  body[data-pagina="contatti"] .vfa-card-eyelet {top:8px;right:18px}
+}
+@media(prefers-reduced-motion:reduce) {
+  body[data-pagina="contatti"] .vfa-business-lanyard {transition:none !important;}
+}
+/* Real glyph silhouettes extracted from the approved cobalt numeric artwork.
+   No scroll-trigger entrance, counter, opacity or translate animation. */
+body[data-pagina="home"] .s-poster .poster .num {
+  display:flex !important;
+  flex-direction:column !important;
+  align-items:center !important;
+  justify-content:center !important;
+  gap:0 !important;
+  min-height:0;
+  margin:auto 0;
+  padding:0 !important;
+}
+body[data-pagina="home"] .s-poster .poster .num .cifre.vfa-asset-numeri {
+  display:flex !important;
+  flex-direction:column !important;
+  justify-content:center !important;
+  align-items:center !important;
+  width:clamp(148px,14vw,245px) !important;
+  max-width:100% !important;
+  flex:0 0 auto !important;
+  overflow:visible !important;
+  padding:0 !important;
+  margin:0 !important;
+  gap:0 !important;
+  font-size:0 !important;
+  line-height:0 !important;
+  letter-spacing:0 !important;
+  animation:none !important;
+  transition:none !important;
+  transform:none !important;
+  opacity:1 !important;
+  visibility:visible !important;
+}
+body[data-pagina="home"] .s-poster .poster .num .cifre.vfa-asset-numeri.piccole {
+  width:clamp(116px,10.2vw,183px) !important;
+}
+body[data-pagina="home"] .s-poster .vfa-digit-asset {
+  display:block !important;
+  width:100% !important;
+  height:auto !important;
+  aspect-ratio:397/397;
+  flex:0 0 auto !important;
+  fill:#074AEA;
+  overflow:visible !important;
+  animation:none !important;
+  transition:none !important;
+  transform:none !important;
+  opacity:1 !important;
+}
+body[data-pagina="home"] .s-poster [data-cifre]:not(.vfa-asset-numeri) {
+  font:900 clamp(128px,14vw,210px)/.84 Archivo,sans-serif;
+  color:#074AEA;
+}
+@media(max-width:900px) {
+  body[data-pagina="home"] .s-poster .poster .num {flex-direction:column !important;}
+  body[data-pagina="home"] .s-poster .poster .num .cifre.vfa-asset-numeri {
+    width:clamp(142px,28vw,235px) !important;
+  }
+  body[data-pagina="home"] .s-poster .poster .num .cifre.vfa-asset-numeri.piccole {
+    width:clamp(110px,19vw,156px) !important;
+  }
+}
+@media(max-width:440px) {
+  body[data-pagina="home"] .s-poster .poster .num .cifre.vfa-asset-numeri {
+    width:min(45vw,198px) !important;
+  }
+  body[data-pagina="home"] .s-poster .poster .num .cifre.vfa-asset-numeri.piccole {
+    width:min(30vw,133px) !important;
+  }
+}
