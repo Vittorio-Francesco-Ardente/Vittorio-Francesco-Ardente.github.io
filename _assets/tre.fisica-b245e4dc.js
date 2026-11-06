@@ -94,6 +94,7 @@ async function badge(i){
   const dS=new TH.Shape;rr(.30,.20,.05,dS);const dH=new TH.Shape;rr(.24,.14,.03,dH);dS.holes.push(dH);
   const dg=new TH.Extrude(dS,{depth:.022,bevelEnabled:!0,bevelThickness:.006,bevelSize:.004,bevelSegments:3,curveSegments:16});dg.translate(0,0,-.011);
   const anelloD=new TH.Mesh(dg,metallo);anelloD.position.set(0,PY_-.092,0);anc.add(anelloD);
+  const piega=new TH.Mesh(new TH.Box(.2,.022,.034),new TH.Phys({color:y(`--brand`),roughness:.85,metalness:0,sheen:.5,sheenColor:`#9fc1ff`}));piega.position.set(0,.19,.012);anc.add(piega);   /* piega del nastro attorno alla barra */
   /* nastro: PlaneGeometry deformata ogni frame */
   const NS=9,SEG=30,Ls=1.18,seg=Ls/NS,NSEGS=SEG,BW=.2;
   const nastro=new TH.Mesh(new TH.Plane(1,1,1,NSEGS),stoffa);nastro.frustumCulled=!1;
@@ -128,7 +129,7 @@ async function badge(i){
   const pos=nastro.geometry.attributes.position;
   function aggiornaNastro(){
     const th=ang();
-    const pts=[[0,.125]];for(let q=0;q<=NS;q++)pts.push([X[q],Y[q]]);
+    const pts=[[0,.19]];for(let q=0;q<=NS;q++)pts.push([X[q],Y[q]]);
     /* prolunga il nastro dentro il moschettone lungo l'asse del corpo */
     const ex=X[NS],ey=Y[NS],ux=Math.sin(th),uy=Math.cos(th);pts.push([ex-ux*(-.02)+0,ey+uy*(-.0)]);
     const n=pts.length;
@@ -139,7 +140,7 @@ async function badge(i){
       const s01=r/NSEGS,tw=yaw*Math.pow(s01,1.6),nx=-ty,ny=tx,wx=nx*Math.cos(tw),wy=ny*Math.cos(tw),wz=Math.sin(tw);
       const hw=BW/2,cx=rows[r][0],cy=rows[r][1];
       /* riga r: PlaneGeometry ordina dall'alto (y=+.5) con v=1 verso v=0: vertici (r*2) sinistra, (r*2+1) destra */
-      const zo=-.026*Math.max(0,1-s01*9);pos.setXYZ(r*2,cx-wx*hw,cy-wy*hw,zo-wz*hw);pos.setXYZ(r*2+1,cx+wx*hw,cy+wy*hw,zo+wz*hw)}
+      const zo=.024*Math.max(0,1-s01*9);pos.setXYZ(r*2,cx-wx*hw,cy-wy*hw,zo-wz*hw);pos.setXYZ(r*2+1,cx+wx*hw,cy+wy*hw,zo+wz*hw)}
     pos.needsUpdate=!0;nastro.geometry.computeVertexNormals();nastro.geometry.computeBoundingSphere()}
   /* ----- camera / layout ----- */
   const fov=26,tanH=Math.tan(fov*Math.PI/360);
