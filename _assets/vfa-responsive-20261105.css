@@ -2219,21 +2219,7 @@ header .barra a[data-voce="lavori"],
 }
 /* Original homepage numeric typography restored; historic overrides intentionally removed. */
 /* VFA assets · 2026-11-06 · digit graphics and requested contact artwork */
-body[data-pagina="contatti"] .vfa-location-panel {
-  /* Derived from the exact uploaded blue ribbon/card artwork, cleaned to
-     avoid repeating the original image's already-rendered typography. */
-  background-color:#F1F5FE !important;
-  background-image:linear-gradient(90deg,rgba(255,255,255,.67) 0%,rgba(250,251,255,.39) 47%,rgba(247,250,255,.22) 100%),url('/_assets/vfa-contatti-sfondo-referenza-20261106.webp') !important;
-  background-position:center,center !important;
-  background-size:cover,cover !important;
-  background-repeat:no-repeat !important;
-  border-radius:var(--r) !important;
-}
-body[data-pagina="contatti"] .vfa-location-panel::after {opacity:.22 !important;}
-body[data-pagina="contatti"] canvas.vfa-contact-gradflow {
-  opacity:.065 !important;
-  mix-blend-mode:soft-light !important;
-}
+/* Retired contact raster/glass styling moved to the single contact stylesheet. */
 body[data-pagina="contatti"] .vfa-business-stage {
   position:relative;
   isolation:isolate;
@@ -2302,10 +2288,6 @@ body[data-pagina="contatti"] .vfa-business-area {
   }
 }
 @media(max-width:760px) {
-  body[data-pagina="contatti"] .vfa-location-panel {
-    background-position:center,center !important;
-    background-size:cover,cover !important;
-  }
   body[data-pagina="contatti"] .vfa-business-stage {
     padding-top:115px;min-height:560px;
   }
@@ -2519,82 +2501,7 @@ body[data-pagina="contatti"] .vfa-business-area {
 }
 
 
-/* Approved contact concept - pixel-derived visual, no simulated ribbon or duplicate copy.
-   The WebP includes the card, metallic eyelet, realistic woven ribbon, printed
-   location and map exactly as in the approved reference. */
-body[data-pagina="contatti"] .vfa-location-panel.vfa-concept-scene {
-  display:block !important;
-  position:relative !important;
-  isolation:isolate !important;
-  box-sizing:border-box !important;
-  width:100% !important;
-  height:auto !important;
-  min-height:0 !important;
-  max-height:none !important;
-  margin:0 !important;
-  padding:0 !important;
-  border:0 !important;
-  border-radius:var(--r) !important;
-  overflow:hidden !important;
-  background:#edf3ff !important;
-  box-shadow:none !important;
-}
-body[data-pagina="contatti"] .vfa-location-panel.vfa-concept-scene::before,
-body[data-pagina="contatti"] .vfa-location-panel.vfa-concept-scene::after {
-  content:none !important;
-  display:none !important;
-}
-body[data-pagina="contatti"] .vfa-concept-link {
-  display:block;
-  position:relative;
-  box-sizing:border-box;
-  width:100%;
-  height:auto;
-  color:inherit;
-  text-decoration:none;
-  border-radius:inherit;
-  cursor:pointer;
-}
-body[data-pagina="contatti"] .vfa-concept-link:focus-visible {
-  outline:4px solid #0B2A8C;
-  outline-offset:-6px;
-}
-body[data-pagina="contatti"] .vfa-concept-picture {
-  display:block;
-  width:100%;
-}
-body[data-pagina="contatti"] .vfa-concept-picture > img {
-  display:block;
-  width:100%;
-  max-width:none;
-  height:auto;
-  object-fit:contain;
-  aspect-ratio:1400/681;
-}
-body[data-pagina="contatti"] .vfa-concept-sr-only {
-  position:absolute !important;
-  width:1px !important;
-  height:1px !important;
-  padding:0 !important;
-  margin:-1px !important;
-  overflow:hidden !important;
-  clip:rect(0,0,0,0) !important;
-  white-space:nowrap !important;
-  border:0 !important;
-}
-@media (max-width:760px) {
-  body[data-pagina="contatti"] .vfa-location-panel.vfa-concept-scene {
-    min-height:0 !important;
-    height:auto !important;
-    padding:0 !important;
-    border-radius:var(--r) !important;
-  }
-  body[data-pagina="contatti"] .vfa-concept-picture > img {
-    aspect-ratio:930/538;
-    width:100%;
-    height:auto;
-  }
-}
+/* Contact concept layout is defined only in vfa-contact-immersive-20261106.css. */
 /* Unify overlay navigation on every device, including active state and
    layout after retiring the Work destination. */
 @media (max-width:760px) {
