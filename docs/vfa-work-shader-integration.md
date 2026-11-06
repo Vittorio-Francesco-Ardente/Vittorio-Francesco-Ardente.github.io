@@ -1,27 +1,32 @@
-# Stripe-like gradient shader: integration notes
+# VFA GradFlow stripe component and native site
 
-The current VFA portfolio is a static GitHub Pages site: prebuilt HTML, CSS and JavaScript.
-It does **not** have a React/TypeScript/Tailwind build pipeline or a shadcn component registry.
-The live /lavori route uses `/_assets/vfa-work-stripe-20261106.js` to render an on-brand WebGL counterpart,
-without changing the existing markup, layout or deployment process.
+The published VFA portfolio is **static HTML, CSS and JavaScript** served by
+GitHub Pages. It deliberately has no React, Next.js, npm dependencies,
+TypeScript compiler, Tailwind build, or shadcn CLI project.
 
-The requested React component is preserved in `/components/ui/stripe-like-gradient-shader.tsx`,
-with an example in `/components/ui/demo.tsx`.
+The supplied React component is preserved at
+`/components/ui/stripe-like-gradient-shader.tsx`, with its exact color values
+(white, turquoise, purple), speed 0.4, scale 1, type 'stripe', and noise 0.08.
+`/components/ui/demo.tsx` is the demonstration.
 
-To use the React version in a **separate or migrated** project:
+To use the React component in a future *separate* shadcn + Tailwind +
+TypeScript application:
 
 ```bash
-npx create-next-app@latest vfa-react --typescript --tailwind --eslint --app --src-dir=false --import-alias "@/*"
+npx create-next-app@latest vfa-react --typescript --tailwind --eslint --app --import-alias "@/*"
 cd vfa-react
 npx shadcn@latest init
 npm install gradflow
 ```
 
-Copy `components/ui/stripe-like-gradient-shader.tsx` into the React project's
-`components/ui/` directory. In shadcn, this is the conventional location for
-reusable UI primitives; the `@/components/ui` import in `demo.tsx` depends on
-the configured `@/*` path alias. Tailwind styles are generated through the
-Next.js build and are not included in the static site's CSS.
+The expected shadcn location for reusable UI primitives is `/components/ui`.
+The `@/components/ui/...` import in demo.tsx relies on the `@/*`
+TypeScript alias in tsconfig.json.
 
-The live static version is intentionally separate. Do not add React scripts or
-npm dependencies to GitHub Pages without a separate build step.
+The live contact page instead has a native business-card animation, a bespoke
+blue/white textured SVG banner and a map of Dalmine's real streets. OSM tiles
+are requested only after a user expands the visiting card. A real road route
+is fetched from OSRM when available; no fictitious roads are drawn if routing
+fails. The administrative outline is ISTAT 2026, license CC BY 4.0.
+OSM street maps require visible attribution and comply with OSM's
+tile usage policy.

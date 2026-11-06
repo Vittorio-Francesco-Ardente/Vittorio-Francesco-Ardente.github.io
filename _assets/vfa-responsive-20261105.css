@@ -1730,218 +1730,445 @@ body[data-pagina="contatti"] .s-badge .email-pill:focus-visible {
 }
 
 
-/* VFA 2026 / business-card identity. The card is the design, not a separate dashboard.
-   Uses the existing Inter Tight, Archivo, paper texture and --brand theme variables. */
+/* VFA contact · editorial visiting card + real animated street map (2026-11-06).
+   The section retains the standard .schermo border radius and site typography. */
 body[data-pagina="contatti"] .vfa-location-panel {
- position:relative;box-sizing:border-box;min-width:0;isolation:isolate;
- background:var(--paper) url("/v3/img/carta-grigia.webp") 0 0/256px repeat;
- padding:clamp(58px,8vw,112px) var(--pad);
- color:var(--ink);
- border-top:1px solid rgba(11,42,140,.09);
+  --vfa-loc-blue:#0B2A8C;
+  --vfa-loc-navy:#071D63;
+  --vfa-loc-paper:#F6F8FD;
+  position:relative;
+  min-height:0;
+  padding:clamp(66px,9vh,110px) var(--pad);
+  color:var(--vfa-loc-navy);
+  border-radius:var(--r);
+  overflow:hidden;
+  isolation:isolate;
+  background-color:#F2F6FF;
+  background-image:linear-gradient(90deg,rgba(252,253,255,.98) 0%,rgba(247,250,255,.93) 47%,rgba(241,247,255,.12) 100%),url('/_assets/vfa-contatti-banner-20261106.svg');
+  background-position:center,center;
+  background-size:cover,cover;
+}
+body[data-pagina="contatti"] .vfa-location-panel::after {
+  content:"";
+  position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:linear-gradient(130deg,rgba(255,255,255,.52),transparent 55%);
+}
+body[data-pagina="contatti"] canvas.vfa-contact-gradflow {
+  position:absolute;inset:0;z-index:0;
+  width:100%;height:100%;
+  opacity:.19;
+  pointer-events:none;
+  mix-blend-mode:soft-light;
+  -webkit-mask-image:linear-gradient(90deg,transparent 30%,#000 98%);
+  mask-image:linear-gradient(90deg,transparent 30%,#000 98%);
 }
 body[data-pagina="contatti"] .vfa-business-layout {
- display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1fr);
- width:min(1150px,100%);margin:0 auto;
- align-items:center;gap:clamp(22px,4vw,78px);
+  position:relative;z-index:1;
+  display:grid;
+  grid-template-columns:minmax(0,.87fr) minmax(0,1.13fr);
+  align-items:center;
+  width:min(1200px,100%);
+  gap:clamp(24px,4vw,78px);
+  margin:0 auto;
 }
 body[data-pagina="contatti"] .vfa-business-intro {
- display:flex;flex-direction:column;align-items:flex-start;
- gap:clamp(16px,2.1vw,27px);min-width:0;
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:clamp(17px,2.1vw,26px);
 }
 body[data-pagina="contatti"] .vfa-location-eyebrow {
- color:var(--brand);letter-spacing:.17em;
- font:750 11px/1.4 Montserrat,sans-serif;
+  display:inline-block;
+  border-bottom:2px solid var(--vfa-loc-blue);
+  padding:0 0 10px;
+  font:780 11px/1.3 Montserrat,sans-serif;
+  letter-spacing:.13em;
+  color:var(--vfa-loc-blue);
 }
 body[data-pagina="contatti"] .vfa-business-intro h2 {
- margin:0;max-width:12ch;letter-spacing:-.05em;
- font:400 clamp(48px,5.4vw,85px)/.94 "Inter Tight",sans-serif;
- color:var(--ink);
+  margin:0;
+  max-width:11ch;
+  color:var(--vfa-loc-navy);
+  font:500 clamp(47px,5.1vw,88px)/.95 "Inter Tight",sans-serif;
+  letter-spacing:-.055em;
 }
-body[data-pagina="contatti"] .vfa-business-intro h2 > span {color:var(--brand)}
-body[data-pagina="contatti"] .vfa-business-intro p {
- margin:0;color:var(--text-2);max-width:37ch;
- font:450 clamp(15px,1.5vw,18px)/1.5 "Inter Tight",sans-serif;
+body[data-pagina="contatti"] .vfa-intro-period {color:var(--vfa-loc-blue)}
+body[data-pagina="contatti"] .vfa-business-intro > p {
+  margin:0;
+  max-width:37ch;
+  color:#40516D;
+  font:450 clamp(16px,1.45vw,19px)/1.52 "Inter Tight",sans-serif;
+}
+body[data-pagina="contatti"] .vfa-place-tag {
+  display:inline-flex;
+  align-items:center;
+  gap:11px;
+  padding:11px 16px;
+  border:1px solid rgba(11,42,140,.19);
+  border-radius:999px;
+  background:rgba(255,255,255,.9);
+  box-shadow:0 9px 26px -24px rgba(7,29,99,.5);
+  color:var(--vfa-loc-navy);
+  font:740 11px/1.2 Montserrat,sans-serif;
+  letter-spacing:.06em;
+}
+body[data-pagina="contatti"] .vfa-place-pulse {
+  width:8px;height:8px;border-radius:50%;
+  flex:none;background:#1853EE;
+  box-shadow:0 0 0 4px rgba(24,83,238,.12);
 }
 body[data-pagina="contatti"] .vfa-business-coordinate {
- font:780 clamp(14px,1.7vw,19px)/1 Archivo,sans-serif;
- font-stretch:80%;letter-spacing:.06em;
- color:var(--brand);
+  color:#566A8D;
+  font:700 12px/1.4 "JetBrains Mono",monospace;
+  letter-spacing:.04em;
 }
 body[data-pagina="contatti"] .vfa-business-stage {
- display:flex;flex-direction:column;align-items:center;justify-content:center;
- min-width:0;min-height:475px;gap:12px;
- perspective:1200px;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  gap:13px;
+  width:100%;min-width:0;
+  min-height:540px;
+  perspective:1300px;
+}
+body[data-pagina="contatti"] .vfa-business-edition {
+  display:block;
+  align-self:center;
+  color:#627AA4;
+  letter-spacing:.13em;
+  font:750 10px/1 Montserrat,sans-serif;
 }
 body[data-pagina="contatti"] .vfa-business-card {
- --vfa-map-rx:0deg;--vfa-map-ry:0deg;
- display:block;position:relative;box-sizing:border-box;overflow:hidden;isolation:isolate;
- width:min(100%,392px);height:239px;min-height:0;
- padding:0;border-radius:16px;
- border:1px solid rgba(11,42,140,.13);
- text-align:left;cursor:pointer;
- color:var(--brand);
- background:#f9fafb url("/v3/img/carta-grigia.webp") 0 0/256px repeat;
- box-shadow:0 27px 56px -31px rgba(10,35,90,.38),inset 0 1px rgba(255,255,255,.96);
- transform:perspective(1000px) rotateX(var(--vfa-map-rx)) rotateY(var(--vfa-map-ry));
- transform-style:preserve-3d;
- transition:width .57s cubic-bezier(.2,.92,.2,1),height .57s cubic-bezier(.2,.92,.2,1),
-  transform .36s cubic-bezier(.2,1,.2,1),box-shadow .32s ease;
- -webkit-tap-highlight-color:transparent;
- touch-action:manipulation;
+  --vfa-map-rx:0deg;--vfa-map-ry:0deg;
+  position:relative;
+  display:block;
+  box-sizing:border-box;
+  flex:none;
+  width:min(100%,455px);
+  height:270px;
+  min-width:0;min-height:0;
+  padding:0;
+  border:1px solid rgba(28,62,147,.19);
+  border-radius:19px;
+  overflow:hidden;
+  isolation:isolate;
+  text-align:left;
+  cursor:pointer;
+  color:var(--vfa-loc-navy);
+  background:var(--vfa-loc-paper) url('/v3/img/carta-grigia.webp') left top/256px repeat;
+  box-shadow:0 30px 64px -32px rgba(5,28,87,.42),inset 0 1px rgba(255,255,255,.96);
+  transform:perspective(1000px) rotateX(var(--vfa-map-rx)) rotateY(var(--vfa-map-ry));
+  transform-style:preserve-3d;
+  transition:width .64s cubic-bezier(.2,.91,.2,1),
+    height .64s cubic-bezier(.2,.91,.2,1),
+    box-shadow .3s ease;
+  touch-action:manipulation;
+  -webkit-tap-highlight-color:transparent;
 }
-body[data-pagina="contatti"] .vfa-business-card::before {
- content:"";z-index:0;position:absolute;right:-74px;top:-22px;
- width:43%;height:120%;background:var(--brand);
- transform:skewX(-16deg);pointer-events:none;
- transition:opacity .38s ease;
+body[data-pagina="contatti"] .vfa-business-card:focus-visible {
+  outline:3px solid #164EEC;
+  outline-offset:5px;
 }
-body[data-pagina="contatti"] .vfa-business-card::after {
- content:"";position:absolute;inset:0;z-index:0;
- pointer-events:none;
- background:linear-gradient(125deg,rgba(255,255,255,.75),transparent 40%,rgba(5,25,65,.035));
+body[data-pagina="contatti"] .vfa-business-card:is(:hover,:focus-visible) {
+  box-shadow:0 36px 70px -32px rgba(5,28,87,.52),inset 0 1px #fff;
 }
-body[data-pagina="contatti"] .vfa-business-grain {
- position:absolute;z-index:0;inset:0;
- pointer-events:none;opacity:.4;
- background:repeating-linear-gradient(0deg,transparent 0 2px,rgba(11,42,140,.02) 2px 3px);
+body[data-pagina="contatti"] .vfa-business-visual {
+  position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:linear-gradient(126deg,#1E5CF8 0%,#1138C8 59%,#0A218A 100%);
+  clip-path:polygon(77% 0%,100% 0%,100% 100%,65% 100%);
+  transition:opacity .3s ease;
+}
+body[data-pagina="contatti"] .vfa-business-visual::before {
+  content:"";position:absolute;inset:0;
+  background:radial-gradient(ellipse at 80% 9%,rgba(255,255,255,.17),transparent 45%),
+    repeating-linear-gradient(160deg,transparent 0 17px,rgba(255,255,255,.04) 18px 20px);
 }
 body[data-pagina="contatti"] .vfa-business-top,
 body[data-pagina="contatti"] .vfa-business-name,
 body[data-pagina="contatti"] .vfa-business-bottom {
- position:absolute;z-index:2;
- transition:opacity .32s ease,transform .4s ease;
+  position:absolute;z-index:2;
+  transition:opacity .26s ease,transform .36s ease,visibility .3s;
 }
 body[data-pagina="contatti"] .vfa-business-top {
- top:22px;left:25px;right:21px;
- display:flex;align-items:flex-start;justify-content:space-between;gap:10px;
+  top:24px;left:26px;right:21px;
+  display:flex;align-items:flex-start;justify-content:space-between;gap:8px;
 }
 body[data-pagina="contatti"] .vfa-business-logo {
- color:var(--brand);font:900 27px/.85 Archivo,sans-serif;
- font-stretch:78%;letter-spacing:-.085em;text-transform:lowercase;
+  color:var(--vfa-loc-blue);
+  font:900 31px/.85 Archivo,sans-serif;
+  font-stretch:79%;
+  text-transform:lowercase;
+  letter-spacing:-.085em;
 }
 body[data-pagina="contatti"] .vfa-business-logo sup {
- vertical-align:top;letter-spacing:0;
- font:800 9px/1 Montserrat,sans-serif;margin-left:3px;
+  display:inline-block;position:relative;top:-.45em;
+  margin-left:5px;
+  font:800 10px/1 Montserrat,sans-serif;
+  letter-spacing:0;
 }
-body[data-pagina="contatti"] .vfa-business-small {
- color:#fff;max-width:140px;text-align:right;
- font:750 9px/1.4 Montserrat,sans-serif;letter-spacing:.09em;
+body[data-pagina="contatti"] .vfa-business-area {
+  display:inline-flex;align-items:center;justify-content:center;
+  flex:none;min-height:27px;
+  max-width:52%;
+  padding:7px 11px;
+  border-radius:999px;
+  border:1px solid rgba(11,42,140,.12);
+  background:#fff;
+  color:#071D63;
+  text-align:right;
+  white-space:nowrap;
+  font:760 clamp(8px,.8vw,10px)/1.2 Montserrat,sans-serif;
+  letter-spacing:.06em;
+  box-shadow:0 3px 12px rgba(9,33,95,.12);
 }
 body[data-pagina="contatti"] .vfa-business-name {
- left:25px;top:86px;white-space:nowrap;
- color:var(--brand-deep);
- font:850 clamp(31px,3.7vw,48px)/.86 Archivo,sans-serif;
- font-stretch:78%;letter-spacing:-.065em;
+  left:26px;top:96px;
+  color:#082B97;
+  white-space:nowrap;
+  font:900 clamp(37px,3.55vw,49px)/.85 Archivo,sans-serif;
+  font-stretch:78%;
+  letter-spacing:-.069em;
 }
-body[data-pagina="contatti"] .vfa-business-period {color:var(--brand)}
+body[data-pagina="contatti"] .vfa-business-period {color:#1751EB}
 body[data-pagina="contatti"] .vfa-business-bottom {
- left:25px;right:22px;bottom:23px;
- display:flex;align-items:center;justify-content:space-between;gap:12px;
- font:750 10px/1.2 Montserrat,sans-serif;
- letter-spacing:.07em;
+  left:26px;right:20px;bottom:22px;
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  font:750 10px/1.2 Montserrat,sans-serif;
+  letter-spacing:.085em;
 }
-body[data-pagina="contatti"] .vfa-business-bottom > span:first-child {color:var(--brand-deep)}
-body[data-pagina="contatti"] .vfa-business-bottom > span:last-child {color:#fff}
+body[data-pagina="contatti"] .vfa-business-bottom > span:first-child {color:var(--vfa-loc-blue)}
 body[data-pagina="contatti"] .vfa-business-bottom i {
- display:inline-block;width:4px;height:4px;border-radius:50%;
- margin:0 3px;vertical-align:middle;background:var(--brand);
+  display:inline-block;width:4px;height:4px;
+  border-radius:50%;margin:0 4px 2px;
+  background:#1751EB;
 }
-body[data-pagina="contatti"] .vfa-business-expand-icon {
- display:grid;place-items:center;
- position:absolute;z-index:6;right:16px;bottom:13px;
- width:25px;height:25px;
- border-radius:50%;color:var(--brand);background:#fff;
- border:1px solid rgba(11,42,140,.14);
- font:500 19px/1 "Inter Tight",sans-serif;
- opacity:0;transform:scale(.8);
- transition:transform .32s ease,opacity .3s ease;
+body[data-pagina="contatti"] .vfa-business-bottom > span:last-child {
+  padding:6px 9px;border-radius:100px;
+  color:#082B97;background:#FFFFFF;
+  white-space:nowrap;
 }
-body[data-pagina="contatti"] .vfa-business-card:is(:hover,:focus-visible) .vfa-business-expand-icon,
-body[data-pagina="contatti"] .vfa-business-card[aria-expanded="true"] .vfa-business-expand-icon {
- opacity:1;transform:scale(1);
+body[data-pagina="contatti"] .vfa-business-action {
+  position:absolute;right:17px;bottom:17px;z-index:6;
+  display:grid;place-items:center;
+  width:30px;height:30px;
+  border:1px solid rgba(12,46,143,.19);
+  border-radius:50%;background:#FFF;color:var(--vfa-loc-blue);
+  box-shadow:0 2px 12px rgba(15,44,100,.14);
+  font:500 22px/1 "Inter Tight",sans-serif;
+  opacity:0;transform:scale(.85);
+  transition:opacity .27s ease,transform .35s ease;
+  pointer-events:none;
 }
-body[data-pagina="contatti"] .vfa-business-card:focus-visible {
- outline:3px solid var(--brand);outline-offset:4px;
-}
-body[data-pagina="contatti"] .vfa-business-card:is(:hover,:focus-visible) {
- box-shadow:0 33px 65px -31px rgba(10,35,90,.46),inset 0 1px rgba(255,255,255,.96);
+body[data-pagina="contatti"] .vfa-business-card:is(:hover,:focus-visible) .vfa-business-action,
+body[data-pagina="contatti"] .vfa-business-card[aria-expanded="true"] .vfa-business-action {
+  opacity:1;transform:scale(1);
 }
 body[data-pagina="contatti"] .vfa-business-card[aria-expanded="true"] {
- width:min(100%,468px);height:364px;
+  width:min(100%,650px);
+  height:438px;
+  transform:none !important;
+  background:#FAFBFF;
 }
-body[data-pagina="contatti"] .vfa-business-card[aria-expanded="true"]::before {opacity:0}
+body[data-pagina="contatti"] .vfa-business-card[aria-expanded="true"] .vfa-business-visual,
 body[data-pagina="contatti"] .vfa-business-card[aria-expanded="true"] .vfa-business-top,
 body[data-pagina="contatti"] .vfa-business-card[aria-expanded="true"] .vfa-business-name,
 body[data-pagina="contatti"] .vfa-business-card[aria-expanded="true"] .vfa-business-bottom {
- opacity:0;transform:translateY(-12px);pointer-events:none;
+  opacity:0;visibility:hidden;pointer-events:none;
 }
-body[data-pagina="contatti"] .vfa-business-card[aria-expanded="true"] .vfa-business-expand-icon {transform:rotate(45deg)}
+body[data-pagina="contatti"] .vfa-business-card[aria-expanded="true"] .vfa-business-action {
+  transform:rotate(45deg);
+}
 body[data-pagina="contatti"] .vfa-map-geography {
- position:absolute;inset:17px 17px 17px;z-index:3;
- display:grid;grid-template-rows:25px minmax(0,1fr) 24px;
- gap:6px;
- opacity:0;transform:translateY(18px) scale(.95);
- pointer-events:none;visibility:hidden;
- transition:opacity .35s ease,transform .56s cubic-bezier(.16,1,.3,1),visibility .35s;
+  position:absolute;z-index:3;inset:17px;
+  display:grid;grid-template-rows:32px minmax(0,1fr) 26px;
+  gap:10px;
+  min-width:0;
+  opacity:0;visibility:hidden;
+  transform:translateY(12px) scale(.98);
+  pointer-events:none;
+  transition:opacity .35s ease,transform .48s cubic-bezier(.15,1,.3,1),visibility .35s;
 }
 body[data-pagina="contatti"] .vfa-business-card[aria-expanded="true"] .vfa-map-geography {
- opacity:1;visibility:visible;transform:translateY(0) scale(1);
+  opacity:1;visibility:visible;transform:none;
 }
-body[data-pagina="contatti"] .vfa-map-geography-title,
+body[data-pagina="contatti"] .vfa-map-geography-head,
 body[data-pagina="contatti"] .vfa-map-geography-foot {
- display:flex;align-items:center;justify-content:space-between;gap:12px;
- color:var(--brand-deep);
- font:750 10px/1.3 Montserrat,sans-serif;letter-spacing:.08em;
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  min-width:0;
+  color:#0B2A8C;
+  font:780 11px/1.3 Montserrat,sans-serif;
+  letter-spacing:.08em;
 }
-body[data-pagina="contatti"] .vfa-map-geography-title span,
-body[data-pagina="contatti"] .vfa-map-geography-foot span {
- font:720 11px/1 Archivo,sans-serif;font-stretch:80%;
+body[data-pagina="contatti"] .vfa-map-geography-head > span {
+  color:#4866A1;font-weight:750;
+  font-size:10px;
+  letter-spacing:.04em;
 }
-body[data-pagina="contatti"] .vfa-map-geography img {
- display:block;min-height:0;width:100%;height:100%;
- object-fit:contain;border-radius:9px;
+body[data-pagina="contatti"] .vfa-map-geography-foot > span {
+  color:#526787;
+  font:550 10px/1.3 Montserrat,sans-serif;
+  letter-spacing:0;
+  text-align:right;
+  padding-right:41px;
 }
-body[data-pagina="contatti"] .vfa-map-geography-foot {padding-right:40px}
+body[data-pagina="contatti"] .vfa-map-live {
+  display:block;position:relative;
+  min-width:0;min-height:0;
+  border:1px solid rgba(17,66,167,.13);
+  border-radius:12px;
+  background-color:#E7EFFD;
+  background-image:linear-gradient(rgba(15,64,150,.045) 1px,transparent 1px),
+                   linear-gradient(90deg,rgba(15,64,150,.045) 1px,transparent 1px);
+  background-size:22px 22px;
+  overflow:hidden;
+}
+body[data-pagina="contatti"] .vfa-map-tiles {
+  position:absolute;inset:0;overflow:hidden;
+  opacity:0;
+  clip-path:inset(0 100% 0 0);
+  transition:opacity .35s ease,clip-path 1.3s cubic-bezier(.2,.7,.2,1);
+}
+body[data-pagina="contatti"] .vfa-map-live.vfa-map-ready .vfa-map-tiles {
+  opacity:1;clip-path:inset(0 0 0 0);
+}
+body[data-pagina="contatti"] .vfa-map-tiles > img {
+  position:absolute;display:block;
+  width:256px;height:256px;
+  max-width:none;
+  image-rendering:auto;
+  filter:saturate(.63) contrast(1.025);
+  user-select:none;pointer-events:none;
+}
+body[data-pagina="contatti"] .vfa-map-overlay {
+  position:absolute;inset:0;z-index:2;width:100%;height:100%;
+  overflow:hidden;pointer-events:none;
+}
+body[data-pagina="contatti"] .vfa-map-outline-halo,
+body[data-pagina="contatti"] .vfa-map-outline,
+body[data-pagina="contatti"] .vfa-map-route-halo,
+body[data-pagina="contatti"] .vfa-map-route {
+  fill:none;vector-effect:non-scaling-stroke;
+  stroke-linejoin:round;stroke-linecap:round;
+}
+body[data-pagina="contatti"] .vfa-map-outline-halo {stroke:#FFFFFF;stroke-opacity:.95;stroke-width:4.5}
+body[data-pagina="contatti"] .vfa-map-outline {stroke:#124ADD;stroke-opacity:.8;stroke-width:1.9;stroke-dasharray:7 5}
+body[data-pagina="contatti"] .vfa-map-route-halo {stroke:#FFFFFF;stroke-width:8;stroke-opacity:.94}
+body[data-pagina="contatti"] .vfa-map-route {stroke:#1051F6;stroke-width:4}
+body[data-pagina="contatti"] .vfa-map-pin {
+  position:absolute;left:50%;top:49%;z-index:4;
+  width:17px;height:17px;display:grid;place-items:center;
+  border-radius:50%;
+  background:#124FF0;border:4px solid white;
+  box-shadow:0 1px 15px rgba(9,36,138,.55);
+  transform:translate(-50%,-50%);
+  pointer-events:none;
+}
+body[data-pagina="contatti"] .vfa-map-pin::after {
+  content:"";position:absolute;inset:-13px;border:2px solid #1552F0;border-radius:50%;
+  animation:vfa-street-pulse 2.4s ease-out infinite;
+}
+@keyframes vfa-street-pulse {
+  0%{transform:scale(.38);opacity:.8}
+  90%,100%{transform:scale(1.16);opacity:0}
+}
+body[data-pagina="contatti"] .vfa-map-loading {
+  position:absolute;z-index:5;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  padding:12px;
+  background:rgba(244,248,255,.9);
+  color:#0B2A8C;
+  font:740 12px/1.4 Montserrat,sans-serif;
+  transition:opacity .28s ease,visibility .28s ease;
+}
+body[data-pagina="contatti"] .vfa-map-live.vfa-map-ready .vfa-map-loading {
+  opacity:0;visibility:hidden;
+}
+body[data-pagina="contatti"] .vfa-map-osm-credit {
+  position:absolute;z-index:6;right:7px;bottom:6px;
+  background:rgba(255,255,255,.94);
+  color:#18345C;
+  padding:3px 5px;border-radius:4px;
+  font:650 9px/1.3 Arial,sans-serif;
+  pointer-events:none;
+}
 body[data-pagina="contatti"] .vfa-map-hint {
- font:550 11px/1.4 Montserrat,sans-serif;color:var(--text-2);
- text-align:center;
+  color:#405879;text-align:center;
+  font:600 11px/1.4 Montserrat,sans-serif;
 }
 body[data-pagina="contatti"] .vfa-business-map-link {
- display:inline-flex;align-items:center;gap:13px;
- color:var(--brand);text-decoration:none;
- font:700 12px/1.3 Montserrat,sans-serif;
- border-bottom:1px solid rgba(11,42,140,.3);
- padding:5px 0;
+  display:inline-flex;align-items:center;gap:14px;
+  color:#0B2A8C;
+  font:750 12px/1.3 Montserrat,sans-serif;
+  text-decoration:none;
+  border-bottom:1px solid rgba(11,42,140,.35);
+  padding:5px 0;
 }
-body[data-pagina="contatti"] .vfa-business-map-link:hover {border-bottom-color:var(--brand)}
+body[data-pagina="contatti"] .vfa-business-map-link:hover {border-bottom-color:#0B2A8C}
 body[data-pagina="contatti"] .vfa-map-credit {
- color:#68788f;font:500 10px/1.4 Montserrat,sans-serif;
+  color:#506483;
+  font:500 10px/1.4 Montserrat,sans-serif;
 }
-@media(max-width:760px){
- body[data-pagina="contatti"] .vfa-location-panel {padding:64px clamp(18px,5vw,30px) 70px}
- body[data-pagina="contatti"] .vfa-business-layout {
-  display:flex;flex-direction:column;align-items:stretch;gap:30px
- }
- body[data-pagina="contatti"] .vfa-business-intro {gap:15px}
- body[data-pagina="contatti"] .vfa-business-intro h2 {font-size:clamp(49px,12vw,70px)}
- body[data-pagina="contatti"] .vfa-business-stage {min-height:465px;gap:13px}
- body[data-pagina="contatti"] .vfa-business-card {width:min(100%,392px);height:clamp(205px,59vw,239px)}
- body[data-pagina="contatti"] .vfa-business-name {font-size:clamp(34px,10vw,48px);top:34%}
- body[data-pagina="contatti"] .vfa-business-card[aria-expanded="true"] {
-  width:min(100%,468px);height:min(364px,100vw)
- }
+@media(max-width:970px) {
+  body[data-pagina="contatti"] .vfa-business-layout {
+    grid-template-columns:minmax(0,1fr);
+    gap:30px;
+    max-width:700px;
+  }
+  body[data-pagina="contatti"] .vfa-business-intro {gap:17px}
+  body[data-pagina="contatti"] .vfa-business-intro h2 {font-size:clamp(51px,8vw,80px)}
+  body[data-pagina="contatti"] .vfa-business-stage {min-height:520px}
 }
-@media(max-width:390px){
- body[data-pagina="contatti"] .vfa-business-name {font-size:clamp(30px,10vw,40px)}
- body[data-pagina="contatti"] .vfa-business-small {font-size:8px}
+@media(max-width:760px) {
+  body[data-pagina="contatti"] .vfa-location-panel {
+    padding:clamp(58px,9svh,82px) clamp(17px,5vw,25px) 55px;
+    border-radius:var(--r);
+    background-position:20% center,65% center;
+  }
+  body[data-pagina="contatti"] .vfa-business-layout {gap:24px}
+  body[data-pagina="contatti"] .vfa-business-intro h2 {font-size:clamp(47px,10.7vw,75px)}
+  body[data-pagina="contatti"] .vfa-business-stage {min-height:480px}
+  body[data-pagina="contatti"] .vfa-business-card {
+    width:min(100%,455px);
+    height:auto;aspect-ratio:455/270;
+    border-radius:16px;
+  }
+  body[data-pagina="contatti"] .vfa-business-name {
+    font-size:clamp(32px,9vw,48px);
+    top:35%;
+  }
+  body[data-pagina="contatti"] .vfa-business-top {top:18px;left:19px;right:16px}
+  body[data-pagina="contatti"] .vfa-business-bottom {left:19px;right:16px;bottom:17px}
+  body[data-pagina="contatti"] .vfa-business-name {left:19px}
+  body[data-pagina="contatti"] .vfa-business-logo {font-size:clamp(25px,6.5vw,31px)}
+  body[data-pagina="contatti"] .vfa-business-area {font-size:8px;padding:6px 8px}
+  body[data-pagina="contatti"] .vfa-business-bottom {font-size:9px}
+  body[data-pagina="contatti"] .vfa-business-bottom > span:last-child {font-size:8px;padding:5px 6px}
+  body[data-pagina="contatti"] .vfa-business-card[aria-expanded="true"] {
+    width:100%;height:clamp(345px,108vw,438px);
+    aspect-ratio:auto;
+  }
+  body[data-pagina="contatti"] .vfa-map-geography {inset:12px;grid-template-rows:31px minmax(0,1fr) 28px;gap:8px}
+  body[data-pagina="contatti"] .vfa-map-geography-head strong {font-size:9px}
+  body[data-pagina="contatti"] .vfa-map-geography-head>span {font-size:9px}
+  body[data-pagina="contatti"] .vfa-map-geography-foot>span {font-size:9px}
 }
-@media(hover:none){body[data-pagina="contatti"] .vfa-business-expand-icon {opacity:1;transform:scale(1)}}
-@media(prefers-reduced-motion:reduce){
- body[data-pagina="contatti"] .vfa-business-card,
- body[data-pagina="contatti"] .vfa-map-geography,
- body[data-pagina="contatti"] .vfa-business-top,
- body[data-pagina="contatti"] .vfa-business-name,
- body[data-pagina="contatti"] .vfa-business-bottom {transition:none!important;}
+@media(max-width:360px) {
+  body[data-pagina="contatti"] .vfa-business-name {font-size:clamp(29px,8.3vw,37px)}
+  body[data-pagina="contatti"] .vfa-business-area {max-width:53%;font-size:7.5px}
+}
+@media(hover:none) {
+  body[data-pagina="contatti"] .vfa-business-action {opacity:1;transform:scale(1)}
+}
+@media(prefers-reduced-motion:reduce) {
+  body[data-pagina="contatti"] .vfa-business-card,
+  body[data-pagina="contatti"] .vfa-business-top,
+  body[data-pagina="contatti"] .vfa-business-name,
+  body[data-pagina="contatti"] .vfa-business-bottom,
+  body[data-pagina="contatti"] .vfa-map-geography,
+  body[data-pagina="contatti"] .vfa-map-tiles {
+    transition:none!important;
+  }
+  body[data-pagina="contatti"] .vfa-map-pin::after {animation:none!important}
 }
 
 body[data-pagina="lavori"] .s-agency .hero {
