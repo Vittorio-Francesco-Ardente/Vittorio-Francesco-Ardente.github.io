@@ -2614,3 +2614,46 @@ body[data-pagina="contatti"] .vfa-concept-sr-only {
     color:#91bdff !important;
   }
 }
+
+
+/* VFA 2026-11-06 | equal insets for the six-item mobile dock */
+@media (max-width:760px) {
+  /* Match the inset edges of the rounded content panels rather than
+     stretching the dock into the outer page gutter. */
+  .nav .barra,
+  .nav.scorre .barra,
+  .nav.su-chiaro .barra {
+    position:fixed!important;
+    left:calc(var(--g) + 16px)!important;
+    right:calc(var(--g) + 16px)!important;
+    width:auto!important;
+    max-width:none!important;
+    margin:0!important;
+    bottom:calc(var(--g) + env(safe-area-inset-bottom))!important;
+    padding:6px!important;
+    box-sizing:border-box!important;
+    border-radius:var(--r)!important;
+    grid-template-columns:repeat(6,minmax(0,1fr))!important;
+    grid-auto-flow:row!important;
+    column-gap:0!important;
+    align-items:stretch!important;
+    justify-items:stretch!important;
+  }
+  .nav .barra > .voce,
+  .nav.su-chiaro .barra > .voce {
+    min-width:0!important;
+    max-width:100%!important;
+    width:100%!important;
+    justify-self:stretch!important;
+    margin:0!important;
+  }
+  .nav .barra .cursore {border-radius:calc(var(--r) - 9px)!important;}
+}
+@media(max-width:355px) {
+  .nav .barra,
+  .nav.scorre .barra,
+  .nav.su-chiaro .barra {
+    left:calc(var(--g) + 10px)!important;
+    right:calc(var(--g) + 10px)!important;
+  }
+}

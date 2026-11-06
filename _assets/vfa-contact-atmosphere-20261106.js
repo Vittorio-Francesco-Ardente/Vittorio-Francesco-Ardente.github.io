@@ -2,9 +2,9 @@
  * (source: meerbahadin/gradflow, MIT); React source is kept under
  * /components/ui/stripe-like-gradient-shader.tsx.
  * Exact supplied RGBs white/cyan/purple, speed=.4, scale=1, noise=.08.
- * Rendered as a low-opacity editorial accent behind the Contact section. */
+ * Rendered across the full Contact section so the backdrop and card share the same palette. */
 (() => {
- const section=document.querySelector('body[data-pagina="contatti"] .vfa-contact-atmosphere');
+ const section=document.querySelector('body[data-pagina="contatti"] .vfa-location-panel.vfa-concept-scene');
  if(!section)return;
  const reduced=matchMedia('(prefers-reduced-motion: reduce)');
  const canvas=document.createElement('canvas');
@@ -56,9 +56,9 @@
  const loc=k=>gl.getUniformLocation(program,k);
  const time=loc('u_time'),size=loc('u_resolution');
  gl.uniform1f(loc('u_scale'),1);gl.uniform1f(loc('u_noise'),.08);
- gl.uniform3fv(loc('u_color1'),new Float32Array([1,1,1]));
- gl.uniform3fv(loc('u_color2'),new Float32Array([.22,.52,1]));
- gl.uniform3fv(loc('u_color3'),new Float32Array([.06,.18,.85]));
+ gl.uniform3fv(loc('u_color1'),new Float32Array([.05,.16,.47]));
+ gl.uniform3fv(loc('u_color2'),new Float32Array([.18,.44,.98]));
+ gl.uniform3fv(loc('u_color3'),new Float32Array([.77,.87,1]));
  let visible=true,raf=0,previous=0,clock=0,stopped=false;
  function draw(now){
   if(stopped||!visible||document.hidden)return;
