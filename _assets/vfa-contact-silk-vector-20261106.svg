@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+<defs>
+ <linearGradient id="canvas" x1=".04" y1=".01" x2=".92" y2=".98" gradientUnits="objectBoundingBox"><stop stop-color="#f9fbff"/><stop offset=".29" stop-color="#edf5ff"/><stop offset=".63" stop-color="#b5d4ff"/><stop offset="1" stop-color="#e7f2ff"/></linearGradient>
+ <linearGradient id="blue" x1="0" y1="1" x2="1" y2="0"><stop stop-color="#c5e6ff"/><stop offset=".16" stop-color="#0755ef"/><stop offset=".38" stop-color="#0055e7"/><stop offset=".63" stop-color="#237eff"/><stop offset=".83" stop-color="#91cafa"/><stop offset="1" stop-color="#c2e4ff"/></linearGradient>
+ <linearGradient id="halo" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffffff"/><stop offset=".38" stop-color="#f8fbff"/><stop offset=".69" stop-color="#a8d2ff"/><stop offset="1" stop-color="#ebf7ff"/></linearGradient>
+ <linearGradient id="royal" x1="0" y1="1" x2="1" y2="0"><stop stop-color="#d6eaff"/><stop offset=".22" stop-color="#258aff"/><stop offset=".55" stop-color="#0048db"/><stop offset=".87" stop-color="#1772f1"/><stop offset="1" stop-color="#c3e4ff"/></linearGradient>
+ <filter id="broad" x="-40%" y="-50%" width="180%" height="200%"><feGaussianBlur stdDeviation="55"/></filter>
+ <filter id="soft" x="-30%" y="-40%" width="160%" height="180%"><feGaussianBlur stdDeviation="32"/></filter>
+ <filter id="gloss" x="-20%" y="-30%" width="140%" height="160%"><feGaussianBlur stdDeviation="15"/></filter>
+</defs>
+<rect width="1600" height="900" fill="url(#canvas)"/>
+<path d="M-400 260 C 40 80, 450 160, 720 55 S 1210 -170, 1820 -90" fill="none" stroke="url(#halo)" stroke-width="340" opacity=".94" filter="url(#broad)"/>
+<path d="M-240 1000 C 30 815, 225 820, 490 610 S 950 285, 1270 150 S 1610 -80, 1870 30" fill="none" stroke="url(#blue)" stroke-width="310" opacity=".97" filter="url(#broad)"/>
+<path d="M-280 1100 C 20 845, 340 820, 655 600 S 1080 430, 1440 220 S 1790 -70, 1850 -20" fill="none" stroke="url(#royal)" stroke-width="220" opacity=".92" filter="url(#soft)"/>
+<path d="M-280 740 C 10 650, 250 620, 520 485 S 1040 290, 1500 -100" fill="none" stroke="#f7fbff" stroke-width="122" opacity=".70" filter="url(#soft)"/>
+<path d="M-290 1030 C 130 790, 460 760, 750 557 S 1235 265, 1700 60" fill="none" stroke="#0a5bec" stroke-width="82" opacity=".7" filter="url(#soft)"/>
+<path d="M-140 895 C 250 715, 535 690, 825 491 S 1290 235, 1770 70" fill="none" stroke="#dcf0ff" stroke-width="27" opacity=".7" filter="url(#gloss)"/>
+<path d="M-280 570 C 100 510, 295 500, 600 363 S 1030 140, 1550 -95" fill="none" stroke="#ffffff" stroke-width="45" opacity=".5" filter="url(#soft)"/>
+<path d="M1050 940 C 1310 715, 1560 700, 1830 505" fill="none" stroke="#ffffff" stroke-width="180" opacity=".5" filter="url(#broad)"/>
+</svg>

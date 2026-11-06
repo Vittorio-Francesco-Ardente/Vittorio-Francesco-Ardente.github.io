@@ -1,103 +1,160 @@
-/* VFA CONTACT / EXACT REFERENCE: SINGLE FLOATING BADGE + ANIMATED BLUE SILK.
-   No nested card, glass pane, secondary frame, blur overlay or fake lanyard.
-   Keep the original photographic transparent asset unchanged. */
+/* VFA · Contacts, reference-aligned 2026-11-06.
+   Exactly one original badge, one lightweight section, no glass or nested card.
+   VECTOR waves: crisp at any DPI and visibly animated on iOS and desktop. */
 body[data-pagina="contatti"] .vfa-location-panel.vfa-concept-scene{
- position:relative!important;display:block!important;isolation:isolate!important;
- width:100%!important;height:clamp(520px,77svh,920px)!important;
- min-height:0!important;max-height:none!important;box-sizing:border-box!important;
- margin:0!important;padding:0!important;overflow:hidden!important;
- border:0!important;border-radius:var(--r)!important;
- box-shadow:none!important;perspective:1400px;
- background:#eaf3ff!important;
+  --vfa-scene-height:clamp(390px,61svh,620px);
+  display:block!important;
+  position:relative!important;
+  isolation:isolate!important;
+  box-sizing:border-box!important;
+  width:100%!important;
+  height:var(--vfa-scene-height)!important;
+  min-height:0!important;
+  max-height:none!important;
+  padding:0!important;
+  margin:0!important;
+  overflow:hidden!important;
+  border:0!important;
+  border-radius:var(--r)!important;
+  background:#eaf4ff!important;
+  box-shadow:none!important;
+  perspective:1400px;
 }
-/* Reference blue-white silk texture fills the section; transform is its only animation. */
+/* Distinct flowing white/cobalt satin bands. The artwork is vector, never a tiny raster. */
 body[data-pagina="contatti"] .vfa-location-panel.vfa-concept-scene::before{
- content:""!important;display:block!important;position:absolute!important;
- z-index:0!important;inset:-7%!important;pointer-events:none!important;
- background-image:url("/_assets/vfa-contact-silk-waves-20261106.webp")!important;
- background-repeat:no-repeat!important;
- background-size:cover!important;
- background-position:center center!important;
- filter:none!important;
- opacity:1!important;
- will-change:transform;
- animation:vfa-fabric-wave 19s ease-in-out infinite alternate!important;
+  content:""!important;
+  display:block!important;
+  position:absolute!important;
+  z-index:0!important;
+  inset:-10%!important;
+  background:#eaf4ff url("/_assets/vfa-contact-silk-vector-20261106.svg") center/cover no-repeat!important;
+  pointer-events:none!important;
+  opacity:1!important;
+  filter:blur(22px) saturate(1.07)!important;
+  will-change:transform;
+  animation:vfa-contact-wave-drift 12s ease-in-out infinite alternate!important;
 }
-@keyframes vfa-fabric-wave{
- 0%{transform:translate3d(-1.1%,.5%,0) scale(1.035)}
- 100%{transform:translate3d(1.1%,-.7%,0) scale(1.095)}
+@keyframes vfa-contact-wave-drift{
+  0%{transform:translate3d(-4.5%,2.2%,0) rotate(-2deg) scale(1.08)}
+  50%{transform:translate3d(1.5%,-2.4%,0) rotate(.8deg) scale(1.12)}
+  100%{transform:translate3d(5.2%,-4.5%,0) rotate(2deg) scale(1.08)}
 }
-/* No glass, duplicate card, static frame, vignette or tinted overlay. */
-body[data-pagina="contatti"] .vfa-location-panel.vfa-concept-scene::after,
+/* A second highlight moves independently; it is not another container or glass panel. */
+body[data-pagina="contatti"] .vfa-location-panel.vfa-concept-scene::after{
+  content:""!important;
+  display:block!important;
+  position:absolute!important;
+  z-index:1!important;
+  inset:-18%!important;
+  border:0!important;
+  border-radius:0!important;
+  pointer-events:none!important;
+  background:
+    radial-gradient(ellipse 32% 9% at 21% 70%,rgba(255,255,255,.64),transparent 100%),
+    radial-gradient(ellipse 24% 10% at 84% 39%,rgba(255,255,255,.42),transparent 100%)!important;
+  filter:blur(38px)!important;
+  opacity:.58!important;
+  mix-blend-mode:screen!important;
+  will-change:transform;
+  animation:vfa-contact-glow-drift 8s ease-in-out infinite alternate-reverse!important;
+}
+@keyframes vfa-contact-glow-drift{
+  from{transform:translate3d(-5%,3%,0) rotate(-4deg)}
+  to{transform:translate3d(7%,-4%,0) rotate(3deg)}
+}
+/* No old glass frame, no extra photographic backing, no legacy WebGL gradient. */
 body[data-pagina="contatti"] .vfa-contact-atmosphere,
 body[data-pagina="contatti"] .vfa-contact-atmosphere::before,
-body[data-pagina="contatti"] .vfa-contact-atmosphere::after{
- content:none!important;display:none!important;
- background:none!important;border:0!important;box-shadow:none!important;
- -webkit-backdrop-filter:none!important;backdrop-filter:none!important;
-}
-/* Older cached WebGL layers are hidden; the original reference texture is definitive. */
+body[data-pagina="contatti"] .vfa-contact-atmosphere::after,
 body[data-pagina="contatti"] .vfa-concept-scene > .vfa-contact-gradflow{
- display:none!important;
- position:absolute!important;z-index:1!important;inset:0!important;
- display:block!important;width:100%!important;height:100%!important;
- pointer-events:none!important;opacity:1!important;mix-blend-mode:normal!important;
- filter:none!important;border:0!important;border-radius:inherit!important;
+  display:none!important;
+  content:none!important;
+  background:none!important;
+  border:0!important;
+  box-shadow:none!important;
+  -webkit-backdrop-filter:none!important;
+  backdrop-filter:none!important;
 }
-/* Only the original transparent photographic badge sits above the fabric. */
 body[data-pagina="contatti"] .vfa-concept-link{
- position:absolute!important;z-index:2!important;inset:0!important;
- display:flex!important;align-items:center!important;justify-content:center!important;
- width:100%!important;height:100%!important;margin:0!important;padding:0!important;
- overflow:visible!important;text-decoration:none!important;color:inherit!important;
- border:0!important;border-radius:inherit!important;background:none!important;
- -webkit-tap-highlight-color:transparent;
+  display:block!important;
+  position:absolute!important;
+  inset:0!important;
+  z-index:2!important;
+  width:100%!important;
+  height:100%!important;
+  box-sizing:border-box!important;
+  padding:0!important;
+  margin:0!important;
+  overflow:visible!important;
+  background:none!important;
+  border:0!important;
+  color:inherit!important;
+  text-decoration:none!important;
+  border-radius:inherit!important;
+  -webkit-tap-highlight-color:transparent;
 }
+/* The original image has transparent padding (top/bottom and left).
+   Compensate for that padding to keep the real strap + physical badge in view.
+   Width is limited by BOTH the panel width and its height, never clipped. */
 body[data-pagina="contatti"] .vfa-concept-picture{
- position:relative!important;inset:auto!important;display:block!important;
- box-sizing:border-box!important;flex:0 0 auto!important;
- width:min(91%,84svh,1200px)!important;
- max-width:100%!important;height:auto!important;max-height:none!important;
- margin:0 auto!important;padding:0!important;
- aspect-ratio:1367/1151!important;
- transform-origin:70% 15%!important;
- transform:rotateX(var(--badge-x,0deg)) rotateY(var(--badge-y,0deg))!important;
- transition:transform .65s cubic-bezier(.2,.75,.2,1)!important;
- filter:drop-shadow(0 16px 16px rgba(3,25,93,.19))!important;
- will-change:transform;
+  display:block!important;
+  position:absolute!important;
+  left:50%!important;
+  top:50%!important;
+  right:auto!important;
+  bottom:auto!important;
+  box-sizing:border-box!important;
+  width:min(calc(100% - 24px),calc(var(--vfa-scene-height) * 1.46))!important;
+  max-width:none!important;
+  height:auto!important;
+  max-height:none!important;
+  aspect-ratio:1367/1151!important;
+  padding:0!important;
+  margin:0!important;
+  transform-origin:70% 15%!important;
+  transform:translate(-50%,-44%) rotateX(var(--badge-x,0deg)) rotateY(var(--badge-y,0deg))!important;
+  transition:transform .6s cubic-bezier(.2,.75,.2,1)!important;
+  filter:none!important;
+  will-change:transform;
 }
 body[data-pagina="contatti"] .vfa-concept-picture > img{
- display:block!important;width:100%!important;height:auto!important;
- max-width:100%!important;max-height:none!important;
- object-fit:contain!important;object-position:center!important;
- aspect-ratio:1367/1151!important;user-select:none;-webkit-user-drag:none;
+  display:block!important;
+  width:100%!important;
+  height:auto!important;
+  max-width:100%!important;
+  max-height:none!important;
+  aspect-ratio:1367/1151!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  -webkit-user-drag:none;
+  user-select:none;
 }
 body[data-pagina="contatti"] .vfa-concept-link:focus-visible{
- outline:3px solid #fff!important;outline-offset:-6px!important;
- border-radius:var(--r)!important;
+  outline:3px solid #064bdf!important;
+  outline-offset:-6px!important;
 }
-@media(min-width:561px) and (max-width:900px){
- body[data-pagina="contatti"] .vfa-location-panel.vfa-concept-scene{
-  height:clamp(535px,80svh,780px)!important;
- }
- body[data-pagina="contatti"] .vfa-concept-picture{
-  width:min(96%,85svh)!important;
- }
-}
-@media(max-width:560px){
- body[data-pagina="contatti"] .vfa-location-panel.vfa-concept-scene{
-  height:clamp(400px,108vw,570px)!important;
- }
- body[data-pagina="contatti"] .vfa-concept-picture{
-  width:97%!important;max-width:97%!important;will-change:auto;
-  transform:none!important;
- }
+@media(max-width:760px){
+  body[data-pagina="contatti"] .vfa-location-panel.vfa-concept-scene{
+    --vfa-scene-height:clamp(300px,73vw,450px);
+  }
+  body[data-pagina="contatti"] .vfa-concept-picture{
+    width:min(calc(100% - 16px),calc(var(--vfa-scene-height) * 1.46))!important;
+    transform:translate(-50%,-44%)!important;
+    will-change:auto!important;
+  }
+  body[data-pagina="contatti"] .vfa-location-panel.vfa-concept-scene::before{
+    filter:blur(17px) saturate(1.03)!important;
+  }
 }
 @media(prefers-reduced-motion:reduce){
- body[data-pagina="contatti"] .vfa-location-panel.vfa-concept-scene::before{
-  animation:none!important;
- }
- body[data-pagina="contatti"] .vfa-concept-picture{
-  transform:none!important;transition:none!important;will-change:auto!important;
- }
+  body[data-pagina="contatti"] .vfa-location-panel.vfa-concept-scene::before,
+  body[data-pagina="contatti"] .vfa-location-panel.vfa-concept-scene::after{
+    animation:none!important;
+    will-change:auto!important;
+  }
+  body[data-pagina="contatti"] .vfa-concept-picture{
+    transition:none!important;
+    transform:translate(-50%,-44%)!important;
+    will-change:auto!important;
+  }
 }
