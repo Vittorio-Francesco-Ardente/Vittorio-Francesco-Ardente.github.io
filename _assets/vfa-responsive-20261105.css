@@ -1730,252 +1730,218 @@ body[data-pagina="contatti"] .s-badge .email-pill:focus-visible {
 }
 
 
-/* VFA location, 2026-11-06: expandable Framer-style interaction in site's own paper/blue system.
-   The previous full-width blue illustration is intentionally retired. */
+/* VFA 2026 / business-card identity. The card is the design, not a separate dashboard.
+   Uses the existing Inter Tight, Archivo, paper texture and --brand theme variables. */
 body[data-pagina="contatti"] .vfa-location-panel {
-  position:relative;
-  isolation:isolate;
-  box-sizing:border-box;
-  min-height:400px;
-  padding:clamp(55px,7vw,100px) var(--pad);
-  border-top:1px solid rgba(11,42,140,.10);
-  background:#e2e4e8 url("/v3/img/carta-grigia.webp") left top /256px repeat;
-  color:var(--ink);
+ position:relative;box-sizing:border-box;min-width:0;isolation:isolate;
+ background:var(--paper) url("/v3/img/carta-grigia.webp") 0 0/256px repeat;
+ padding:clamp(58px,8vw,112px) var(--pad);
+ color:var(--ink);
+ border-top:1px solid rgba(11,42,140,.09);
 }
-body[data-pagina="contatti"] .vfa-location-shell {
-  display:grid;
-  grid-template-columns:minmax(0,1fr) minmax(0,.85fr);
-  align-items:center;
-  gap:clamp(24px,6vw,110px);
-  width:min(1160px,100%);
-  margin-inline:auto;
+body[data-pagina="contatti"] .vfa-business-layout {
+ display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1fr);
+ width:min(1150px,100%);margin:0 auto;
+ align-items:center;gap:clamp(22px,4vw,78px);
 }
-body[data-pagina="contatti"] .vfa-location-intro {
-  display:flex;
-  flex-direction:column;
-  align-items:flex-start;
-  gap:clamp(18px,2vw,28px);
-  min-width:0;
+body[data-pagina="contatti"] .vfa-business-intro {
+ display:flex;flex-direction:column;align-items:flex-start;
+ gap:clamp(16px,2.1vw,27px);min-width:0;
 }
 body[data-pagina="contatti"] .vfa-location-eyebrow {
-  font:750 11px/1.4 Montserrat,sans-serif;
-  color:var(--brand);
-  letter-spacing:.12em;
+ color:var(--brand);letter-spacing:.17em;
+ font:750 11px/1.4 Montserrat,sans-serif;
 }
-body[data-pagina="contatti"] .vfa-location-intro h2 {
-  margin:0;
-  font:400 clamp(49px,6.3vw,100px)/.94 "Inter Tight",sans-serif;
-  letter-spacing:-.055em;
-  color:var(--ink);
-  max-width:11ch;
+body[data-pagina="contatti"] .vfa-business-intro h2 {
+ margin:0;max-width:12ch;letter-spacing:-.05em;
+ font:400 clamp(48px,5.4vw,85px)/.94 "Inter Tight",sans-serif;
+ color:var(--ink);
 }
-body[data-pagina="contatti"] .vfa-location-dot {color:var(--brand)}
-body[data-pagina="contatti"] .vfa-location-intro > p {
-  color:var(--text-2);
-  margin:0;
-  max-width:34ch;
-  font:450 clamp(15px,1.4vw,18px)/1.5 "Inter Tight",sans-serif;
+body[data-pagina="contatti"] .vfa-business-intro h2 > span {color:var(--brand)}
+body[data-pagina="contatti"] .vfa-business-intro p {
+ margin:0;color:var(--text-2);max-width:37ch;
+ font:450 clamp(15px,1.5vw,18px)/1.5 "Inter Tight",sans-serif;
 }
-body[data-pagina="contatti"] .vfa-location-experience {
-  position:relative;
-  min-width:0;
-  min-height:410px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  gap:12px;
+body[data-pagina="contatti"] .vfa-business-coordinate {
+ font:780 clamp(14px,1.7vw,19px)/1 Archivo,sans-serif;
+ font-stretch:80%;letter-spacing:.06em;
+ color:var(--brand);
 }
-body[data-pagina="contatti"] .vfa-expand-map {
-  --vfa-map-rx:0deg;
-  --vfa-map-ry:0deg;
-  position:relative;
-  box-sizing:border-box;
-  width:min(100%,254px);
-  height:154px;
-  display:block;
-  overflow:hidden;
-  flex:none;
-  padding:0;
-  cursor:pointer;
-  text-align:left;
-  color:var(--brand);
-  border:1px solid rgba(11,42,140,.22);
-  border-radius:21px;
-  outline-offset:5px;
-  background:#f6f7f9 url("/v3/img/carta-grigia.webp") 0 0 /256px repeat;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.95),0 20px 34px -24px rgba(7,28,74,.40);
-  transform:perspective(1000px) rotateX(var(--vfa-map-rx)) rotateY(var(--vfa-map-ry));
-  transform-style:preserve-3d;
-  transition:width .55s cubic-bezier(.2,.92,.2,1),height .55s cubic-bezier(.2,.92,.2,1),
-    transform .44s cubic-bezier(.19,1,.22,1),box-shadow .35s ease,border-color .3s ease;
-  -webkit-tap-highlight-color:transparent;
-  touch-action:manipulation;
+body[data-pagina="contatti"] .vfa-business-stage {
+ display:flex;flex-direction:column;align-items:center;justify-content:center;
+ min-width:0;min-height:475px;gap:12px;
+ perspective:1200px;
 }
-body[data-pagina="contatti"] .vfa-expand-map:is(:hover,:focus-visible) {
-  border-color:rgba(11,42,140,.43);
-  box-shadow:inset 0 1px 0 #fff,0 25px 45px -27px rgba(7,28,74,.55);
+body[data-pagina="contatti"] .vfa-business-card {
+ --vfa-map-rx:0deg;--vfa-map-ry:0deg;
+ display:block;position:relative;box-sizing:border-box;overflow:hidden;isolation:isolate;
+ width:min(100%,392px);height:239px;min-height:0;
+ padding:0;border-radius:16px;
+ border:1px solid rgba(11,42,140,.13);
+ text-align:left;cursor:pointer;
+ color:var(--brand);
+ background:#f9fafb url("/v3/img/carta-grigia.webp") 0 0/256px repeat;
+ box-shadow:0 27px 56px -31px rgba(10,35,90,.38),inset 0 1px rgba(255,255,255,.96);
+ transform:perspective(1000px) rotateX(var(--vfa-map-rx)) rotateY(var(--vfa-map-ry));
+ transform-style:preserve-3d;
+ transition:width .57s cubic-bezier(.2,.92,.2,1),height .57s cubic-bezier(.2,.92,.2,1),
+  transform .36s cubic-bezier(.2,1,.2,1),box-shadow .32s ease;
+ -webkit-tap-highlight-color:transparent;
+ touch-action:manipulation;
 }
-body[data-pagina="contatti"] .vfa-expand-map:focus-visible {
-  outline:3px solid var(--brand);
+body[data-pagina="contatti"] .vfa-business-card::before {
+ content:"";z-index:0;position:absolute;right:-74px;top:-22px;
+ width:43%;height:120%;background:var(--brand);
+ transform:skewX(-16deg);pointer-events:none;
+ transition:opacity .38s ease;
 }
-body[data-pagina="contatti"] .vfa-expand-map[aria-expanded="true"] {
-  width:min(100%,425px);
-  height:322px;
+body[data-pagina="contatti"] .vfa-business-card::after {
+ content:"";position:absolute;inset:0;z-index:0;
+ pointer-events:none;
+ background:linear-gradient(125deg,rgba(255,255,255,.75),transparent 40%,rgba(5,25,65,.035));
 }
-body[data-pagina="contatti"] .vfa-map-grid {
-  position:absolute;
-  inset:0;
-  pointer-events:none;
-  opacity:.47;
-  background-image:linear-gradient(rgba(11,42,140,.07) 1px,transparent 1px),
-      linear-gradient(90deg,rgba(11,42,140,.07) 1px,transparent 1px);
-  background-size:21px 21px;
-  transition:opacity .28s ease;
+body[data-pagina="contatti"] .vfa-business-grain {
+ position:absolute;z-index:0;inset:0;
+ pointer-events:none;opacity:.4;
+ background:repeating-linear-gradient(0deg,transparent 0 2px,rgba(11,42,140,.02) 2px 3px);
 }
-body[data-pagina="contatti"] .vfa-expand-map[aria-expanded="true"] .vfa-map-grid {opacity:0}
-body[data-pagina="contatti"] .vfa-map-top {
-  position:absolute;
-  z-index:2;
-  top:18px;left:18px;right:18px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-  pointer-events:none;
+body[data-pagina="contatti"] .vfa-business-top,
+body[data-pagina="contatti"] .vfa-business-name,
+body[data-pagina="contatti"] .vfa-business-bottom {
+ position:absolute;z-index:2;
+ transition:opacity .32s ease,transform .4s ease;
 }
-body[data-pagina="contatti"] .vfa-map-icon {
-  display:grid;
-  place-items:center;
-  color:var(--brand);
-  filter:drop-shadow(0 0 4px rgba(11,42,140,.13));
-  transition:filter .25s ease;
+body[data-pagina="contatti"] .vfa-business-top {
+ top:22px;left:25px;right:21px;
+ display:flex;align-items:flex-start;justify-content:space-between;gap:10px;
 }
-body[data-pagina="contatti"] .vfa-expand-map:is(:hover,:focus-visible) .vfa-map-icon {filter:drop-shadow(0 0 7px rgba(11,42,140,.3))}
-body[data-pagina="contatti"] .vfa-map-status {
-  display:inline-flex;
-  justify-content:center;
-  align-items:center;
-  padding:6px 9px;
-  border:1px solid rgba(11,42,140,.12);
-  border-radius:100px;
-  background:rgba(255,255,255,.78);
-  color:var(--brand);
-  font:650 10px/1.2 Montserrat,sans-serif;
-  letter-spacing:.015em;
+body[data-pagina="contatti"] .vfa-business-logo {
+ color:var(--brand);font:900 27px/.85 Archivo,sans-serif;
+ font-stretch:78%;letter-spacing:-.085em;text-transform:lowercase;
 }
+body[data-pagina="contatti"] .vfa-business-logo sup {
+ vertical-align:top;letter-spacing:0;
+ font:800 9px/1 Montserrat,sans-serif;margin-left:3px;
+}
+body[data-pagina="contatti"] .vfa-business-small {
+ color:#fff;max-width:140px;text-align:right;
+ font:750 9px/1.4 Montserrat,sans-serif;letter-spacing:.09em;
+}
+body[data-pagina="contatti"] .vfa-business-name {
+ left:25px;top:86px;white-space:nowrap;
+ color:var(--brand-deep);
+ font:850 clamp(31px,3.7vw,48px)/.86 Archivo,sans-serif;
+ font-stretch:78%;letter-spacing:-.065em;
+}
+body[data-pagina="contatti"] .vfa-business-period {color:var(--brand)}
+body[data-pagina="contatti"] .vfa-business-bottom {
+ left:25px;right:22px;bottom:23px;
+ display:flex;align-items:center;justify-content:space-between;gap:12px;
+ font:750 10px/1.2 Montserrat,sans-serif;
+ letter-spacing:.07em;
+}
+body[data-pagina="contatti"] .vfa-business-bottom > span:first-child {color:var(--brand-deep)}
+body[data-pagina="contatti"] .vfa-business-bottom > span:last-child {color:#fff}
+body[data-pagina="contatti"] .vfa-business-bottom i {
+ display:inline-block;width:4px;height:4px;border-radius:50%;
+ margin:0 3px;vertical-align:middle;background:var(--brand);
+}
+body[data-pagina="contatti"] .vfa-business-expand-icon {
+ display:grid;place-items:center;
+ position:absolute;z-index:6;right:16px;bottom:13px;
+ width:25px;height:25px;
+ border-radius:50%;color:var(--brand);background:#fff;
+ border:1px solid rgba(11,42,140,.14);
+ font:500 19px/1 "Inter Tight",sans-serif;
+ opacity:0;transform:scale(.8);
+ transition:transform .32s ease,opacity .3s ease;
+}
+body[data-pagina="contatti"] .vfa-business-card:is(:hover,:focus-visible) .vfa-business-expand-icon,
+body[data-pagina="contatti"] .vfa-business-card[aria-expanded="true"] .vfa-business-expand-icon {
+ opacity:1;transform:scale(1);
+}
+body[data-pagina="contatti"] .vfa-business-card:focus-visible {
+ outline:3px solid var(--brand);outline-offset:4px;
+}
+body[data-pagina="contatti"] .vfa-business-card:is(:hover,:focus-visible) {
+ box-shadow:0 33px 65px -31px rgba(10,35,90,.46),inset 0 1px rgba(255,255,255,.96);
+}
+body[data-pagina="contatti"] .vfa-business-card[aria-expanded="true"] {
+ width:min(100%,468px);height:364px;
+}
+body[data-pagina="contatti"] .vfa-business-card[aria-expanded="true"]::before {opacity:0}
+body[data-pagina="contatti"] .vfa-business-card[aria-expanded="true"] .vfa-business-top,
+body[data-pagina="contatti"] .vfa-business-card[aria-expanded="true"] .vfa-business-name,
+body[data-pagina="contatti"] .vfa-business-card[aria-expanded="true"] .vfa-business-bottom {
+ opacity:0;transform:translateY(-12px);pointer-events:none;
+}
+body[data-pagina="contatti"] .vfa-business-card[aria-expanded="true"] .vfa-business-expand-icon {transform:rotate(45deg)}
 body[data-pagina="contatti"] .vfa-map-geography {
-  position:absolute;
-  z-index:1;
-  top:59px;left:12px;right:12px;bottom:71px;
-  display:block;
-  opacity:0;
-  transform:translateY(12px) scale(.94);
-  clip-path:inset(0 0 95% 0 round 12px);
-  pointer-events:none;
-  transition:opacity .37s ease .06s,transform .6s cubic-bezier(.16,1,.3,1),
-      clip-path .65s cubic-bezier(.2,.9,.18,1);
+ position:absolute;inset:17px 17px 17px;z-index:3;
+ display:grid;grid-template-rows:25px minmax(0,1fr) 24px;
+ gap:6px;
+ opacity:0;transform:translateY(18px) scale(.95);
+ pointer-events:none;visibility:hidden;
+ transition:opacity .35s ease,transform .56s cubic-bezier(.16,1,.3,1),visibility .35s;
 }
-body[data-pagina="contatti"] .vfa-expand-map[aria-expanded="true"] .vfa-map-geography {
-  opacity:1;transform:translateY(0) scale(1);
-  clip-path:inset(0 0 0 0 round 12px);
+body[data-pagina="contatti"] .vfa-business-card[aria-expanded="true"] .vfa-map-geography {
+ opacity:1;visibility:visible;transform:translateY(0) scale(1);
+}
+body[data-pagina="contatti"] .vfa-map-geography-title,
+body[data-pagina="contatti"] .vfa-map-geography-foot {
+ display:flex;align-items:center;justify-content:space-between;gap:12px;
+ color:var(--brand-deep);
+ font:750 10px/1.3 Montserrat,sans-serif;letter-spacing:.08em;
+}
+body[data-pagina="contatti"] .vfa-map-geography-title span,
+body[data-pagina="contatti"] .vfa-map-geography-foot span {
+ font:720 11px/1 Archivo,sans-serif;font-stretch:80%;
 }
 body[data-pagina="contatti"] .vfa-map-geography img {
-  display:block;width:100%;height:100%;
-  object-fit:contain;object-position:center;
-  border-radius:12px;
+ display:block;min-height:0;width:100%;height:100%;
+ object-fit:contain;border-radius:9px;
 }
-body[data-pagina="contatti"] .vfa-map-bottom {
-  position:absolute;
-  z-index:3;
-  left:18px;right:18px;bottom:17px;
-  display:flex;
-  align-items:flex-end;
-  justify-content:space-between;
-  pointer-events:none;
-}
-body[data-pagina="contatti"] .vfa-map-bottom > span:first-child {
-  display:flex;flex-direction:column;gap:5px;
-}
-body[data-pagina="contatti"] .vfa-map-bottom strong {
-  color:var(--brand-deep);
-  font:650 16px/1 "Inter Tight",sans-serif;
-  letter-spacing:-.02em;
-}
-body[data-pagina="contatti"] .vfa-map-bottom small {
-  color:#63718b;
-  font:550 10px/1.2 "JetBrains Mono",monospace;
-  opacity:0;
-  transform:translateY(-5px);
-  transition:opacity .35s ease,transform .35s ease;
-}
-body[data-pagina="contatti"] .vfa-expand-map[aria-expanded="true"] .vfa-map-bottom small {
-  opacity:1;transform:translateY(0);
-}
-body[data-pagina="contatti"] .vfa-map-expand-icon {
-  display:grid;
-  place-items:center;
-  width:26px;height:26px;
-  border-radius:50%;
-  background:var(--brand);
-  color:white;
-  font:450 21px/1 "Inter Tight",sans-serif;
-  transition:transform .3s ease;
-}
-body[data-pagina="contatti"] .vfa-expand-map[aria-expanded="true"] .vfa-map-expand-icon {transform:rotate(45deg)}
+body[data-pagina="contatti"] .vfa-map-geography-foot {padding-right:40px}
 body[data-pagina="contatti"] .vfa-map-hint {
-  min-height:15px;
-  font:500 10px/1.4 Montserrat,sans-serif;
-  color:var(--text-2);
-  opacity:0;
-  transform:translateY(5px);
-  transition:opacity .2s ease,transform .2s ease;
+ font:550 11px/1.4 Montserrat,sans-serif;color:var(--text-2);
+ text-align:center;
 }
-body[data-pagina="contatti"] .vfa-location-experience:has(.vfa-expand-map:hover) .vfa-map-hint,
-body[data-pagina="contatti"] .vfa-location-experience:has(.vfa-expand-map:focus-visible) .vfa-map-hint {
-  opacity:1;transform:translateY(0);
+body[data-pagina="contatti"] .vfa-business-map-link {
+ display:inline-flex;align-items:center;gap:13px;
+ color:var(--brand);text-decoration:none;
+ font:700 12px/1.3 Montserrat,sans-serif;
+ border-bottom:1px solid rgba(11,42,140,.3);
+ padding:5px 0;
 }
-body[data-pagina="contatti"] .vfa-location-link {
-  min-height:43px;
-  padding:8px 8px 8px 19px;
-  border:1px solid rgba(11,42,140,.15);
-  border-radius:99px;
-  background:#fff url("/v3/img/carta-grigia.webp") left top /256px repeat;
-  box-shadow:inset 0 1px rgba(255,255,255,.8);
-  color:var(--brand);
-  font:700 12px/1.2 Montserrat,sans-serif;
-}
-body[data-pagina="contatti"] .vfa-location-link span {
-  width:27px;height:27px;background:var(--brand);font-size:16px;
-}
+body[data-pagina="contatti"] .vfa-business-map-link:hover {border-bottom-color:var(--brand)}
 body[data-pagina="contatti"] .vfa-map-credit {
-  color:#68788f;
-  font:500 10px/1.4 Montserrat,sans-serif;
+ color:#68788f;font:500 10px/1.4 Montserrat,sans-serif;
 }
-@media(max-width:760px) {
-  body[data-pagina="contatti"] .vfa-location-panel {
-    padding:clamp(58px,9vw,85px) clamp(18px,5vw,30px) clamp(52px,9vw,80px);
-  }
-  body[data-pagina="contatti"] .vfa-location-shell {
-    display:flex;flex-direction:column;align-items:stretch;gap:34px;
-  }
-  body[data-pagina="contatti"] .vfa-location-intro {gap:16px;}
-  body[data-pagina="contatti"] .vfa-location-intro h2 {font-size:clamp(50px,12vw,78px);max-width:12ch;}
-  body[data-pagina="contatti"] .vfa-location-intro p {max-width:42ch;}
-  body[data-pagina="contatti"] .vfa-location-experience {min-height:360px;justify-content:center;}
-  body[data-pagina="contatti"] .vfa-expand-map[aria-expanded="true"] {width:min(100%,425px);height:min(322px,90vw);}
+@media(max-width:760px){
+ body[data-pagina="contatti"] .vfa-location-panel {padding:64px clamp(18px,5vw,30px) 70px}
+ body[data-pagina="contatti"] .vfa-business-layout {
+  display:flex;flex-direction:column;align-items:stretch;gap:30px
+ }
+ body[data-pagina="contatti"] .vfa-business-intro {gap:15px}
+ body[data-pagina="contatti"] .vfa-business-intro h2 {font-size:clamp(49px,12vw,70px)}
+ body[data-pagina="contatti"] .vfa-business-stage {min-height:465px;gap:13px}
+ body[data-pagina="contatti"] .vfa-business-card {width:min(100%,392px);height:clamp(205px,59vw,239px)}
+ body[data-pagina="contatti"] .vfa-business-name {font-size:clamp(34px,10vw,48px);top:34%}
+ body[data-pagina="contatti"] .vfa-business-card[aria-expanded="true"] {
+  width:min(100%,468px);height:min(364px,100vw)
+ }
 }
-@media(hover:none) {
-  body[data-pagina="contatti"] .vfa-map-hint {opacity:1;transform:none}
+@media(max-width:390px){
+ body[data-pagina="contatti"] .vfa-business-name {font-size:clamp(30px,10vw,40px)}
+ body[data-pagina="contatti"] .vfa-business-small {font-size:8px}
 }
-@media(prefers-reduced-motion:reduce) {
-  body[data-pagina="contatti"] .vfa-expand-map,
-  body[data-pagina="contatti"] .vfa-map-geography,
-  body[data-pagina="contatti"] .vfa-map-bottom small,
-  body[data-pagina="contatti"] .vfa-map-expand-icon {
-    transition:none!important;
-    transform:none;
-  }
+@media(hover:none){body[data-pagina="contatti"] .vfa-business-expand-icon {opacity:1;transform:scale(1)}}
+@media(prefers-reduced-motion:reduce){
+ body[data-pagina="contatti"] .vfa-business-card,
+ body[data-pagina="contatti"] .vfa-map-geography,
+ body[data-pagina="contatti"] .vfa-business-top,
+ body[data-pagina="contatti"] .vfa-business-name,
+ body[data-pagina="contatti"] .vfa-business-bottom {transition:none!important;}
 }
 
 body[data-pagina="lavori"] .s-agency .hero {
@@ -1995,4 +1961,67 @@ body[data-pagina="lavori"] .s-agency .hero:after {
 }
 @media (prefers-reduced-motion:reduce) {
   body[data-pagina="contatti"] .vfa-location-link {transition:none;}
+}
+
+
+/* Retired Work: responsive header + desktop navbar + overlay navigation + footer. */
+header .link-top a[data-voce="lavori"],
+header .barra a[data-voce="lavori"],
+#menu .m-corpo ol > li:has(> a[data-voce="lavori"]),
+.s-sent nav[aria-label="Pagine"] a[href$="/lavori"],
+.s-sent nav[aria-label="Pages"] a[href$="/lavori"],
+.s-sent nav[aria-label="Strony"] a[href$="/lavori"] {
+ display:none !important;
+}
+@media(max-width:760px) {
+ html:is(:lang(it),:lang(en),:lang(pl)) #menu.vfa-six-brush-ready .m-corpo ol {
+  grid-template-columns:minmax(0,1fr) !important;
+  grid-template-rows:repeat(5,minmax(0,1fr)) !important;
+  height:min(69svh,585px) !important;
+ }
+}
+@media(max-width:760px) and (max-height:560px) and (min-width:560px) {
+ html:is(:lang(it),:lang(en),:lang(pl)) #menu.vfa-six-brush-ready .m-corpo ol {
+  grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+  grid-template-rows:repeat(3,minmax(0,1fr)) !important;
+  height:min(62svh,390px) !important;
+ }
+ html:is(:lang(it),:lang(en),:lang(pl)) #menu.vfa-six-brush-ready .m-corpo ol > li:nth-child(5) {
+  grid-column:1 / -1 !important;justify-content:center !important;
+ }
+}
+/* Editorial oversized numeric typography, using the site's Archivo variable font.
+   Existing values, numbers animations, and cards remain intact. */
+body[data-pagina="home"] .s-forma .c-progresso .q b,
+body[data-pagina="home"] .s-forma .c-progresso .t b {
+ font-family:Archivo,sans-serif !important;
+ font-weight:850 !important;
+ font-stretch:76%;
+ font-variant-numeric:lining-nums tabular-nums;
+ letter-spacing:-.07em !important;
+}
+body[data-pagina="home"] .s-forma .c-progresso .q b {
+ display:block;
+ color:var(--brand-deep);
+ font-size:clamp(21px,2.35vw,32px) !important;
+ line-height:1.08;
+ margin-top:3px;
+}
+body[data-pagina="home"] .s-forma .c-progresso .t b {font-size:clamp(23px,2.6vw,36px)!important;line-height:1}
+body[data-pagina="home"] .s-poster .num .cifre,
+body[data-pagina="home"] .s-poster .num .cifre i {
+ font-family:Archivo,sans-serif !important;
+ font-weight:900 !important;
+ font-stretch:72%;
+ font-style:normal !important;
+ font-variant-numeric:lining-nums tabular-nums;
+ letter-spacing:-.09em !important;
+}
+body[data-pagina="home"] .s-poster .num .cifre {font-size:clamp(112px,15vw,270px)!important;line-height:.83}
+body[data-pagina="home"] .s-poster .num .cifre.piccole {font-size:clamp(88px,11vw,196px)!important}
+@media(max-width:600px) {
+ body[data-pagina="home"] .s-forma .c-progresso .q b {font-size:clamp(19px,5.5vw,26px)!important}
+ body[data-pagina="home"] .s-forma .c-progresso .t b {font-size:clamp(23px,7vw,31px)!important}
+ body[data-pagina="home"] .s-poster .num .cifre {font-size:clamp(110px,33vw,185px)!important}
+ body[data-pagina="home"] .s-poster .num .cifre.piccole {font-size:clamp(90px,26vw,155px)!important}
 }
