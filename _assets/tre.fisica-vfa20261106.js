@@ -73,9 +73,8 @@ async function badge(i){
   /* occhiello metallico di rinforzo */
   const og=new TH.Shape;og.absarc(0,0,HOLE_R,0,Math.PI*2,false);const oh=new TH.Shape;oh.absarc(0,0,GR_IN,0,Math.PI*2,true);og.holes.push(oh);
   const occhiello=new TH.Mesh(new TH.Extrude(og,{depth:CT+.016,bevelEnabled:!0,bevelThickness:.004,bevelSize:.004,bevelSegments:3,curveSegments:40}),metallo);occhiello.geometry.translate(0,0,-(CT+.016)/2);occhiello.position.set(0,holeCy-cardCy,0);card.add(occhiello);
-  /* Anello frontale d'acciaio, leggibile da ogni angolo: attraversa la borchia. */
-  const anello=new TH.Mesh(new TH.Torus(RING_R,TUBE,16,64),metallo);
-  anello.position.set(0,ringCy,.023);yawG.add(anello);
+  /* anello (nel piano y-z: passa dentro l'occhiello) */
+  const anello=new TH.Mesh(new TH.Torus(RING_R,TUBE,16,64),metallo);anello.rotation.y=Math.PI/2;anello.position.set(0,ringCy,0);yawG.add(anello);
   /* moschettone: occhiello (piano x-y) agganciato all'anello + corpo rettangolare che racchiude il nastro piegato */
   const EYE_R=.03,EYE_T=.009,eyeBottom=ringCy+RING_R-(TUBE+EYE_T),eyeCy=eyeBottom+EYE_R;
   const occ=new TH.Mesh(new TH.Torus(EYE_R,EYE_T,12,36),metallo);occ.position.set(0,eyeCy,0);yawG.add(occ);
