@@ -37,7 +37,7 @@
   float line2=pow(max(0.,sin(y*4.1+x*7.4+.65*sin(x*2.9+t*.23)-t*.13)),42.);
   float glint=clamp(line*.6+line2*.27,0.,1.)*smoothstep(.28,.81,light);
   color=mix(color,pearl,glint*.85);
-  float edgeVignette=smoothstep(1.4,.12,length(p*.76));
+  float edgeVignette=1.-smoothstep(.12,1.4,length(p*.76));
   color*=mix(.84,1.,edgeVignette);
   gl_FragColor=vec4(clamp(color,0.,1.),1.);
  }`;

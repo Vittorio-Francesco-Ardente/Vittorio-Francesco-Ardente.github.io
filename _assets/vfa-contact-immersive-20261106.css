@@ -54,7 +54,7 @@ body[data-pagina="contatti"] .vfa-concept-link{
 body[data-pagina="contatti"] .vfa-concept-picture{
  position:relative!important;inset:auto!important;display:block!important;
  box-sizing:border-box!important;flex:0 0 auto!important;
- width:min(91%,calc(71svh * 1367 / 1151),1200px)!important;
+ width:min(91%,84svh,1200px)!important;
  max-width:100%!important;height:auto!important;max-height:none!important;
  margin:0 auto!important;padding:0!important;
  aspect-ratio:1367/1151!important;
@@ -79,7 +79,7 @@ body[data-pagina="contatti"] .vfa-concept-link:focus-visible{
   height:clamp(535px,80svh,780px)!important;
  }
  body[data-pagina="contatti"] .vfa-concept-picture{
-  width:min(96%,calc(72svh * 1367 / 1151))!important;
+  width:min(96%,85svh)!important;
  }
 }
 @media(max-width:560px){
