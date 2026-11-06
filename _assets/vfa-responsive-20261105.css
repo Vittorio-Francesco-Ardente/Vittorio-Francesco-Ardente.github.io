@@ -1652,3 +1652,11 @@ body[data-pagina="contatti"] .s-badge .email-pill:focus-visible {
 @media (max-width:760px) {
  .s-mazzo .carta > img.mz-person { object-position:center bottom !important; }
 }
+
+/* Blue editorial photographs share one crop across the three home locales. */
+.s-mazzo .carta > img.mz-editorial {
+  object-fit:cover !important;
+  object-position:center !important;
+  filter:none !important;
+  background:#123065;
+}
