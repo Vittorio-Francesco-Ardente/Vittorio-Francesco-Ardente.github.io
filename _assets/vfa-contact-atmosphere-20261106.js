@@ -1,42 +1,45 @@
-/* Native WebGL adapter of GradFlow's original stripe shader
- * (source: meerbahadin/gradflow, MIT); React source is kept under
- * /components/ui/stripe-like-gradient-shader.tsx.
- * Exact supplied RGBs white/cyan/purple, speed=.4, scale=1, noise=.08.
- * Rendered across the full Contact section so the backdrop and card share the same palette. */
-(() => {
- const section=document.querySelector('body[data-pagina="contatti"] .vfa-location-panel.vfa-concept-scene');
- if(!section)return;
+/* VFA / animated sapphire-silk background.
+   Renders one seamless moving blue fabric across the complete contact panel.
+   No transparent overlays, extra cards or glass behind the original badge. */
+(()=>{
+ 'use strict';
+ const scene=document.querySelector('body[data-pagina="contatti"] .vfa-location-panel.vfa-concept-scene');
+ if(!scene)return;
  const reduced=matchMedia('(prefers-reduced-motion: reduce)');
  const canvas=document.createElement('canvas');
  canvas.className='vfa-contact-gradflow';
  canvas.setAttribute('aria-hidden','true');
- section.prepend(canvas);
+ scene.prepend(canvas);
  const gl=canvas.getContext('webgl',{alpha:false,antialias:false,depth:false,stencil:false,powerPreference:'low-power'});
  if(!gl){canvas.remove();return}
- const vertex='attribute vec2 position;varying vec2 vUv;void main(){vUv=position*.5+.5;gl_Position=vec4(position,0.,1.);}';
+ const vertex=`attribute vec2 p;varying vec2 uv;void main(){uv=p*.5+.5;gl_Position=vec4(p,0.,1.);}`;
  const fragment=`precision mediump float;
- varying vec2 vUv;
- uniform float u_time,u_scale,u_noise;
- uniform vec2 u_resolution;
- uniform vec3 u_color1,u_color2,u_color3;
- float noise(vec2 st){return fract(sin(dot(st,vec2(12.9898,78.233)))*43758.5453);}
- vec3 stripeGradient(vec2 uv,float time){
-  vec2 p=((uv*u_resolution*2.-u_resolution.xy)/(u_resolution.x+u_resolution.y)*2.)*u_scale;
-  float t=time*.7,a=4.*p.y-sin(-p.x*3.+p.y-t);
-  a=smoothstep(cos(a)*.7,sin(a)*.7+1.,cos(a-4.*p.y)-sin(a+3.*p.x));
-  vec2 warped=(cos(a)*p+sin(a)*vec2(-p.y,p.x))*.5+.5;
-  vec3 color=mix(u_color1,u_color2,warped.x);
-  color=mix(color,u_color3,warped.y);
-  color*=color+.6*sqrt(color);
-  return clamp(color,0.,1.);
- }
+ varying vec2 uv;
+ uniform float t;
+ uniform vec2 resolution;
+ float soft(float v,float edge){return smoothstep(-edge,edge,v);}
  void main(){
-  vec3 color=stripeGradient(vUv,u_time);
-  if(u_noise>.001){
-   float grain=noise(vUv*200.+u_time*.1);
-   color*=(1.-u_noise*.4+u_noise*grain*.4);
-  }
-  gl_FragColor=vec4(color,1.);
+  vec2 p=(uv-.5)*vec2(resolution.x/max(resolution.y,1.),1.);
+  float x=p.x,y=p.y;
+  float warp=.48*sin(x*2.7-y*2.2-t*.27)+.25*sin(y*4.0+x*1.6+t*.17);
+  float longFold=sin(y*7.0-x*4.2+warp*1.7+t*.18);
+  float crossFold=sin(y*4.1+x*7.4+.65*sin(x*2.9+t*.23)-t*.13);
+  float lowWave=sin(y*2.1-x*2.9+t*.15);
+  float fabric=.52+.22*longFold+.14*crossFold+.12*lowWave;
+  float light=soft(fabric-.46,.48);
+  vec3 deep=vec3(.025,.115,.37);
+  vec3 cobalt=vec3(.075,.265,.66);
+  vec3 blue=vec3(.32,.58,.91);
+  vec3 pearl=vec3(.87,.95,1.);
+  vec3 color=mix(deep,cobalt,smoothstep(.12,.62,light));
+  color=mix(color,blue,smoothstep(.55,.96,light)*.87);
+  float line=pow(max(0.,sin(y*7.0-x*4.2+warp*1.7+t*.18)),27.);
+  float line2=pow(max(0.,sin(y*4.1+x*7.4+.65*sin(x*2.9+t*.23)-t*.13)),42.);
+  float glint=clamp(line*.6+line2*.27,0.,1.)*smoothstep(.28,.81,light);
+  color=mix(color,pearl,glint*.85);
+  float edgeVignette=smoothstep(1.4,.12,length(p*.76));
+  color*=mix(.84,1.,edgeVignette);
+  gl_FragColor=vec4(clamp(color,0.,1.),1.);
  }`;
  function shader(type,source){
   const s=gl.createShader(type);gl.shaderSource(s,source);gl.compileShader(s);
@@ -46,37 +49,41 @@
  const vs=shader(gl.VERTEX_SHADER,vertex),fs=shader(gl.FRAGMENT_SHADER,fragment);
  if(!vs||!fs){canvas.remove();return}
  const program=gl.createProgram();gl.attachShader(program,vs);gl.attachShader(program,fs);
- gl.bindAttribLocation(program,0,'position');gl.linkProgram(program);
+ gl.bindAttribLocation(program,0,'p');gl.linkProgram(program);
  gl.deleteShader(vs);gl.deleteShader(fs);
  if(!gl.getProgramParameter(program,gl.LINK_STATUS)){canvas.remove();return}
  gl.useProgram(program);
  const buffer=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buffer);
  gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,3,-1,-1,3]),gl.STATIC_DRAW);
  gl.enableVertexAttribArray(0);gl.vertexAttribPointer(0,2,gl.FLOAT,false,0,0);
- const loc=k=>gl.getUniformLocation(program,k);
- const time=loc('u_time'),size=loc('u_resolution');
- gl.uniform1f(loc('u_scale'),1);gl.uniform1f(loc('u_noise'),.08);
- gl.uniform3fv(loc('u_color1'),new Float32Array([.05,.16,.47]));
- gl.uniform3fv(loc('u_color2'),new Float32Array([.18,.44,.98]));
- gl.uniform3fv(loc('u_color3'),new Float32Array([.77,.87,1]));
- let visible=true,raf=0,previous=0,clock=0,stopped=false;
+ const uTime=gl.getUniformLocation(program,'t');
+ const uSize=gl.getUniformLocation(program,'resolution');
+ let visible=true,active=0,prev=0,clock=0,lost=false;
  function draw(now){
-  if(stopped||!visible||document.hidden)return;
-  const ratio=Math.min(devicePixelRatio||1,innerWidth<761?1:1.3);
-  const w=Math.max(1,Math.round(canvas.clientWidth*ratio)),h=Math.max(1,Math.round(canvas.clientHeight*ratio));
-  if(w!==canvas.width||h!==canvas.height){canvas.width=w;canvas.height=h;gl.viewport(0,0,w,h)}
-  if(previous&&!reduced.matches)clock+=Math.min((now-previous)/1000,.09)*.4;
-  previous=now;
-  gl.uniform1f(time,clock);
-  gl.uniform2f(size,canvas.clientWidth,canvas.clientHeight);
+  if(lost||!visible||document.hidden)return;
+  const w=canvas.clientWidth,h=canvas.clientHeight;
+  if(w<2||h<2)return;
+  const scale=Math.min(devicePixelRatio||1,1.6,Math.sqrt(2000000/(w*h)));
+  const px=Math.max(1,Math.round(w*scale)),py=Math.max(1,Math.round(h*scale));
+  if(canvas.width!==px||canvas.height!==py){canvas.width=px;canvas.height=py;gl.viewport(0,0,px,py)}
+  if(prev&&!reduced.matches)clock+=Math.min((now-prev)/1000,.1);
+  prev=now;
+  gl.uniform1f(uTime,clock);
+  gl.uniform2f(uSize,w,h);
   gl.drawArrays(gl.TRIANGLES,0,3);
-  if(!reduced.matches)raf=requestAnimationFrame(draw);
+  if(!reduced.matches)active=requestAnimationFrame(draw);
  }
- function restart(){cancelAnimationFrame(raf);previous=0;if(visible&&!document.hidden)raf=requestAnimationFrame(draw)}
- const io=new IntersectionObserver(es=>{visible=es[0].isIntersecting;restart()},{rootMargin:'6%'});
- io.observe(section);
+ function restart(){
+  cancelAnimationFrame(active);
+  prev=0;
+  if(visible&&!document.hidden&&!lost)active=requestAnimationFrame(draw);
+ }
+ const io=new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;restart()},{rootMargin:'5%'});
+ io.observe(scene);
  document.addEventListener('visibilitychange',restart);
  reduced.addEventListener?.('change',restart);
- canvas.addEventListener('webglcontextlost',e=>{e.preventDefault();stopped=true;cancelAnimationFrame(raf);canvas.remove()},{once:true});
+ canvas.addEventListener('webglcontextlost',event=>{
+  event.preventDefault();lost=true;cancelAnimationFrame(active);canvas.remove();
+ },{once:true});
  restart();
 })();

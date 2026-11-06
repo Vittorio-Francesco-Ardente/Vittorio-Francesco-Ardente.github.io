@@ -1,129 +1,101 @@
-/* Exact VFA / Dalmine photographic card. The 1367 x 1151 WebP preserves
-   the approved art, map, metal grommet and real woven lanyard. No re-rendering. */
+/* VFA CONTACT / EXACT REFERENCE: SINGLE FLOATING BADGE + ANIMATED BLUE SILK.
+   No nested card, glass pane, secondary frame, blur overlay or fake lanyard.
+   Keep the original photographic transparent asset unchanged. */
 body[data-pagina="contatti"] .vfa-location-panel.vfa-concept-scene{
  position:relative!important;display:block!important;isolation:isolate!important;
- box-sizing:border-box!important;width:100%!important;
- height:clamp(680px,90vw,1150px)!important;min-height:0!important;max-height:none!important;
+ width:100%!important;height:clamp(520px,77svh,920px)!important;
+ min-height:0!important;max-height:none!important;box-sizing:border-box!important;
  margin:0!important;padding:0!important;overflow:hidden!important;
- border:1px solid rgba(226,239,255,.25)!important;border-radius:var(--r)!important;
- perspective:1450px;
- background:
- radial-gradient(ellipse 65% 56% at 79% 85%,rgba(146,200,255,.49),transparent 80%),
- radial-gradient(ellipse 58% 48% at 19% 64%,rgba(73,132,233,.45),transparent 82%),
- linear-gradient(136deg,#09266e 0%,#164db7 24%,#357ae3 54%,#8cbafd 74%,#1546b8 100%)!important;
- box-shadow:inset 0 1px 0 rgba(255,255,255,.32)!important;
+ border:0!important;border-radius:var(--r)!important;
+ box-shadow:none!important;perspective:1400px;
+ background:#174cb5!important;
 }
+/* CSS-only flowing silk fallback when WebGL is unavailable. */
 body[data-pagina="contatti"] .vfa-location-panel.vfa-concept-scene::before{
  content:""!important;display:block!important;position:absolute!important;
- inset:-32%!important;z-index:0!important;pointer-events:none!important;
+ z-index:0!important;inset:-32%!important;pointer-events:none!important;
  background:
- radial-gradient(ellipse 11% 55% at 33% 48%,rgba(221,239,255,.72),transparent 96%),
- radial-gradient(ellipse 16% 66% at 85% 25%,rgba(187,224,255,.47),transparent 93%),
- radial-gradient(ellipse 30% 30% at 12% 92%,rgba(234,244,255,.43),transparent 88%)!important;
- filter:blur(27px);animation:vfa-contact-silk-accurate 19s ease-in-out infinite alternate;
+ radial-gradient(ellipse 22% 32% at 14% 58%,rgba(235,247,255,.91),transparent 83%),
+ radial-gradient(ellipse 14% 42% at 77% 24%,rgba(209,233,255,.82),transparent 92%),
+ radial-gradient(ellipse 26% 30% at 83% 87%,rgba(148,205,255,.67),transparent 90%),
+ linear-gradient(141deg,#071f63 0%,#1e4aa9 28%,#5a92e3 62%,#103a95 90%)!important;
+ filter:blur(19px);
+ animation:vfa-fabric-wave 10s ease-in-out infinite alternate!important;
 }
-@keyframes vfa-contact-silk-accurate{
- from{transform:translate3d(-3%,2%,0) rotate(-23deg) scale(1)}
- to{transform:translate3d(4%,-2%,0) rotate(-17deg) scale(1.09)}
+@keyframes vfa-fabric-wave{
+ 0%{transform:translate3d(-3%,1.5%,0) rotate(-6deg) scale(1.04)}
+ 100%{transform:translate3d(4%,-3%,0) rotate(4deg) scale(1.12)}
 }
-body[data-pagina="contatti"] .vfa-location-panel.vfa-concept-scene::after{
- content:""!important;display:block!important;position:absolute!important;
- inset:0!important;z-index:1!important;pointer-events:none!important;
- background:linear-gradient(120deg,rgba(3,20,69,.18),transparent 31%,transparent 68%,rgba(10,38,118,.15))!important;
-}
-body[data-pagina="contatti"] .vfa-concept-scene > canvas.vfa-contact-gradflow{
- display:block!important;position:absolute!important;inset:0!important;
- z-index:1!important;width:100%!important;height:100%!important;
- pointer-events:none!important;opacity:.72!important;
- mix-blend-mode:soft-light!important;filter:saturate(1.3) contrast(1.13)!important;
-}
-body[data-pagina="contatti"] .vfa-contact-atmosphere{
- position:absolute!important;z-index:2!important;
- inset:clamp(50px,8%,95px) clamp(14px,4.7%,76px) clamp(60px,11%,125px)!important;
- box-sizing:border-box!important;overflow:hidden!important;pointer-events:none!important;
- border:1px solid rgba(238,247,255,.48)!important;
- border-radius:clamp(24px,3vw,42px)!important;
- background:linear-gradient(130deg,rgba(232,243,255,.24),rgba(195,226,255,.12) 53%,rgba(12,63,172,.11))!important;
- box-shadow:inset 0 1px 0 rgba(255,255,255,.4),inset 0 -1px 0 rgba(218,238,255,.12),0 22px 55px -37px rgba(5,25,95,.48)!important;
- -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
-}
+/* No glass, duplicate card, static frame, vignette or tinted overlay. */
+body[data-pagina="contatti"] .vfa-location-panel.vfa-concept-scene::after,
+body[data-pagina="contatti"] .vfa-contact-atmosphere,
 body[data-pagina="contatti"] .vfa-contact-atmosphere::before,
-body[data-pagina="contatti"] .vfa-contact-atmosphere::after{content:none!important;display:none!important}
+body[data-pagina="contatti"] .vfa-contact-atmosphere::after{
+ content:none!important;display:none!important;
+ background:none!important;border:0!important;box-shadow:none!important;
+ -webkit-backdrop-filter:none!important;backdrop-filter:none!important;
+}
+/* Real-time animated blue silk covers the whole scene, not a child panel. */
+body[data-pagina="contatti"] .vfa-concept-scene > .vfa-contact-gradflow{
+ position:absolute!important;z-index:1!important;inset:0!important;
+ display:block!important;width:100%!important;height:100%!important;
+ pointer-events:none!important;opacity:1!important;mix-blend-mode:normal!important;
+ filter:none!important;border:0!important;border-radius:inherit!important;
+}
+/* Only the original transparent photographic badge sits above the fabric. */
 body[data-pagina="contatti"] .vfa-concept-link{
- position:absolute!important;inset:0!important;z-index:3!important;
- display:block!important;margin:0!important;padding:0!important;
- overflow:visible!important;text-decoration:none;color:inherit;border-radius:inherit;
+ position:absolute!important;z-index:2!important;inset:0!important;
+ display:flex!important;align-items:center!important;justify-content:center!important;
+ width:100%!important;height:100%!important;margin:0!important;padding:0!important;
+ overflow:visible!important;text-decoration:none!important;color:inherit!important;
+ border:0!important;border-radius:inherit!important;background:none!important;
  -webkit-tap-highlight-color:transparent;
 }
 body[data-pagina="contatti"] .vfa-concept-picture{
- display:block!important;position:absolute!important;top:50%!important;
- right:-1.5%!important;left:auto!important;bottom:auto!important;
- width:min(96%,1250px)!important;max-width:none!important;
- height:auto!important;max-height:none!important;margin:0!important;padding:0!important;
- aspect-ratio:1367/1151!important;transform-origin:70% 20%;
- transform:translateY(-50%) rotateX(var(--badge-x,0deg)) rotateY(var(--badge-y,0deg));
- transition:transform .7s cubic-bezier(.2,.75,.2,1);
- filter:drop-shadow(0 20px 22px rgba(8,33,106,.21))!important;
+ position:relative!important;inset:auto!important;display:block!important;
+ box-sizing:border-box!important;flex:0 0 auto!important;
+ width:min(91%,calc(71svh * 1367 / 1151),1200px)!important;
+ max-width:100%!important;height:auto!important;max-height:none!important;
+ margin:0 auto!important;padding:0!important;
+ aspect-ratio:1367/1151!important;
+ transform-origin:70% 15%!important;
+ transform:rotateX(var(--badge-x,0deg)) rotateY(var(--badge-y,0deg))!important;
+ transition:transform .65s cubic-bezier(.2,.75,.2,1)!important;
+ filter:drop-shadow(0 16px 16px rgba(3,25,93,.19))!important;
  will-change:transform;
 }
 body[data-pagina="contatti"] .vfa-concept-picture > img{
  display:block!important;width:100%!important;height:auto!important;
- min-width:0!important;max-width:100%!important;max-height:none!important;
- aspect-ratio:1367/1151!important;object-fit:contain!important;
- object-position:center!important;user-select:none;-webkit-user-drag:none;
+ max-width:100%!important;max-height:none!important;
+ object-fit:contain!important;object-position:center!important;
+ aspect-ratio:1367/1151!important;user-select:none;-webkit-user-drag:none;
 }
 body[data-pagina="contatti"] .vfa-concept-link:focus-visible{
- outline:3px solid #ebf5ff!important;outline-offset:-7px!important;
+ outline:3px solid #fff!important;outline-offset:-6px!important;
  border-radius:var(--r)!important;
 }
-/* At compact browser widths the photograph must fit vertically first.
-   A full lanyard and the bottom card edge remain visible. The glass stops
-   above the mobile dock instead of disappearing behind it. */
-@media (min-width:561px) and (max-width:760px){
+@media(min-width:561px) and (max-width:900px){
  body[data-pagina="contatti"] .vfa-location-panel.vfa-concept-scene{
-  height:clamp(610px,88vw,760px)!important;
- }
- body[data-pagina="contatti"] .vfa-contact-atmosphere{
-  inset:8% clamp(13px,3vw,26px) 29%!important;
-  border-radius:clamp(24px,4vw,32px)!important;
-  -webkit-backdrop-filter:blur(5px);backdrop-filter:blur(5px);
+  height:clamp(535px,80svh,780px)!important;
  }
  body[data-pagina="contatti"] .vfa-concept-picture{
-  width:101%!important;right:-1%!important;top:44%!important;
-  transform:translateY(-50%)!important;will-change:auto;
- }
- body[data-pagina="contatti"] .vfa-concept-scene > canvas.vfa-contact-gradflow{
-  opacity:.62!important;
+  width:min(96%,calc(72svh * 1367 / 1151))!important;
  }
 }
 @media(max-width:560px){
  body[data-pagina="contatti"] .vfa-location-panel.vfa-concept-scene{
-  height:clamp(470px,120vw,570px)!important;
- }
- body[data-pagina="contatti"] .vfa-contact-atmosphere{
-  inset:9% 12px 28%!important;
-  border-radius:clamp(21px,6vw,29px)!important;
-  -webkit-backdrop-filter:blur(5px);backdrop-filter:blur(5px);
+  height:clamp(400px,108vw,570px)!important;
  }
  body[data-pagina="contatti"] .vfa-concept-picture{
-  width:118%!important;right:-5%!important;top:45%!important;
-  transform:translateY(-50%)!important;will-change:auto;
- }
- body[data-pagina="contatti"] .vfa-concept-scene > canvas.vfa-contact-gradflow{
-  opacity:.56!important;
- }
-}
-@media(max-width:360px){
- body[data-pagina="contatti"] .vfa-location-panel.vfa-concept-scene{
-  height:clamp(450px,123vw,520px)!important;
- }
- body[data-pagina="contatti"] .vfa-concept-picture{
-  width:116%!important;right:-5%!important;top:46%!important;
+  width:97%!important;max-width:97%!important;will-change:auto;
+  transform:none!important;
  }
 }
 @media(prefers-reduced-motion:reduce){
- body[data-pagina="contatti"] .vfa-location-panel.vfa-concept-scene::before{animation:none!important}
+ body[data-pagina="contatti"] .vfa-location-panel.vfa-concept-scene::before{
+  animation:none!important;
+ }
  body[data-pagina="contatti"] .vfa-concept-picture{
-  transition:none!important;will-change:auto!important;
+  transform:none!important;transition:none!important;will-change:auto!important;
  }
 }
