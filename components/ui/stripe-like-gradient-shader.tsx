@@ -9,9 +9,9 @@ export const Component = () => {
     <div className="relative h-screen w-full overflow-hidden bg-[#07173f]">
       <GradFlow
         config={{
-          color1: { r: 7, g: 23, b: 63 },
+          color1: { r: 255, g: 255, b: 255 },
           color2: { r: 11, g: 42, b: 140 },
-          color3: { r: 67, g: 119, b: 224 },
+          color3: { r: 130, g: 189, b: 255 },
           speed: 0.4,
           scale: 1,
           type: "stripe",
