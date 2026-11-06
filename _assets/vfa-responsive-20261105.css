@@ -1660,3 +1660,77 @@ body[data-pagina="contatti"] .s-badge .email-pill:focus-visible {
   filter:none !important;
   background:#123065;
 }
+
+
+/* VFA mobile header: logo-free, textured white menu with three blue bars (2026-11-06). */
+@media (max-width:760px) {
+  /* Leave the VFA mark in desktop navigation and other site locations. */
+  .nav .testa-top .mark-top {
+    display:none !important;
+  }
+
+  /* Keep the only mobile header control aligned to the right. */
+  .nav .testa-top,
+  .nav.scorre .testa-top {
+    display:flex !important;
+    align-items:center !important;
+    justify-content:flex-end !important;
+  }
+  .nav .testa-top .soc,
+  .nav.su-chiaro .testa-top .soc {
+    display:flex;
+    align-items:center;
+    justify-content:flex-end;
+    margin-left:auto;
+    color:#0b2a8c !important;
+  }
+
+  /* Same paper grain used by .nav .barra, lightened to a white finish. */
+  .nav .testa-top .menu-btn2,
+  .nav.scorre .testa-top .menu-btn2,
+  .nav.su-chiaro .testa-top .menu-btn2 {
+    display:inline-grid !important;
+    place-items:center;
+    box-sizing:border-box;
+    width:48px !important;
+    min-width:48px !important;
+    height:48px !important;
+    min-height:48px !important;
+    margin:0 !important;
+    padding:0 !important;
+    color:#0b2a8c !important;
+    background:
+      linear-gradient(rgba(255,255,255,.87),rgba(255,255,255,.87)),
+      url("/v3/img/carta-grigia.webp") 0 0 / 256px repeat !important;
+    border:1px solid rgba(11,42,140,.14) !important;
+    border-radius:16px !important;
+    box-shadow:inset 0 1px 0 #fff,0 12px 28px -14px rgba(3,8,40,.42);
+    -webkit-backdrop-filter:none;
+    backdrop-filter:none;
+    touch-action:manipulation;
+  }
+
+  /* Keep all three bars visible, including the existing :after bar. */
+  .nav .testa-top .menu-btn2 i,
+  .nav .testa-top .menu-btn2 i::before,
+  .nav .testa-top .menu-btn2 i::after {
+    display:block;
+    width:20px;
+    height:2px;
+    border-radius:2px;
+    background:#0b2a8c !important;
+  }
+  .nav .testa-top .menu-btn2 i { position:relative; }
+  .nav .testa-top .menu-btn2 i::before,
+  .nav .testa-top .menu-btn2 i::after {
+    content:"";
+    position:absolute;
+    left:0;
+  }
+  .nav .testa-top .menu-btn2 i::before { top:-6px; }
+  .nav .testa-top .menu-btn2 i::after { top:6px; }
+  .nav .testa-top .menu-btn2:focus-visible {
+    outline:3px solid #0b2a8c;
+    outline-offset:3px;
+  }
+}
