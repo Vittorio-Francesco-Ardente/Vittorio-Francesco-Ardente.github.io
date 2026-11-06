@@ -2553,3 +2553,12 @@ body[data-pagina="contatti"] .vfa-business-area {
     transform:translateY(0) !important;
   }
 }
+
+/* Mobile: la barra in basso segue gli stessi margini laterali delle card e delle sezioni (12px), per una simmetria piena */
+@media (max-width:760px) {
+  .nav .barra, .nav:not(.scorre) .barra {
+    left:12px !important;
+    right:12px !important;
+    bottom:calc(12px + env(safe-area-inset-bottom)) !important;
+  }
+}
