@@ -1730,93 +1730,254 @@ body[data-pagina="contatti"] .s-badge .email-pill:focus-visible {
 }
 
 
-/* VFA 2026-11-06: Dalmine location card and restrained work stripe shader. */
+/* VFA location, 2026-11-06: expandable Framer-style interaction in site's own paper/blue system.
+   The previous full-width blue illustration is intentionally retired. */
 body[data-pagina="contatti"] .vfa-location-panel {
   position:relative;
   isolation:isolate;
-  min-width:0;
-  padding:clamp(22px,4.4vw,64px) var(--pad) clamp(44px,7vw,96px);
-  background:linear-gradient(180deg, var(--ink) 0%,color-mix(in oklab,var(--ink) 81%,var(--brand-deep)) 100%);
-  color:#f8faff;
+  box-sizing:border-box;
+  min-height:400px;
+  padding:clamp(55px,7vw,100px) var(--pad);
+  border-top:1px solid rgba(11,42,140,.10);
+  background:#e2e4e8 url("/v3/img/carta-grigia.webp") left top /256px repeat;
+  color:var(--ink);
 }
-body[data-pagina="contatti"] .vfa-location-card {
+body[data-pagina="contatti"] .vfa-location-shell {
   display:grid;
-  grid-template-columns:minmax(0,.86fr) minmax(0,1.14fr);
-  width:min(1180px,100%);
-  margin:0 auto;
-  overflow:hidden;
-  border:1px solid rgba(255,255,255,.18);
-  border-radius:clamp(22px,3vw,32px);
-  background:color-mix(in oklab,var(--brand-deep) 45%,var(--ink));
-  box-shadow:inset 0 1px rgba(255,255,255,.10),0 24px 70px -35px rgba(0,0,0,.42);
+  grid-template-columns:minmax(0,1fr) minmax(0,.85fr);
+  align-items:center;
+  gap:clamp(24px,6vw,110px);
+  width:min(1160px,100%);
+  margin-inline:auto;
 }
-body[data-pagina="contatti"] .vfa-location-copy {
+body[data-pagina="contatti"] .vfa-location-intro {
   display:flex;
   flex-direction:column;
   align-items:flex-start;
-  justify-content:center;
-  gap:clamp(11px,2vw,20px);
+  gap:clamp(18px,2vw,28px);
   min-width:0;
-  padding:clamp(24px,4.4vw,64px);
 }
-body[data-pagina="contatti"] .vfa-location-kicker {
-  color:#acc9f5;
-  font:700 11px/1.4 Montserrat,sans-serif;
-  letter-spacing:.13em;
+body[data-pagina="contatti"] .vfa-location-eyebrow {
+  font:750 11px/1.4 Montserrat,sans-serif;
+  color:var(--brand);
+  letter-spacing:.12em;
 }
-body[data-pagina="contatti"] .vfa-location-card h2 {
+body[data-pagina="contatti"] .vfa-location-intro h2 {
   margin:0;
-  color:#fff;
-  font:500 clamp(33px,4.1vw,66px)/1 Inter Tight,sans-serif;
-  letter-spacing:-.048em;
+  font:400 clamp(49px,6.3vw,100px)/.94 "Inter Tight",sans-serif;
+  letter-spacing:-.055em;
+  color:var(--ink);
+  max-width:11ch;
 }
-body[data-pagina="contatti"] .vfa-location-copy > strong {
-  color:#e5efff;
-  font:600 clamp(18px,2vw,24px)/1.2 Inter Tight,sans-serif;
-}
-body[data-pagina="contatti"] .vfa-location-copy > p {
-  color:#c2d0ec;
-  font:400 clamp(14px,1.4vw,17px)/1.55 Inter Tight,sans-serif;
-  max-width:37ch;
+body[data-pagina="contatti"] .vfa-location-dot {color:var(--brand)}
+body[data-pagina="contatti"] .vfa-location-intro > p {
+  color:var(--text-2);
   margin:0;
+  max-width:34ch;
+  font:450 clamp(15px,1.4vw,18px)/1.5 "Inter Tight",sans-serif;
 }
-body[data-pagina="contatti"] .vfa-location-link {
-  display:inline-flex;
+body[data-pagina="contatti"] .vfa-location-experience {
+  position:relative;
+  min-width:0;
+  min-height:410px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+}
+body[data-pagina="contatti"] .vfa-expand-map {
+  --vfa-map-rx:0deg;
+  --vfa-map-ry:0deg;
+  position:relative;
+  box-sizing:border-box;
+  width:min(100%,254px);
+  height:154px;
+  display:block;
+  overflow:hidden;
+  flex:none;
+  padding:0;
+  cursor:pointer;
+  text-align:left;
+  color:var(--brand);
+  border:1px solid rgba(11,42,140,.22);
+  border-radius:21px;
+  outline-offset:5px;
+  background:#f6f7f9 url("/v3/img/carta-grigia.webp") 0 0 /256px repeat;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.95),0 20px 34px -24px rgba(7,28,74,.40);
+  transform:perspective(1000px) rotateX(var(--vfa-map-rx)) rotateY(var(--vfa-map-ry));
+  transform-style:preserve-3d;
+  transition:width .55s cubic-bezier(.2,.92,.2,1),height .55s cubic-bezier(.2,.92,.2,1),
+    transform .44s cubic-bezier(.19,1,.22,1),box-shadow .35s ease,border-color .3s ease;
+  -webkit-tap-highlight-color:transparent;
+  touch-action:manipulation;
+}
+body[data-pagina="contatti"] .vfa-expand-map:is(:hover,:focus-visible) {
+  border-color:rgba(11,42,140,.43);
+  box-shadow:inset 0 1px 0 #fff,0 25px 45px -27px rgba(7,28,74,.55);
+}
+body[data-pagina="contatti"] .vfa-expand-map:focus-visible {
+  outline:3px solid var(--brand);
+}
+body[data-pagina="contatti"] .vfa-expand-map[aria-expanded="true"] {
+  width:min(100%,425px);
+  height:322px;
+}
+body[data-pagina="contatti"] .vfa-map-grid {
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  opacity:.47;
+  background-image:linear-gradient(rgba(11,42,140,.07) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(11,42,140,.07) 1px,transparent 1px);
+  background-size:21px 21px;
+  transition:opacity .28s ease;
+}
+body[data-pagina="contatti"] .vfa-expand-map[aria-expanded="true"] .vfa-map-grid {opacity:0}
+body[data-pagina="contatti"] .vfa-map-top {
+  position:absolute;
+  z-index:2;
+  top:18px;left:18px;right:18px;
+  display:flex;
   align-items:center;
   justify-content:space-between;
-  gap:28px;
-  padding:12px 13px 12px 20px;
-  min-height:46px;
-  color:var(--brand-deep);
-  background:#fff url('/v3/img/carta-grigia.webp') 0 0 / 256px;
-  border-radius:999px;
-  font:700 13px/1.2 Montserrat,sans-serif;
-  text-decoration:none;
-  transition:transform .2s ease;
+  gap:12px;
+  pointer-events:none;
 }
-body[data-pagina="contatti"] .vfa-location-link:hover {transform:translateY(-2px);}
-body[data-pagina="contatti"] .vfa-location-link span {
-  display:grid;place-items:center;
-  width:26px;height:26px;border-radius:50%;
-  color:#fff;background:var(--brand);
-  font-size:17px;
+body[data-pagina="contatti"] .vfa-map-icon {
+  display:grid;
+  place-items:center;
+  color:var(--brand);
+  filter:drop-shadow(0 0 4px rgba(11,42,140,.13));
+  transition:filter .25s ease;
 }
-body[data-pagina="contatti"] .vfa-location-copy > small,
-body[data-pagina="contatti"] .vfa-location-copy > small a {
-  font:500 10px/1.4 Montserrat,sans-serif;
-  color:#a2b7d8;
+body[data-pagina="contatti"] .vfa-expand-map:is(:hover,:focus-visible) .vfa-map-icon {filter:drop-shadow(0 0 7px rgba(11,42,140,.3))}
+body[data-pagina="contatti"] .vfa-map-status {
+  display:inline-flex;
+  justify-content:center;
+  align-items:center;
+  padding:6px 9px;
+  border:1px solid rgba(11,42,140,.12);
+  border-radius:100px;
+  background:rgba(255,255,255,.78);
+  color:var(--brand);
+  font:650 10px/1.2 Montserrat,sans-serif;
+  letter-spacing:.015em;
 }
-body[data-pagina="contatti"] .vfa-location-map {
+body[data-pagina="contatti"] .vfa-map-geography {
+  position:absolute;
+  z-index:1;
+  top:59px;left:12px;right:12px;bottom:71px;
+  display:block;
+  opacity:0;
+  transform:translateY(12px) scale(.94);
+  clip-path:inset(0 0 95% 0 round 12px);
+  pointer-events:none;
+  transition:opacity .37s ease .06s,transform .6s cubic-bezier(.16,1,.3,1),
+      clip-path .65s cubic-bezier(.2,.9,.18,1);
+}
+body[data-pagina="contatti"] .vfa-expand-map[aria-expanded="true"] .vfa-map-geography {
+  opacity:1;transform:translateY(0) scale(1);
+  clip-path:inset(0 0 0 0 round 12px);
+}
+body[data-pagina="contatti"] .vfa-map-geography img {
+  display:block;width:100%;height:100%;
+  object-fit:contain;object-position:center;
+  border-radius:12px;
+}
+body[data-pagina="contatti"] .vfa-map-bottom {
+  position:absolute;
+  z-index:3;
+  left:18px;right:18px;bottom:17px;
   display:flex;
-  align-items:stretch;
-  min-width:0;
-  padding:clamp(12px,2vw,24px);
+  align-items:flex-end;
+  justify-content:space-between;
+  pointer-events:none;
 }
-body[data-pagina="contatti"] .vfa-location-map img {
-  width:100%;height:100%;min-height:300px;
-  display:block;object-fit:contain;
-  border-radius:20px;
+body[data-pagina="contatti"] .vfa-map-bottom > span:first-child {
+  display:flex;flex-direction:column;gap:5px;
 }
+body[data-pagina="contatti"] .vfa-map-bottom strong {
+  color:var(--brand-deep);
+  font:650 16px/1 "Inter Tight",sans-serif;
+  letter-spacing:-.02em;
+}
+body[data-pagina="contatti"] .vfa-map-bottom small {
+  color:#63718b;
+  font:550 10px/1.2 "JetBrains Mono",monospace;
+  opacity:0;
+  transform:translateY(-5px);
+  transition:opacity .35s ease,transform .35s ease;
+}
+body[data-pagina="contatti"] .vfa-expand-map[aria-expanded="true"] .vfa-map-bottom small {
+  opacity:1;transform:translateY(0);
+}
+body[data-pagina="contatti"] .vfa-map-expand-icon {
+  display:grid;
+  place-items:center;
+  width:26px;height:26px;
+  border-radius:50%;
+  background:var(--brand);
+  color:white;
+  font:450 21px/1 "Inter Tight",sans-serif;
+  transition:transform .3s ease;
+}
+body[data-pagina="contatti"] .vfa-expand-map[aria-expanded="true"] .vfa-map-expand-icon {transform:rotate(45deg)}
+body[data-pagina="contatti"] .vfa-map-hint {
+  min-height:15px;
+  font:500 10px/1.4 Montserrat,sans-serif;
+  color:var(--text-2);
+  opacity:0;
+  transform:translateY(5px);
+  transition:opacity .2s ease,transform .2s ease;
+}
+body[data-pagina="contatti"] .vfa-location-experience:has(.vfa-expand-map:hover) .vfa-map-hint,
+body[data-pagina="contatti"] .vfa-location-experience:has(.vfa-expand-map:focus-visible) .vfa-map-hint {
+  opacity:1;transform:translateY(0);
+}
+body[data-pagina="contatti"] .vfa-location-link {
+  min-height:43px;
+  padding:8px 8px 8px 19px;
+  border:1px solid rgba(11,42,140,.15);
+  border-radius:99px;
+  background:#fff url("/v3/img/carta-grigia.webp") left top /256px repeat;
+  box-shadow:inset 0 1px rgba(255,255,255,.8);
+  color:var(--brand);
+  font:700 12px/1.2 Montserrat,sans-serif;
+}
+body[data-pagina="contatti"] .vfa-location-link span {
+  width:27px;height:27px;background:var(--brand);font-size:16px;
+}
+body[data-pagina="contatti"] .vfa-map-credit {
+  color:#68788f;
+  font:500 10px/1.4 Montserrat,sans-serif;
+}
+@media(max-width:760px) {
+  body[data-pagina="contatti"] .vfa-location-panel {
+    padding:clamp(58px,9vw,85px) clamp(18px,5vw,30px) clamp(52px,9vw,80px);
+  }
+  body[data-pagina="contatti"] .vfa-location-shell {
+    display:flex;flex-direction:column;align-items:stretch;gap:34px;
+  }
+  body[data-pagina="contatti"] .vfa-location-intro {gap:16px;}
+  body[data-pagina="contatti"] .vfa-location-intro h2 {font-size:clamp(50px,12vw,78px);max-width:12ch;}
+  body[data-pagina="contatti"] .vfa-location-intro p {max-width:42ch;}
+  body[data-pagina="contatti"] .vfa-location-experience {min-height:360px;justify-content:center;}
+  body[data-pagina="contatti"] .vfa-expand-map[aria-expanded="true"] {width:min(100%,425px);height:min(322px,90vw);}
+}
+@media(hover:none) {
+  body[data-pagina="contatti"] .vfa-map-hint {opacity:1;transform:none}
+}
+@media(prefers-reduced-motion:reduce) {
+  body[data-pagina="contatti"] .vfa-expand-map,
+  body[data-pagina="contatti"] .vfa-map-geography,
+  body[data-pagina="contatti"] .vfa-map-bottom small,
+  body[data-pagina="contatti"] .vfa-map-expand-icon {
+    transition:none!important;
+    transform:none;
+  }
+}
+
 body[data-pagina="lavori"] .s-agency .hero {
   isolation:isolate;
   background:linear-gradient(130deg,var(--brand-deep),var(--brand),var(--ink));
