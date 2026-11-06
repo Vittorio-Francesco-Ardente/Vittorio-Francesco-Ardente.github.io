@@ -82,9 +82,12 @@ async function badge(i){
   /* ancora fissa (chiodo con testa + occhiello di appoggio) */
   const anc=new TH.Group;
   const tg=new TH.Shape;tg.absarc(0,0,.085,0,Math.PI*2,false);
-  const testa=new TH.Mesh(new TH.Extrude(tg,{depth:.03,bevelEnabled:!0,bevelThickness:.012,bevelSize:.012,bevelSegments:3,curveSegments:40}),metalloScuro);testa.position.set(0,.05,-.07);anc.add(testa);
-  const gancio=new TH.Mesh(new TH.Torus(.062,.013,12,36),metallo);gancio.position.set(0,.0,-.02);anc.add(gancio);
-  const morsetto=new TH.Mesh(new TH.Box(.235,.085,.03),metalloScuro);morsetto.position.set(0,-.075,.02);anc.add(morsetto);
+  const disco=(r,d,bv,mat,x,y,z)=>{const sh=new TH.Shape;sh.absarc(0,0,r,0,Math.PI*2,false);const g=new TH.Extrude(sh,{depth:d,bevelEnabled:bv>0,bevelThickness:bv,bevelSize:bv,bevelSegments:3,curveSegments:48});const m=new TH.Mesh(g,mat);m.position.set(x,y,z);anc.add(m);return m};
+  disco(.19,.02,.006,metalloScuro,0,.2,-.09);            /* rosetta di fissaggio a muro */
+  disco(.105,.03,.012,metallo,0,.2,-.065);               /* testa del chiodo */
+  disco(.04,.012,.004,metalloScuro,0,.2,-.03);           /* perno */
+  const gancio=new TH.Mesh(new TH.Torus(.125,.015,14,48),metallo);gancio.position.set(0,.0,-.02);anc.add(gancio);   /* anello a cui e' infilato il nastro */
+  const gambo=new TH.Mesh(new TH.Box(.03,.11,.03),metallo);gambo.position.set(0,.115,-.04);anc.add(gambo);
   /* nastro: PlaneGeometry deformata ogni frame */
   const NS=9,SEG=30,Ls=1.18,seg=Ls/NS,NSEGS=SEG,BW=.2;
   const nastro=new TH.Mesh(new TH.Plane(1,1,1,NSEGS),stoffa);nastro.frustumCulled=!1;
@@ -137,7 +140,7 @@ async function badge(i){
   function layout(){
     const w=Math.max(1,cv.clientWidth),h=Math.max(1,cv.clientHeight),asp=w/h;mobile=innerWidth<=760;
     nastro.material=mobile?stoffaM:stoffa;
-    const topM=.32,botM=.34,need=topM+Ls+(-(cardCy-CH/2))+botM;       /* ancora -> fondo carta + margini */
+    const topM=.5,botM=.34,need=topM+Ls+(-(cardCy-CH/2))+botM;       /* ancora -> fondo carta + margini */
     const needW=2.9,fill=mobile?.8:(asp>1.2?.9:.82);visH=Math.max(need/fill,needW/asp);visW=visH*asp;
     const Z=visH/2/tanH;E.c.position.set(0,-visH/2+topM,Z);E.c.rotation.set(0,0,0);E.c.updateProjectionMatrix();camY=-visH/2+topM}
   layout();addEventListener(`resize`,layout);
