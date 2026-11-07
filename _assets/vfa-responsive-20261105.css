@@ -2610,7 +2610,7 @@ body[data-pagina="contatti"] .vfa-business-area {
    bottom:calc(var(--g) + env(safe-area-inset-bottom))!important;
    left:0!important;right:0!important;
    margin:0 auto!important;
-   width:min(660px,calc(100vw - 2 * var(--g)))!important;
+   width:max-content!important;max-width:calc(100vw - 2 * var(--g))!important;padding:6px 10px!important;
    transform:none!important;
    box-sizing:border-box!important;
    border-radius:var(--r)!important;
