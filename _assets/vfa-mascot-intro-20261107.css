@@ -1,0 +1,8 @@
+/* VFA temporary mascot intro, removable without touching the portfolio layout. */
+.vfa-mascot-intro{position:fixed;inset:0;z-index:2147483000;isolation:isolate;display:grid;place-items:center;overflow:hidden;background:radial-gradient(ellipse at 52% 20%,#c7dcfa 0%,#8caeea 55%,#2459ba 100%);opacity:1;transition:opacity .28s ease;}
+.vfa-mascot-intro--closing{opacity:0;pointer-events:none;}
+.vfa-mascot-intro__stage{position:relative;height:100vh;height:100dvh;width:min(100vw,56.25vh);width:min(100vw,56.25dvh);max-width:100%;overflow:hidden;background:#9cbcf0;box-shadow:0 0 8vw #1446a31f;}
+.vfa-mascot-intro__video{display:block;position:absolute;top:0;left:0;width:100%;height:106%;object-fit:cover;object-position:center top;pointer-events:none;}
+.vfa-mascot-intro__skip{position:absolute;top:max(18px,env(safe-area-inset-top));right:max(18px,env(safe-area-inset-right));z-index:2;border:1px solid #ffffff8a;border-radius:999px;background:#0c2b75;color:#fff;cursor:pointer;line-height:1.1;letter-spacing:.01em;font:600 14px/1.1 system-ui,sans-serif;padding:12px 19px;box-shadow:0 3px 16px #173c7638;}
+.vfa-mascot-intro__skip:focus-visible{outline:3px solid #fff;outline-offset:3px;}
+@media(prefers-reduced-motion:reduce){.vfa-mascot-intro{display:none;}}
