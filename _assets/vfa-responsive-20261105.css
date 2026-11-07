@@ -2617,3 +2617,13 @@ body[data-pagina="contatti"] .vfa-business-area {
    justify-content:center!important;
  }
 }
+
+/* Desktop: the top header floats (more air above, a clear gap before the first
+   panel) instead of sitting flush against the page edge and the hero. */
+@media(min-width:761px){
+ .nav:not(.scorre) .testa-top{
+   top:6px!important;
+   height:66px!important;
+   box-shadow:0 14px 30px -16px rgba(3,8,40,.55)!important;
+ }
+}
