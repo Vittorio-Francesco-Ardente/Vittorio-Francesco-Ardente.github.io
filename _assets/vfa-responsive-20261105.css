@@ -2361,7 +2361,7 @@ body[data-pagina="contatti"] .vfa-business-area {
     height:auto !important;
     margin:0 !important;
     padding:0 !important;
-    font:900 clamp(24px,7.6vw,46px)/1 Archivo,sans-serif !important;
+    font:900 clamp(30px,9.4vw,57px)/1 Archivo,sans-serif !important;
     text-transform:uppercase !important;
     white-space:nowrap !important;
     color:#f7faff !important;
@@ -2423,7 +2423,7 @@ body[data-pagina="contatti"] .vfa-business-area {
   html #menu .m-corpo ol>li>a>span:not(.vfa-route-pin){
     display:block!important;position:static!important;width:auto!important;height:auto!important;
     margin:0!important;padding:0!important;max-width:100%!important;
-    font:900 clamp(24px,7.6vw,46px)/1 Archivo,sans-serif!important;
+    font:900 clamp(30px,9.4vw,57px)/1 Archivo,sans-serif!important;
     font-stretch:var(--w62)!important;
     letter-spacing:-.035em!important;text-transform:uppercase!important;
     text-align:center!important;color:#f7faff!important;
@@ -2457,9 +2457,9 @@ body[data-pagina="contatti"] .vfa-business-area {
   html #menu{gap:4px!important;padding-top:calc(5px + env(safe-area-inset-top))!important;padding-bottom:calc(5px + env(safe-area-inset-bottom))!important;}
   html #menu .m-corpo ol{gap:0!important;}
   html #menu .m-corpo ol>li>a{min-height:38px!important;padding:1px 5px!important;}
-  html #menu .m-corpo ol>li>a>span:not(.vfa-route-pin){font-size:clamp(22px,5.6svh,34px)!important;}
+  html #menu .m-corpo ol>li>a>span:not(.vfa-route-pin){font-size:clamp(28px,6.9svh,42px)!important;}
   html #menu .m-soc>a.pill{min-height:32px!important;}
 }
 @media(max-width:360px) {
-  html #menu .m-corpo ol>li>a>span:not(.vfa-route-pin){font-size:clamp(23px,7.2vw,27px)!important;}
+  html #menu .m-corpo ol>li>a>span:not(.vfa-route-pin){font-size:clamp(27px,8.5vw,33px)!important;}
 }
