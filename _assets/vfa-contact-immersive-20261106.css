@@ -161,3 +161,76 @@ body[data-pagina="contatti"] .vfa-concept-link:focus-visible{
     will-change:auto!important;
   }
 }
+
+/* "Dove trovarmi": richer, livelier stage. Extra light ribbons, drifting glints,
+   a deeper blue edge that ties the panel to the rest of the page, and a gentle
+   pendulum sway of the badge. Compositor-only motion; reduced-motion respected. */
+body[data-pagina="contatti"] .vfa-concept-scene .vfa-contact-atmosphere{
+  content:"" !important;
+  display:block !important;
+  position:absolute !important;
+  inset:0 !important;
+  z-index:1 !important;
+  overflow:hidden !important;
+  pointer-events:none !important;
+  border-radius:inherit !important;
+  background:
+    radial-gradient(120% 60% at 50% 112%,rgba(10,56,200,.5),transparent 62%),
+    radial-gradient(90% 40% at 50% -12%,rgba(8,30,130,.28),transparent 70%) !important;
+}
+body[data-pagina="contatti"] .vfa-concept-scene .vfa-contact-atmosphere::before{
+  content:"" !important;
+  display:block !important;
+  position:absolute !important;
+  inset:-30% -20% !important;
+  background:
+    radial-gradient(34% 8% at 30% 38%,rgba(255,255,255,.75),transparent 70%),
+    radial-gradient(40% 7% at 66% 62%,rgba(255,255,255,.55),transparent 70%),
+    radial-gradient(28% 22% at 12% 78%,rgba(40,110,255,.35),transparent 70%),
+    radial-gradient(30% 24% at 86% 20%,rgba(30,90,255,.30),transparent 70%) !important;
+  filter:blur(10px) !important;
+  transform:rotate(-14deg);
+  will-change:transform;
+  animation:vfa-dove-nastri 9s ease-in-out infinite alternate !important;
+}
+body[data-pagina="contatti"] .vfa-concept-scene .vfa-contact-atmosphere::after{
+  content:"" !important;
+  display:block !important;
+  position:absolute !important;
+  inset:0 !important;
+  background:
+    radial-gradient(3px 3px at 8% 82%,rgba(255,255,255,.95),transparent 60%),
+    radial-gradient(2px 2px at 20% 64%,rgba(255,255,255,.8),transparent 60%),
+    radial-gradient(4px 4px at 31% 90%,rgba(255,255,255,.9),transparent 60%),
+    radial-gradient(2px 2px at 44% 74%,rgba(255,255,255,.8),transparent 60%),
+    radial-gradient(3px 3px at 57% 94%,rgba(255,255,255,.9),transparent 60%),
+    radial-gradient(2px 2px at 69% 68%,rgba(255,255,255,.75),transparent 60%),
+    radial-gradient(3px 3px at 80% 88%,rgba(255,255,255,.9),transparent 60%),
+    radial-gradient(2px 2px at 92% 72%,rgba(255,255,255,.8),transparent 60%) !important;
+  will-change:transform,opacity;
+  animation:vfa-dove-scintille 7s linear infinite !important;
+}
+@keyframes vfa-dove-nastri{
+  from{transform:rotate(-14deg) translate3d(-7%,2%,0)}
+  to{transform:rotate(-10deg) translate3d(7%,-3%,0)}
+}
+@keyframes vfa-dove-scintille{
+  0%{transform:translate3d(0,8%,0);opacity:0}
+  15%{opacity:1}
+  85%{opacity:.9}
+  100%{transform:translate3d(2%,-62%,0);opacity:0}
+}
+body[data-pagina="contatti"] .vfa-concept-picture > img{
+  transform-origin:70% 4%;
+  will-change:transform;
+  animation:vfa-dove-pendolo 5.5s ease-in-out infinite alternate;
+}
+@keyframes vfa-dove-pendolo{
+  from{transform:rotate(-.9deg) translate3d(0,0,0)}
+  to{transform:rotate(1.1deg) translate3d(0,6px,0)}
+}
+@media(prefers-reduced-motion:reduce){
+  body[data-pagina="contatti"] .vfa-concept-scene .vfa-contact-atmosphere::before,
+  body[data-pagina="contatti"] .vfa-concept-scene .vfa-contact-atmosphere::after,
+  body[data-pagina="contatti"] .vfa-concept-picture > img{animation:none !important}
+}
