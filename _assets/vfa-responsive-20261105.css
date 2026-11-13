@@ -2527,9 +2527,19 @@ body[data-pagina="contatti"] .vfa-business-area {
     white-space:nowrap!important;
     text-overflow:ellipsis!important;
     color:#0b2a8c!important;
-    font:800 clamp(11px,3.25vw,14px)/1.15 "Inter Tight",Arial,sans-serif!important;
-    letter-spacing:-.025em!important;
+    font:900 clamp(11px,3.25vw,14px)/1.1 Archivo,Arial,sans-serif!important;
+    font-stretch:78%!important;
+    text-transform:uppercase!important;
+    letter-spacing:-.035em!important;
     text-align:center!important;
+  }
+  /* The original SVG's white letters had no contrast on the paper header. */
+  .nav .testa-top .mark-top .logo-anim .lp,
+  .nav.scorre .testa-top .mark-top .logo-anim .lp{
+    fill:#0b2a8c!important;
+  }
+  .nav .testa-top .mark-top .logo-anim .lfondo{
+    display:none!important;
   }
   .nav .testa-top .soc,
   .nav.su-chiaro .testa-top .soc{
