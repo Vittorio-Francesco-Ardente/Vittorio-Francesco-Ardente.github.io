@@ -2645,3 +2645,28 @@ body[data-pagina="contatti"] .vfa-business-area {
     height:32px!important;
   }
 }
+
+
+/* VFA desktop profile (2026-11-18): retain the original layout but reduce
+   portrait compositing and repaint work. Tablet and touch layouts are untouched. */
+@media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
+  body[data-pagina="home"] .s-make {
+    isolation: isolate;
+    contain: layout paint;
+  }
+  body[data-pagina="home"] .s-make .persona img {
+    /* Three shadows instead of eight costly full-size filtered passes. */
+    filter: drop-shadow(0 0 2px #fff)
+            drop-shadow(0 0 5px var(--brand-soft))
+            drop-shadow(0 14px 20px rgba(10, 15, 31, .22));
+    backface-visibility: hidden;
+  }
+  body[data-pagina="home"] .s-make .post-it {
+    background: #fff;
+    color: var(--brand-deep, #0b2a8c);
+  }
+  body[data-pagina="home"] .s-make .post-it::before {
+    background: radial-gradient(circle at 35% 30%, #6ba8ff 0%, #2462d8 44%, #0b2a8c 100%);
+    box-shadow: 0 3px 6px rgba(11, 42, 140, .27);
+  }
+}
