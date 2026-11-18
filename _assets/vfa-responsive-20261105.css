@@ -2670,3 +2670,166 @@ body[data-pagina="contatti"] .vfa-business-area {
     box-shadow: 0 3px 6px rgba(11, 42, 140, .27);
   }
 }
+
+
+/* VFA 2026-11-18 | Integrated Home header, desktop with mouse only.
+   GLAMOOD composition: logo left / truly centered links / actions right.
+   Tablet, mobile, other pages and the scrolled bottom dock are unchanged. */
+@media (min-width:1024px) and (hover:hover) and (pointer:fine) {
+  body[data-pagina="home"] {padding-top:0!important}
+
+  body[data-pagina="home"] .nav:not(.scorre) .testa-top {
+    --head-contrast:#fff;
+    --head-shadow:rgba(2,12,36,.58);
+    position:fixed!important;
+    top:var(--g)!important;
+    left:0!important;
+    right:0!important;
+    transform:none!important;
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr) auto minmax(0,1fr)!important;
+    align-items:center!important;
+    column-gap:clamp(14px,1.7vw,28px)!important;
+    width:100%!important;
+    max-width:none!important;
+    height:clamp(78px,7vw,96px)!important;
+    padding:0 clamp(30px,4.5vw,74px)!important;
+    margin:0!important;
+    background:transparent!important;
+    box-shadow:none!important;
+    border:0!important;
+    border-radius:0!important;
+    overflow:visible!important;
+    isolation:auto!important;
+  }
+  body[data-pagina="home"] .nav.su-chiaro:not(.scorre) .testa-top {
+    --head-contrast:var(--brand-deep,#0b2a8c);
+    --head-shadow:rgba(255,255,255,.65);
+  }
+  body[data-pagina="home"] .nav:not(.scorre) .testa-top::before,
+  body[data-pagina="home"] .nav:not(.scorre) .testa-top::after {
+    content:none!important;
+    display:none!important;
+  }
+  body[data-pagina="home"] .nav:not(.scorre) .testa-top .mark-top {
+    grid-column:1!important;
+    justify-self:start!important;
+    align-self:center!important;
+    min-width:0!important;
+    padding:0!important;
+    margin:0!important;
+  }
+  body[data-pagina="home"] .nav:not(.scorre) .testa-top .mark-top .logo-anim {
+    height:clamp(54px,4.7vw,68px)!important;
+    width:auto!important;
+    max-width:none!important;
+    overflow:visible!important;
+  }
+  body[data-pagina="home"] .nav:not(.scorre) .mark-top .lp {
+    fill:var(--head-contrast)!important;
+  }
+  body[data-pagina="home"] .nav:not(.scorre) .testa-top .link-top {
+    grid-column:2!important;
+    display:flex!important;
+    justify-self:center!important;
+    justify-content:center!important;
+    align-items:center!important;
+    gap:clamp(14px,1.8vw,30px)!important;
+    min-width:0!important;
+    margin:0!important;
+    padding:0!important;
+  }
+  body[data-pagina="home"] .nav:not(.scorre) .testa-top .link-top a {
+    position:relative!important;
+    background:none!important;
+    color:var(--head-contrast)!important;
+    font:800 clamp(16px,1.28vw,19px)/1.15 Archivo,Montserrat,sans-serif!important;
+    letter-spacing:-.018em!important;
+    font-stretch:90%!important;
+    text-transform:none!important;
+    text-align:center!important;
+    white-space:nowrap!important;
+    text-shadow:0 2px 11px var(--head-shadow)!important;
+    border-radius:6px!important;
+    padding:12px 0!important;
+  }
+  body[data-pagina="home"] .nav:not(.scorre) .testa-top .link-top a::after {
+    left:0!important;
+    right:0!important;
+    bottom:5px!important;
+    height:2px!important;
+    background:var(--head-contrast)!important;
+    opacity:.95!important;
+  }
+  body[data-pagina="home"] .nav:not(.scorre) .testa-top .link-top a:hover {
+    opacity:.78;
+  }
+  body[data-pagina="home"] .nav:not(.scorre) .testa-top .soc,
+  body[data-pagina="home"] .nav.su-chiaro:not(.scorre) .testa-top .soc {
+    grid-column:3!important;
+    display:flex!important;
+    justify-self:end!important;
+    justify-content:flex-end!important;
+    align-items:center!important;
+    gap:6px!important;
+    margin:0!important;
+    min-width:0!important;
+    color:var(--head-contrast)!important;
+  }
+  body[data-pagina="home"] .nav:not(.scorre) .testa-top .soc a {
+    display:grid!important;
+    place-items:center!important;
+    width:40px!important;
+    height:40px!important;
+    color:var(--head-contrast)!important;
+    border-radius:12px!important;
+  }
+  body[data-pagina="home"] .nav:not(.scorre) .testa-top .soc a svg {
+    width:19px!important;
+    height:19px!important;
+    filter:drop-shadow(0 1px 5px var(--head-shadow));
+  }
+  body[data-pagina="home"] .nav:not(.scorre) .testa-top .soc a:hover {
+    background:color-mix(in srgb,var(--head-contrast) 11%,transparent);
+  }
+  body[data-pagina="home"] .nav:not(.scorre) .testa-top .soc b {
+    display:none!important;
+  }
+  body[data-pagina="home"] .nav:not(.scorre) .testa-top .menu-btn2 {
+    display:grid!important;
+    place-items:center!important;
+    flex:none!important;
+    width:48px!important;
+    height:48px!important;
+    min-width:48px!important;
+    min-height:48px!important;
+    margin:0 0 0 4px!important;
+    background:color-mix(in srgb,var(--head-contrast) 13%,transparent)!important;
+    color:var(--head-contrast)!important;
+    border:1px solid color-mix(in srgb,var(--head-contrast) 30%,transparent)!important;
+    border-radius:16px!important;
+    box-shadow:none!important;
+    -webkit-backdrop-filter:none!important;
+    backdrop-filter:none!important;
+  }
+  body[data-pagina="home"] .nav:not(.scorre) .testa-top .menu-btn2 i,
+  body[data-pagina="home"] .nav:not(.scorre) .testa-top .menu-btn2 i::before,
+  body[data-pagina="home"] .nav:not(.scorre) .testa-top .menu-btn2 i::after {
+    background:currentColor!important;
+  }
+}
+@media (min-width:1024px) and (max-width:1279px) and (hover:hover) and (pointer:fine) {
+  body[data-pagina="home"] .nav:not(.scorre) .testa-top {
+    column-gap:12px!important;
+    padding-inline:clamp(20px,3vw,38px)!important;
+  }
+  body[data-pagina="home"] .nav:not(.scorre) .testa-top .link-top {
+    gap:clamp(9px,1.15vw,15px)!important;
+  }
+  body[data-pagina="home"] .nav:not(.scorre) .testa-top .link-top a {
+    font-size:clamp(15px,1.45vw,17px)!important;
+  }
+  body[data-pagina="home"] .nav:not(.scorre) .testa-top .soc>a {
+    display:none!important;
+  }
+}
