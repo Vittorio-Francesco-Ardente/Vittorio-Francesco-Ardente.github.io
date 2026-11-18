@@ -2837,9 +2837,78 @@ body[data-pagina="contatti"] .vfa-business-area {
 /* Header contrast: the first section is authoritative, including the
    light case-study and the editorial 'Chi sono' first screen. */
 @media (min-width:1024px) and (hover:hover) and (pointer:fine) {
-  body:has(main > .schermo:first-child:is([data-chiaro],.d-caso,.s-haven))
+  body:has(main > .schermo:first-child:is([data-chiaro],.d-caso))
     .nav:not(.scorre) .testa-top {
     --head-contrast:var(--brand-deep,#0b2a8c);
     --head-shadow:rgba(255,255,255,.7);
+  }
+}
+
+
+/* VFA 2026-11-18 | Desktop top navigation: clean white active chip.
+   Dark hero photography takes priority over .su-chiaro, which can describe
+   the page body rather than the image directly behind the navigation. */
+@media (min-width:1024px) and (hover:hover) and (pointer:fine) {
+  /* Photographic first panels, especially Chi sono and experience details. */
+  body:has(main > .schermo:first-child:is(.s-haven,.d-testa.foto))
+    .nav:not(.scorre) .testa-top,
+  body:has(main > .schermo:first-child:is(.s-haven,.d-testa.foto))
+    .nav.su-chiaro:not(.scorre) .testa-top {
+    --head-contrast:#fff;
+    --head-shadow:rgba(0,8,28,.85);
+  }
+
+  /* Match the actual background while keeping the headline navigable. */
+  body .nav:not(.scorre) .testa-top .link-top {
+    gap:clamp(6px,.9vw,16px)!important;
+  }
+  body .nav:not(.scorre) .testa-top .link-top a {
+    color:var(--head-contrast)!important;
+    font-size:clamp(16px,1.2vw,19px)!important;
+    font-weight:800!important;
+    text-transform:uppercase!important;
+    letter-spacing:.008em!important;
+    text-align:center!important;
+    text-shadow:0 2px 9px var(--head-shadow)!important;
+    padding:10px 6px!important;
+    border:1px solid transparent!important;
+    border-radius:12px!important;
+    box-shadow:none!important;
+    opacity:1!important;
+  }
+
+  /* No underline, neither on hover nor the selected link. */
+  body .nav:not(.scorre) .testa-top .link-top a::after,
+  body .nav:not(.scorre) .testa-top .link-top a:hover::after,
+  body .nav:not(.scorre) .testa-top .link-top a[aria-current="page"]::after {
+    content:none!important;
+    display:none!important;
+    transform:none!important;
+    border:0!important;
+    background:none!important;
+  }
+
+  /* Small white card stays legible on dark photos and on pale sections. */
+  body .nav:not(.scorre) .testa-top .link-top a[aria-current="page"],
+  body .nav:not(.scorre) .testa-top .link-top a[aria-current="page"]:hover,
+  body .nav:not(.scorre) .testa-top .link-top a[aria-current="page"]:focus-visible {
+    background:#fff!important;
+    color:#0b2a8c!important;
+    border:1px solid rgba(11,42,140,.15)!important;
+    border-radius:12px!important;
+    padding:10px 13px!important;
+    box-shadow:0 5px 18px rgba(0,11,36,.2)!important;
+    text-shadow:none!important;
+    opacity:1!important;
+  }
+}
+@media (min-width:1024px) and (max-width:1279px) and (hover:hover) and (pointer:fine) {
+  body .nav:not(.scorre) .testa-top .link-top {gap:5px!important}
+  body .nav:not(.scorre) .testa-top .link-top a {
+    font-size:clamp(14px,1.42vw,16px)!important;
+    padding-inline:5px!important;
+  }
+  body .nav:not(.scorre) .testa-top .link-top a[aria-current="page"] {
+    padding-inline:10px!important;
   }
 }
