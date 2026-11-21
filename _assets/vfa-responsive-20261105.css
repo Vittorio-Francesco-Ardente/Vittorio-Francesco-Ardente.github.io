@@ -3069,3 +3069,162 @@ body[data-pagina="contatti"] .vfa-business-area {
     padding-inline:6px!important;
   }
 }
+
+
+/* VFA 2026-11-21 | Phone integrated navigation, matching desktop/tablet.
+   Left hamburger, centered page-name chip, right VFA logo.
+   The lower scroll dock and larger breakpoints remain unchanged. */
+@media (max-width:760px) {
+  body .nav:not(.scorre) .testa-top {
+    --phone-ink:#fff;
+    --phone-shadow:rgba(0,9,35,.82);
+    position:fixed!important;
+    display:grid!important;
+    grid-template-columns:minmax(68px,1fr) minmax(0,2.1fr) minmax(68px,1fr)!important;
+    align-items:center!important;
+    justify-content:normal!important;
+    column-gap:6px!important;
+    top:calc(var(--g) + env(safe-area-inset-top) + 5px)!important;
+    left:var(--g)!important;
+    right:var(--g)!important;
+    width:calc(100vw - 2 * var(--g))!important;
+    height:64px!important;
+    min-height:64px!important;
+    padding:0 8px!important;
+    transform:none!important;
+    background:transparent!important;
+    border:0!important;
+    border-radius:0!important;
+    box-shadow:none!important;
+    -webkit-backdrop-filter:none!important;
+    backdrop-filter:none!important;
+    isolation:auto!important;
+    overflow:visible!important;
+  }
+  body .nav:not(.scorre) .testa-top::before,
+  body .nav:not(.scorre) .testa-top::after {
+    content:none!important;display:none!important;
+  }
+  body .nav.su-chiaro:not(.scorre) .testa-top,
+  body:has(main > .schermo:first-child:is([data-chiaro],.d-caso))
+    .nav:not(.scorre) .testa-top {
+    --phone-ink:#0b2a8c;
+    --phone-shadow:rgba(255,255,255,.65);
+  }
+  /* The image in the opening section overrides its light outer frame. */
+  body:has(main > .schermo:first-child:is(.s-haven,.d-testa.foto))
+    .nav:not(.scorre) .testa-top,
+  body:has(main > .schermo:first-child:is(.s-haven,.d-testa.foto))
+    .nav.su-chiaro:not(.scorre) .testa-top {
+    --phone-ink:#fff;
+    --phone-shadow:rgba(0,7,22,.9);
+  }
+
+  /* Move existing elements with CSS grid, keep their links and JS actions. */
+  body .nav:not(.scorre) .testa-top .soc,
+  body .nav.su-chiaro:not(.scorre) .testa-top .soc {
+    grid-column:1!important;
+    grid-row:1!important;
+    justify-self:start!important;
+    justify-content:flex-start!important;
+    align-items:center!important;
+    width:48px!important;
+    min-width:48px!important;
+    margin:0!important;
+    padding:0!important;
+    color:var(--phone-ink)!important;
+    gap:0!important;
+  }
+  body .nav:not(.scorre) .testa-top .soc>a,
+  body .nav:not(.scorre) .testa-top .soc>b {
+    display:none!important;
+  }
+  body .nav:not(.scorre) .testa-top .menu-btn2,
+  body .nav.su-chiaro:not(.scorre) .testa-top .menu-btn2 {
+    display:grid!important;
+    place-items:center!important;
+    width:46px!important;height:46px!important;
+    min-width:46px!important;min-height:46px!important;
+    padding:0!important;margin:0!important;
+    background:color-mix(in srgb,var(--phone-ink) 11%,transparent)!important;
+    color:var(--phone-ink)!important;
+    border:1px solid color-mix(in srgb,var(--phone-ink) 28%,transparent)!important;
+    border-radius:14px!important;
+    box-shadow:0 2px 12px rgba(0,8,28,.12)!important;
+    -webkit-backdrop-filter:none!important;
+    backdrop-filter:none!important;
+  }
+  body .nav:not(.scorre) .testa-top .menu-btn2 i,
+  body .nav:not(.scorre) .testa-top .menu-btn2 i::before,
+  body .nav:not(.scorre) .testa-top .menu-btn2 i::after {
+    background:currentColor!important;
+  }
+
+  /* The title is a small, self-contained white chip, always centered. */
+  body .nav:not(.scorre) .testa-top .vfa-mobile-section-title {
+    display:block!important;
+    grid-column:2!important;
+    grid-row:1!important;
+    justify-self:center!important;
+    align-self:center!important;
+    box-sizing:border-box!important;
+    width:max-content!important;
+    max-width:100%!important;
+    min-width:0!important;
+    margin:0!important;
+    padding:10px clamp(8px,2.2vw,12px)!important;
+    overflow:hidden!important;
+    text-overflow:ellipsis!important;
+    white-space:nowrap!important;
+    text-align:center!important;
+    font:900 clamp(11px,3.3vw,14px)/1.12 Archivo,Montserrat,sans-serif!important;
+    font-stretch:75%!important;
+    letter-spacing:-.035em!important;
+    text-transform:uppercase!important;
+    color:#0b2a8c!important;
+    background:#fff!important;
+    border:1px solid rgba(11,42,140,.16)!important;
+    border-radius:12px!important;
+    box-shadow:0 5px 15px rgba(0,9,35,.18)!important;
+    text-shadow:none!important;
+  }
+
+  /* Visually large VFA letters, clipped within their right-hand slot. */
+  body .nav:not(.scorre) .testa-top .mark-top {
+    display:flex!important;
+    grid-column:3!important;
+    grid-row:1!important;
+    align-items:center!important;
+    justify-content:center!important;
+    justify-self:end!important;
+    width:min(78px,100%)!important;
+    height:48px!important;
+    min-height:0!important;
+    padding:0!important;margin:0!important;
+    overflow:hidden!important;
+    background:transparent!important;
+    border:0!important;
+    border-radius:0!important;
+    box-shadow:none!important;
+  }
+  body .nav:not(.scorre) .testa-top .mark-top .logo-anim,
+  body .nav:not(.scorre) .testa-top .mark-top svg {
+    display:block!important;
+    flex:0 0 108px!important;
+    width:108px!important;
+    max-width:none!important;
+    height:50px!important;
+    max-height:none!important;
+    transform:scale(1.08)!important;
+    transform-origin:center!important;
+    overflow:visible!important;
+  }
+  body .nav:not(.scorre) .testa-top .mark-top .lp,
+  body .nav.su-chiaro:not(.scorre) .testa-top .mark-top .lp {
+    fill:var(--phone-ink)!important;
+    filter:drop-shadow(0 1px 4px var(--phone-shadow));
+  }
+  body .nav:not(.scorre) .testa-top .mark-top .lfondo {
+    display:none!important;
+  }
+}

@@ -29,31 +29,19 @@ import('./vfa-menu-silk-20261105.js').catch(()=>{});
 document.getElementById('menu')?.classList.remove('vfa-six-brush-ready');
 
 
-/* Mobile header section label, kept synchronized with the current content panel. */
+
+/* Phone header: show the current PAGE (not the scrolling subsection).
+   Navigation link text is already localized; keep the title stable. */
 (()=>{
   const bar=document.querySelector('.nav .testa-top');
   if(!bar||bar.querySelector('.vfa-mobile-section-title'))return;
-  const sections=Array.from(document.querySelectorAll('main > .schermo[data-nome]'));
-  if(!sections.length)return;
+  const first=document.querySelector('main > .schermo[data-nome]');
+  if(!first)return;
   const label=document.createElement('span');
   label.className='vfa-mobile-section-title';
-  label.setAttribute('aria-label',document.documentElement.lang==='en'?'Current section':document.documentElement.lang==='pl'?'Bieżąca sekcja':'Sezione attuale');
-  label.textContent=sections[0].dataset.nome||'';
+  label.setAttribute('aria-label',document.documentElement.lang==='en'?'Current page':document.documentElement.lang==='pl'?'Bieżąca strona':'Pagina corrente');
+  const active=bar.querySelector('.link-top a[aria-current="page"]');
+  label.textContent=active?.textContent?.trim()||first.dataset.nome||'';
+  label.title=label.textContent;
   bar.insertBefore(label,bar.querySelector('.soc')||null);
-  let queued=false;
-  function syncLabel(){
-    queued=false;
-    const pivot=Math.min(window.innerHeight*.35,240);
-    let current=sections[0];
-    for(const section of sections){
-      if(section.getBoundingClientRect().top<=pivot)current=section;
-      else break;
-    }
-    if(current.dataset.nome&&label.textContent!==current.dataset.nome)label.textContent=current.dataset.nome;
-  }
-  window.addEventListener('scroll',()=>{
-    if(!queued){queued=true;requestAnimationFrame(syncLabel);}
-  },{passive:true});
-  window.addEventListener('resize',syncLabel,{passive:true});
-  syncLabel();
 })();
