@@ -3228,3 +3228,18 @@ body[data-pagina="contatti"] .vfa-business-area {
     display:none!important;
   }
 }
+
+
+/* 2026-11-21 | Phone: no top header. Only the existing bottom navbar
+   (which appears after the normal scroll threshold) provides navigation.
+   Desktop and tablet are intentionally untouched. */
+@media (max-width:760px) {
+  body .nav .testa-top,
+  body .nav.scorre .testa-top,
+  body .nav.su-chiaro .testa-top,
+  body .nav:not(.scorre) .testa-top {
+    display:none!important;
+    visibility:hidden!important;
+    pointer-events:none!important;
+  }
+}

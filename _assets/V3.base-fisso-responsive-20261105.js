@@ -33,6 +33,7 @@ document.getElementById('menu')?.classList.remove('vfa-six-brush-ready');
 /* Phone header: show the current PAGE (not the scrolling subsection).
    Navigation link text is already localized; keep the title stable. */
 (()=>{
+  if(matchMedia('(max-width:760px)').matches)return; // No phone header; the scroll dock is the only navigation.
   const bar=document.querySelector('.nav .testa-top');
   if(!bar||bar.querySelector('.vfa-mobile-section-title'))return;
   const first=document.querySelector('main > .schermo[data-nome]');
