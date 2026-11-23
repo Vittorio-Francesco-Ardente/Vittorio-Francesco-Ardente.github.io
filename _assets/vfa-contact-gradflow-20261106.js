@@ -62,6 +62,8 @@
  let visible=true,raf=0,previous=0,clock=0,stopped=false;
  function draw(now){
   if(stopped||!visible||document.hidden)return;
+  if(!reduced.matches&&now-(draw.lastFrame||0)<(innerWidth<=1023?33:22)){raf=requestAnimationFrame(draw);return}
+  draw.lastFrame=now;
   const ratio=Math.min(devicePixelRatio||1,innerWidth<761?1:1.3);
   const w=Math.max(1,Math.round(canvas.clientWidth*ratio)),h=Math.max(1,Math.round(canvas.clientHeight*ratio));
   if(w!==canvas.width||h!==canvas.height){canvas.width=w;canvas.height=h;gl.viewport(0,0,w,h)}

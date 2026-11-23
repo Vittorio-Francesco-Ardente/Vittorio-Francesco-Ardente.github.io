@@ -96,8 +96,10 @@
     let inView=true,raf=0,last=0,clock=0,disposed=false;
     function draw(now){
       if(disposed||!inView||document.hidden)return;
+      if(!reduced.matches&&now-(draw.lastFrame||0)<(innerWidth<=1023?33:22)){raf=requestAnimationFrame(draw);return}
+      draw.lastFrame=now;
       const cssW=Math.max(canvas.clientWidth,1),cssH=Math.max(canvas.clientHeight,1);
-      const dpr=Math.min(devicePixelRatio||1,innerWidth<761?1.35:1.7);
+      const dpr=Math.min(devicePixelRatio||1,innerWidth<=1023?1.2:1.45);
       const w=Math.max(1,Math.round(cssW*dpr)),h=Math.max(1,Math.round(cssH*dpr));
       if(canvas.width!==w||canvas.height!==h){canvas.width=w;canvas.height=h;gl.viewport(0,0,w,h)}
       if(last && !reduced.matches)clock+=Math.min((now-last)/1000,.1)*.4;

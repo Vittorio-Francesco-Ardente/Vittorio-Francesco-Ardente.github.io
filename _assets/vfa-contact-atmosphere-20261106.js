@@ -61,9 +61,11 @@
  let visible=true,active=0,prev=0,clock=0,lost=false;
  function draw(now){
   if(lost||!visible||document.hidden)return;
+  if(!reduced.matches&&now-(draw.lastFrame||0)<(innerWidth<=1023?33:22)){active=requestAnimationFrame(draw);return}
+  draw.lastFrame=now;
   const w=canvas.clientWidth,h=canvas.clientHeight;
   if(w<2||h<2)return;
-  const scale=Math.min(devicePixelRatio||1,1.6,Math.sqrt(2000000/(w*h)));
+  const scale=Math.min(devicePixelRatio||1,innerWidth<=1023?1.2:1.45,Math.sqrt(2000000/(w*h)));
   const px=Math.max(1,Math.round(w*scale)),py=Math.max(1,Math.round(h*scale));
   if(canvas.width!==px||canvas.height!==py){canvas.width=px;canvas.height=py;gl.viewport(0,0,px,py)}
   if(prev&&!reduced.matches)clock+=Math.min((now-prev)/1000,.1);
