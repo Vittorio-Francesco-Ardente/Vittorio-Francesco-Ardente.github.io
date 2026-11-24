@@ -3243,3 +3243,25 @@ body[data-pagina="contatti"] .vfa-business-area {
     pointer-events:none!important;
   }
 }
+
+
+/* 2026-11-24: prevent the first iOS scroll from stalling the page paint.
+   The dock stays hidden at the top and enters without the former overshoot. */
+@media (max-width:760px) {
+  body { background-attachment:scroll !important; }
+  .nav .barra,
+  .nav.scorre .barra,
+  .nav:not(.scorre) .barra {
+    transition:transform .38s cubic-bezier(.22,1,.36,1),opacity .24s ease !important;
+    -webkit-backface-visibility:hidden;
+    backface-visibility:hidden;
+    will-change:transform,opacity;
+  }
+}
+@media (prefers-reduced-motion:reduce) {
+  .nav .barra,
+  .nav.scorre .barra,
+  .nav:not(.scorre) .barra {
+    transition:none !important;
+  }
+}
